@@ -153,7 +153,7 @@ export function Header() {
             Toutes les catégories
           </Link>
           <div className="hidden h-5 w-px bg-border lg:block" />
-          {CATEGORIES.slice(0, 6).map((c) => (
+          {CATEGORIES.slice(0, 5).map((c) => (
             <Link
               key={c.slug}
               href={`/c/${c.slug}`}
@@ -162,17 +162,30 @@ export function Header() {
               {c.name}
             </Link>
           ))}
+          <span className="hidden h-5 w-px bg-border lg:block" />
           <Link
-            href="/discover"
-            className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
+            href="/bestsellers"
+            className="rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted"
           >
-            Découvrir
+            Top ventes
           </Link>
           <Link
-            href="/compare"
+            href="/new"
             className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
           >
-            Comparer
+            Nouveautés
+          </Link>
+          <Link
+            href="/deals"
+            className="rounded-md px-3 py-2 text-sm font-semibold text-accent hover:bg-accent/10"
+          >
+            Soldes
+          </Link>
+          <Link
+            href="/discover"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Découvrir
           </Link>
           <Link
             href="/sell"

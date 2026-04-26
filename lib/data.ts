@@ -390,10 +390,573 @@ export const PRODUCTS: Product[] = [
     estimatedDelivery: "4 à 7 jours ouvrés",
     returns: "Retour sous 30 jours",
   },
+  // ───────── MODE ─────────
+  {
+    id: "p9", slug: "trench-emblem-camel", title: "Trench classique Emblem en gabardine de coton",
+    brand: "Emblem", description: "Trench iconique en gabardine de coton imperméable, doublure rayée, ceinture nouée. Coupe régulière, finitions main au Portugal.",
+    category: "mode", categoryPath: ["Mode", "Vêtements", "Manteaux"], seller: SELLERS[4],
+    images: ["/p-trench.jpg"], price: 289, compareAtPrice: 389, currency: "EUR",
+    rating: 4.7, reviewCount: 824, sold: 4120, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Camel / S", attrs: { Couleur: "Camel", Taille: "S" }, price: 289, compareAtPrice: 389, stock: 22, sku: "EMB-TR-CA-S" },
+      { id: "v2", label: "Camel / M", attrs: { Couleur: "Camel", Taille: "M" }, price: 289, compareAtPrice: 389, stock: 31, sku: "EMB-TR-CA-M" },
+      { id: "v3", label: "Camel / L", attrs: { Couleur: "Camel", Taille: "L" }, price: 289, compareAtPrice: 389, stock: 14, sku: "EMB-TR-CA-L" },
+    ],
+    reviews: baseReviews, shippingFrom: "Portugal", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p10", slug: "sac-cuir-juliet", title: "Sac à main Juliet en cuir de veau pleine fleur",
+    brand: "Juliet", description: "Sac structuré en cuir de veau pleine fleur, doublure en daim, fermoir en laiton massif. Atelier familial à Florence depuis 1962.",
+    category: "mode", categoryPath: ["Mode", "Sacs", "Sacs à main"], seller: SELLERS[3],
+    images: ["/p-handbag.jpg"], price: 349, compareAtPrice: 449, currency: "EUR",
+    rating: 4.9, reviewCount: 612, sold: 2890, badges: ["premium", "bestseller"],
+    variants: [
+      { id: "v1", label: "Cognac", attrs: { Couleur: "Cognac" }, price: 349, compareAtPrice: 449, stock: 18, sku: "JUL-COG" },
+      { id: "v2", label: "Noir", attrs: { Couleur: "Noir" }, price: 349, compareAtPrice: 449, stock: 12, sku: "JUL-BK" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 6 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p11", slug: "jean-droit-icon", title: "Jean droit Icon en denim japonais 14 oz",
+    brand: "Icon Denim", description: "Jean coupe droite en denim japonais selvedge 14 oz, indigo profond. Vieillissement personnalisé, finitions à la main.",
+    category: "mode", categoryPath: ["Mode", "Vêtements", "Jeans"], seller: SELLERS[4],
+    images: ["/p-jeans.jpg"], price: 159, currency: "EUR",
+    rating: 4.6, reviewCount: 1240, sold: 8420, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Indigo / 30", attrs: { Couleur: "Indigo", Taille: "30" }, price: 159, stock: 28, sku: "ICN-30" },
+      { id: "v2", label: "Indigo / 32", attrs: { Couleur: "Indigo", Taille: "32" }, price: 159, stock: 35, sku: "ICN-32" },
+      { id: "v3", label: "Indigo / 34", attrs: { Couleur: "Indigo", Taille: "34" }, price: 159, stock: 22, sku: "ICN-34" },
+    ],
+    reviews: baseReviews, shippingFrom: "Japon", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p12", slug: "robe-soie-noire-onde", title: "Robe Onde en soie noire mi-longue",
+    brand: "Onde", description: "Robe mi-longue en soie 100 % naturelle, coupe fluide, manches longues. Tissée en France, finitions main.",
+    category: "mode", categoryPath: ["Mode", "Vêtements", "Robes"], seller: SELLERS[0],
+    images: ["/p-dress.jpg"], price: 219, compareAtPrice: 289, currency: "EUR",
+    rating: 4.8, reviewCount: 318, sold: 1640, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "Noir / 36", attrs: { Couleur: "Noir", Taille: "36" }, price: 219, compareAtPrice: 289, stock: 14, sku: "OND-36" },
+      { id: "v2", label: "Noir / 38", attrs: { Couleur: "Noir", Taille: "38" }, price: 219, compareAtPrice: 289, stock: 18, sku: "OND-38" },
+      { id: "v3", label: "Noir / 40", attrs: { Couleur: "Noir", Taille: "40" }, price: 219, compareAtPrice: 289, stock: 9, sku: "OND-40" },
+    ],
+    reviews: baseReviews, shippingFrom: "France", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p13", slug: "lunettes-soleil-arlo", title: "Lunettes de soleil Arlo en acétate écaille",
+    brand: "Arlo", description: "Monture en acétate italien fait main, verres polarisés CR-39, protection 100 % UV. Étui en cuir et chiffon microfibre inclus.",
+    category: "mode", categoryPath: ["Mode", "Accessoires", "Lunettes"], seller: SELLERS[3],
+    images: ["/p-sunglasses.jpg"], price: 119, compareAtPrice: 159, currency: "EUR",
+    rating: 4.7, reviewCount: 542, sold: 3120, badges: ["flash"],
+    variants: [
+      { id: "v1", label: "Écaille", attrs: { Couleur: "Écaille" }, price: 119, compareAtPrice: 159, stock: 42, sku: "ARL-EC" },
+      { id: "v2", label: "Noir", attrs: { Couleur: "Noir" }, price: 119, compareAtPrice: 159, stock: 28, sku: "ARL-BK" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p14", slug: "bottines-chelsea-cognac", title: "Bottines Chelsea cuir cognac surpiqûres main",
+    brand: "Heritage", description: "Bottines Chelsea en cuir pleine fleur tannage végétal, semelle Goodyear, surpiqûres faites main. Atelier portugais depuis 1908.",
+    category: "mode", categoryPath: ["Mode", "Chaussures", "Bottines"], seller: SELLERS[4],
+    images: ["/p-boots.jpg"], price: 245, compareAtPrice: 299, currency: "EUR",
+    rating: 4.8, reviewCount: 712, sold: 3890, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Cognac / 41", attrs: { Couleur: "Cognac", Pointure: "41" }, price: 245, compareAtPrice: 299, stock: 16, sku: "HRT-41" },
+      { id: "v2", label: "Cognac / 42", attrs: { Couleur: "Cognac", Pointure: "42" }, price: 245, compareAtPrice: 299, stock: 22, sku: "HRT-42" },
+      { id: "v3", label: "Noir / 42", attrs: { Couleur: "Noir", Pointure: "42" }, price: 245, compareAtPrice: 299, stock: 11, sku: "HRT-BK-42" },
+    ],
+    reviews: baseReviews, shippingFrom: "Portugal", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p15", slug: "chemise-lin-toile", title: "Chemise Toile en lin lavé blanc cassé",
+    brand: "Toile", description: "Chemise en lin lavé européen, coupe régulière, col français, boutons en nacre. Confection Portugal.",
+    category: "mode", categoryPath: ["Mode", "Vêtements", "Chemises"], seller: SELLERS[4],
+    images: ["/p-shirt.jpg"], price: 89, currency: "EUR",
+    rating: 4.7, reviewCount: 928, sold: 6210, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Blanc / S", attrs: { Couleur: "Blanc cassé", Taille: "S" }, price: 89, stock: 32, sku: "TOI-S" },
+      { id: "v2", label: "Blanc / M", attrs: { Couleur: "Blanc cassé", Taille: "M" }, price: 89, stock: 41, sku: "TOI-M" },
+      { id: "v3", label: "Blanc / L", attrs: { Couleur: "Blanc cassé", Taille: "L" }, price: 89, stock: 28, sku: "TOI-L" },
+    ],
+    reviews: baseReviews, shippingFrom: "Portugal", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p16", slug: "ceinture-cuir-noir", title: "Ceinture cuir noir boucle laiton brossé",
+    brand: "Atelier Lumen", description: "Ceinture en cuir pleine fleur tanné en France, boucle en laiton brossé. Largeur 3 cm, longueur ajustable.",
+    category: "mode", categoryPath: ["Mode", "Accessoires", "Ceintures"], seller: SELLERS[0],
+    images: ["/p-belt.jpg"], price: 79, currency: "EUR",
+    rating: 4.8, reviewCount: 412, sold: 2120, badges: ["new"],
+    variants: [
+      { id: "v1", label: "Noir / 90", attrs: { Couleur: "Noir", Taille: "90 cm" }, price: 79, stock: 38, sku: "BLT-90" },
+      { id: "v2", label: "Noir / 100", attrs: { Couleur: "Noir", Taille: "100 cm" }, price: 79, stock: 42, sku: "BLT-100" },
+    ],
+    reviews: baseReviews, shippingFrom: "France", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── TECH ─────────
+  {
+    id: "p17", slug: "smartphone-orbit-x", title: "Smartphone Orbit X 256 Go appareil photo 50 MP",
+    brand: "Orbit", description: "Smartphone 6,7 pouces OLED 120 Hz, 256 Go, appareil photo arrière 50 MP avec stabilisation optique, charge sans-fil 30 W. Aluminium et verre Gorilla.",
+    category: "tech", categoryPath: ["Tech", "Téléphonie", "Smartphones"], seller: SELLERS[2],
+    images: ["/p-smartphone.jpg"], price: 799, compareAtPrice: 949, currency: "EUR",
+    rating: 4.7, reviewCount: 4120, sold: 18920, badges: ["flash", "bestseller"],
+    variants: [
+      { id: "v1", label: "Graphite 256 Go", attrs: { Couleur: "Graphite", Stockage: "256 Go" }, price: 799, compareAtPrice: 949, stock: 84, sku: "ORB-X-GR-256" },
+      { id: "v2", label: "Graphite 512 Go", attrs: { Couleur: "Graphite", Stockage: "512 Go" }, price: 949, compareAtPrice: 1099, stock: 38, sku: "ORB-X-GR-512" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p18", slug: "smartwatch-pulse-pro", title: "Smartwatch Pulse Pro GPS écran AMOLED",
+    brand: "Pulse", description: "Montre connectée GPS multi-systèmes, écran AMOLED 1,4\", autonomie 14 jours, suivi 100+ sports, ECG et SpO2. Étanche 5 ATM.",
+    category: "tech", categoryPath: ["Tech", "Montres connectées", "Sport"], seller: SELLERS[2],
+    images: ["/p-smartwatch.jpg"], price: 249, compareAtPrice: 329, currency: "EUR",
+    rating: 4.6, reviewCount: 2840, sold: 12120, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Noir 42 mm", attrs: { Couleur: "Noir", Taille: "42 mm" }, price: 249, compareAtPrice: 329, stock: 92, sku: "PLS-BK-42" },
+      { id: "v2", label: "Argent 42 mm", attrs: { Couleur: "Argent", Taille: "42 mm" }, price: 249, compareAtPrice: 329, stock: 64, sku: "PLS-SI-42" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p19", slug: "laptop-vega-air-14", title: "Ordinateur portable Vega Air 14\" — 16 Go / 512 Go",
+    brand: "Vega", description: "Ultraportable 14 pouces écran 2K, processeur 12 cœurs, 16 Go RAM, SSD 512 Go. Châssis aluminium recyclé, autonomie 18 h.",
+    category: "tech", categoryPath: ["Tech", "Informatique", "Ordinateurs portables"], seller: SELLERS[2],
+    images: ["/p-laptop.jpg"], price: 1199, compareAtPrice: 1399, currency: "EUR",
+    rating: 4.8, reviewCount: 1240, sold: 4820, badges: ["premium", "new"],
+    variants: [
+      { id: "v1", label: "Argent / 16 Go", attrs: { Couleur: "Argent", RAM: "16 Go" }, price: 1199, compareAtPrice: 1399, stock: 28, sku: "VEG-AIR-16" },
+      { id: "v2", label: "Gris / 32 Go", attrs: { Couleur: "Gris sidéral", RAM: "32 Go" }, price: 1499, compareAtPrice: 1699, stock: 14, sku: "VEG-AIR-32" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p20", slug: "tablette-canvas-pro", title: "Tablette Canvas Pro 11\" avec stylet précision",
+    brand: "Canvas", description: "Tablette 11\" Liquid Retina 120 Hz, puce 8 cœurs, 256 Go, compatible stylet précision. Idéale pour le dessin et la prise de notes.",
+    category: "tech", categoryPath: ["Tech", "Informatique", "Tablettes"], seller: SELLERS[2],
+    images: ["/p-tablet.jpg"], price: 599, compareAtPrice: 749, currency: "EUR",
+    rating: 4.7, reviewCount: 1820, sold: 6120, badges: ["flash"],
+    variants: [
+      { id: "v1", label: "Argent 256 Go", attrs: { Couleur: "Argent", Stockage: "256 Go" }, price: 599, compareAtPrice: 749, stock: 48, sku: "CNV-256" },
+      { id: "v2", label: "Gris 512 Go", attrs: { Couleur: "Gris", Stockage: "512 Go" }, price: 799, compareAtPrice: 949, stock: 22, sku: "CNV-512" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p21", slug: "ecouteurs-aurora-buds", title: "Écouteurs sans-fil Aurora Buds réduction de bruit",
+    brand: "Aurora Audio", description: "Écouteurs intra-auriculaires Bluetooth 5.3, réduction de bruit active, autonomie 32 h avec étui. Charge USB-C et sans-fil Qi.",
+    category: "tech", categoryPath: ["Tech", "Audio", "Écouteurs"], seller: SELLERS[2],
+    images: ["/p-earbuds.jpg"], price: 149, compareAtPrice: 199, currency: "EUR",
+    rating: 4.7, reviewCount: 3920, sold: 21420, badges: ["bestseller", "flash"],
+    variants: [
+      { id: "v1", label: "Blanc", attrs: { Couleur: "Blanc" }, price: 149, compareAtPrice: 199, stock: 142, sku: "AUR-BUD-WH" },
+      { id: "v2", label: "Noir", attrs: { Couleur: "Noir" }, price: 149, compareAtPrice: 199, stock: 96, sku: "AUR-BUD-BK" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p22", slug: "enceinte-monolith", title: "Enceinte portable Monolith 360° autonomie 24 h",
+    brand: "Monolith", description: "Enceinte Bluetooth 360°, son immersif, autonomie 24 h, étanche IP67, charge USB-C rapide. Port jumelable pour mode stéréo.",
+    category: "tech", categoryPath: ["Tech", "Audio", "Enceintes"], seller: SELLERS[2],
+    images: ["/p-speaker.jpg"], price: 179, compareAtPrice: 229, currency: "EUR",
+    rating: 4.6, reviewCount: 1820, sold: 7820, badges: [],
+    variants: [
+      { id: "v1", label: "Charbon", attrs: { Couleur: "Charbon" }, price: 179, compareAtPrice: 229, stock: 64, sku: "MON-CH" },
+      { id: "v2", label: "Sable", attrs: { Couleur: "Sable" }, price: 179, compareAtPrice: 229, stock: 38, sku: "MON-SA" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p23", slug: "drone-skylight-mini", title: "Drone Skylight Mini caméra 4K stabilisée",
+    brand: "Skylight", description: "Drone pliable 249 g, caméra 4K HDR avec stabilisation 3 axes, autonomie 34 min, transmission HD jusqu'à 10 km.",
+    category: "tech", categoryPath: ["Tech", "Drones", "Photo"], seller: SELLERS[2],
+    images: ["/p-drone.jpg"], price: 499, compareAtPrice: 649, currency: "EUR",
+    rating: 4.8, reviewCount: 920, sold: 2840, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "Standard", attrs: { Pack: "Standard" }, price: 499, compareAtPrice: 649, stock: 22, sku: "SKY-STD" },
+      { id: "v2", label: "Combo Fly More", attrs: { Pack: "Fly More" }, price: 699, compareAtPrice: 899, stock: 12, sku: "SKY-COMBO" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── MAISON ─────────
+  {
+    id: "p24", slug: "canape-bouclette-3p", title: "Canapé 3 places Pillow en bouclette ivoire",
+    brand: "NordicHome", description: "Canapé moelleux 3 places, structure pin massif certifié FSC, mousse haute densité, déhoussable. Livraison transporteur dédié.",
+    category: "maison", categoryPath: ["Maison", "Mobilier", "Canapés"], seller: SELLERS[1],
+    images: ["/p-sofa.jpg"], price: 1290, compareAtPrice: 1590, currency: "EUR",
+    rating: 4.8, reviewCount: 412, sold: 1240, badges: ["premium", "bestseller"],
+    variants: [
+      { id: "v1", label: "Bouclette ivoire", attrs: { Tissu: "Bouclette ivoire" }, price: 1290, compareAtPrice: 1590, stock: 12, sku: "PIL-IV" },
+      { id: "v2", label: "Velours olive", attrs: { Tissu: "Velours olive" }, price: 1390, compareAtPrice: 1690, stock: 8, sku: "PIL-OL" },
+    ],
+    reviews: baseReviews, shippingFrom: "Suède", estimatedDelivery: "10 à 15 jours ouvrés", returns: "Retour sous 14 jours",
+  },
+  {
+    id: "p25", slug: "miroir-rond-laiton", title: "Miroir rond Lune cadre laiton brossé 80 cm",
+    brand: "Atelier Lumen", description: "Miroir mural rond 80 cm, cadre fin en laiton brossé, fixation murale incluse. Verre biseauté de qualité supérieure.",
+    category: "maison", categoryPath: ["Maison", "Décoration", "Miroirs"], seller: SELLERS[0],
+    images: ["/p-mirror.jpg"], price: 189, compareAtPrice: 249, currency: "EUR",
+    rating: 4.9, reviewCount: 524, sold: 2120, badges: ["new"],
+    variants: [
+      { id: "v1", label: "Laiton 80 cm", attrs: { Diamètre: "80 cm" }, price: 189, compareAtPrice: 249, stock: 24, sku: "LUN-80" },
+      { id: "v2", label: "Laiton 100 cm", attrs: { Diamètre: "100 cm" }, price: 249, compareAtPrice: 319, stock: 14, sku: "LUN-100" },
+    ],
+    reviews: baseReviews, shippingFrom: "France", estimatedDelivery: "3 à 6 jours ouvrés", returns: "Retour sous 30 jours",
+  },
+  {
+    id: "p26", slug: "vase-ceramique-onde", title: "Vase Onde céramique sculpté écru 35 cm",
+    brand: "Atelier Lumen", description: "Vase sculpté façonné à la main par notre potier en France, terre cuite engobée écru, étanche. Pièce unique.",
+    category: "maison", categoryPath: ["Maison", "Décoration", "Vases"], seller: SELLERS[0],
+    images: ["/p-vase.jpg"], price: 89, currency: "EUR",
+    rating: 4.8, reviewCount: 312, sold: 1820, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "Écru 35 cm", attrs: { Hauteur: "35 cm" }, price: 89, stock: 28, sku: "ONV-35" },
+      { id: "v2", label: "Écru 50 cm", attrs: { Hauteur: "50 cm" }, price: 129, stock: 14, sku: "ONV-50" },
+    ],
+    reviews: baseReviews, shippingFrom: "France", estimatedDelivery: "3 à 6 jours ouvrés", returns: "Retour sous 30 jours",
+  },
+  {
+    id: "p27", slug: "plaid-laine-mousse", title: "Plaid en grosse maille de laine mérinos 130x180",
+    brand: "NordicHome", description: "Plaid grosse maille tricotée à la main en laine mérinos, ultra-doux, dimensions 130x180. Idéal canapé et bout de lit.",
+    category: "maison", categoryPath: ["Maison", "Textile", "Plaids"], seller: SELLERS[1],
+    images: ["/p-throw.jpg"], price: 119, compareAtPrice: 159, currency: "EUR",
+    rating: 4.7, reviewCount: 824, sold: 4820, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Crème", attrs: { Couleur: "Crème" }, price: 119, compareAtPrice: 159, stock: 64, sku: "PLD-CR" },
+      { id: "v2", label: "Anthracite", attrs: { Couleur: "Anthracite" }, price: 119, compareAtPrice: 159, stock: 38, sku: "PLD-AN" },
+    ],
+    reviews: baseReviews, shippingFrom: "Suède", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p28", slug: "tapis-berber-200x300", title: "Tapis Berbère pure laine motif géométrique 200x300",
+    brand: "NordicHome", description: "Tapis 200x300 cm tissé main au Maroc, pure laine vierge, motif géométrique noué traditionnel. Pièce unique.",
+    category: "maison", categoryPath: ["Maison", "Textile", "Tapis"], seller: SELLERS[1],
+    images: ["/p-rug.jpg"], price: 489, compareAtPrice: 649, currency: "EUR",
+    rating: 4.8, reviewCount: 218, sold: 820, badges: ["premium", "eco"],
+    variants: [
+      { id: "v1", label: "Beige 200x300", attrs: { Couleur: "Beige", Taille: "200x300" }, price: 489, compareAtPrice: 649, stock: 18, sku: "BER-200" },
+      { id: "v2", label: "Beige 240x340", attrs: { Couleur: "Beige", Taille: "240x340" }, price: 689, compareAtPrice: 849, stock: 8, sku: "BER-240" },
+    ],
+    reviews: baseReviews, shippingFrom: "Suède", estimatedDelivery: "5 à 10 jours ouvrés", returns: "Retour sous 14 jours",
+  },
+  {
+    id: "p29", slug: "table-basse-travertin", title: "Table basse Roma travertin naturel ronde 90 cm",
+    brand: "NordicHome", description: "Table basse ronde 90 cm en travertin naturel, finition mate. Une seule pièce de pierre par table, veines uniques.",
+    category: "maison", categoryPath: ["Maison", "Mobilier", "Tables basses"], seller: SELLERS[1],
+    images: ["/p-coffeetable.jpg"], price: 689, compareAtPrice: 879, currency: "EUR",
+    rating: 4.9, reviewCount: 142, sold: 480, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "Travertin 90 cm", attrs: { Diamètre: "90 cm" }, price: 689, compareAtPrice: 879, stock: 12, sku: "ROM-90" },
+    ],
+    reviews: baseReviews, shippingFrom: "Suède", estimatedDelivery: "10 à 15 jours ouvrés", returns: "Retour sous 14 jours",
+  },
+  {
+    id: "p30", slug: "suspension-rice-paper", title: "Suspension Akari papier de riz lumière chaude",
+    brand: "Atelier Lumen", description: "Suspension sculpturale en papier de riz monté sur structure bambou, ampoule LED chaude E27 incluse, câble textile 2 m.",
+    category: "maison", categoryPath: ["Maison", "Éclairage", "Suspensions"], seller: SELLERS[0],
+    images: ["/p-pendant.jpg"], price: 149, currency: "EUR",
+    rating: 4.7, reviewCount: 412, sold: 1820, badges: ["new"],
+    variants: [
+      { id: "v1", label: "Diamètre 50 cm", attrs: { Diamètre: "50 cm" }, price: 149, stock: 28, sku: "AKA-50" },
+      { id: "v2", label: "Diamètre 70 cm", attrs: { Diamètre: "70 cm" }, price: 199, stock: 14, sku: "AKA-70" },
+    ],
+    reviews: baseReviews, shippingFrom: "France", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p31", slug: "linge-lit-lin-lave", title: "Parure de lit lin lavé 4 pièces 240x260",
+    brand: "NordicHome", description: "Parure 4 pièces en lin lavé européen 100 % naturel : housse 240x260, drap-housse 160x200, deux taies 65x65. Certifié Oeko-Tex.",
+    category: "maison", categoryPath: ["Maison", "Linge de lit", "Parures"], seller: SELLERS[1],
+    images: ["/p-linen.jpg"], price: 219, compareAtPrice: 289, currency: "EUR",
+    rating: 4.8, reviewCount: 1240, sold: 5820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Naturel", attrs: { Couleur: "Naturel" }, price: 219, compareAtPrice: 289, stock: 42, sku: "LIN-NA" },
+      { id: "v2", label: "Argile", attrs: { Couleur: "Argile" }, price: 219, compareAtPrice: 289, stock: 28, sku: "LIN-AR" },
+      { id: "v3", label: "Vert sauge", attrs: { Couleur: "Vert sauge" }, price: 219, compareAtPrice: 289, stock: 18, sku: "LIN-VS" },
+    ],
+    reviews: baseReviews, shippingFrom: "Suède", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── BEAUTÉ ─────────
+  {
+    id: "p32", slug: "rouge-levres-velours", title: "Rouge à lèvres Velours rouge classique",
+    brand: "Maison Verte", description: "Rouge à lèvres mat longue tenue 12 h, formule à l'huile de jojoba bio, vegan. 18 nuances disponibles.",
+    category: "beaute", categoryPath: ["Beauté", "Maquillage", "Lèvres"], seller: SELLERS[3],
+    images: ["/p-lipstick.jpg"], price: 24, currency: "EUR",
+    rating: 4.7, reviewCount: 2820, sold: 14820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Rouge classique", attrs: { Nuance: "Rouge classique" }, price: 24, stock: 142, sku: "MV-RGCL" },
+      { id: "v2", label: "Rose nude", attrs: { Nuance: "Rose nude" }, price: 24, stock: 92, sku: "MV-RGNU" },
+      { id: "v3", label: "Brique", attrs: { Nuance: "Brique" }, price: 24, stock: 64, sku: "MV-RGBR" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour sous 30 jours (non ouvert)",
+  },
+  {
+    id: "p33", slug: "parfum-iris-noir", title: "Eau de parfum Iris Noir 50 ml — note boisée",
+    brand: "Maison Verte", description: "Eau de parfum mixte aux notes de poire, iris et bois de cèdre. Tenue 8 h, flacon ambré rechargeable. Composé en France.",
+    category: "beaute", categoryPath: ["Beauté", "Parfum", "Eau de parfum"], seller: SELLERS[3],
+    images: ["/p-perfume.jpg"], price: 89, compareAtPrice: 119, currency: "EUR",
+    rating: 4.8, reviewCount: 1240, sold: 6420, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "50 ml", attrs: { Format: "50 ml" }, price: 89, compareAtPrice: 119, stock: 58, sku: "IRN-50" },
+      { id: "v2", label: "100 ml", attrs: { Format: "100 ml" }, price: 139, compareAtPrice: 179, stock: 32, sku: "IRN-100" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour sous 30 jours (non ouvert)",
+  },
+  {
+    id: "p34", slug: "masque-argile-purifiant", title: "Masque argile rose purifiant pot 100 ml",
+    brand: "Maison Verte", description: "Masque visage à l'argile rose et hydrolat de rose, action purifiante douce, certifié Cosmos Organic. Convient aux peaux sensibles.",
+    category: "beaute", categoryPath: ["Beauté", "Soins visage", "Masques"], seller: SELLERS[3],
+    images: ["/p-mask.jpg"], price: 22, currency: "EUR",
+    rating: 4.6, reviewCount: 924, sold: 5120, badges: ["eco"],
+    variants: [
+      { id: "v1", label: "100 ml", attrs: { Format: "100 ml" }, price: 22, stock: 184, sku: "MQ-100" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour sous 30 jours (non ouvert)",
+  },
+  {
+    id: "p35", slug: "palette-yeux-terre", title: "Palette yeux Terre 12 nuances chaudes",
+    brand: "Maison Verte", description: "Palette 12 fards hautement pigmentés, finis mats et satinés, formule vegan sans parabène. Miroir intégré, applicateur double.",
+    category: "beaute", categoryPath: ["Beauté", "Maquillage", "Yeux"], seller: SELLERS[3],
+    images: ["/p-palette.jpg"], price: 49, compareAtPrice: 69, currency: "EUR",
+    rating: 4.7, reviewCount: 612, sold: 3210, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Terre", attrs: { Collection: "Terre" }, price: 49, compareAtPrice: 69, stock: 92, sku: "PAL-TR" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour sous 30 jours (non ouvert)",
+  },
+  {
+    id: "p36", slug: "set-pinceaux-bambou", title: "Set 8 pinceaux maquillage bambou poils synthétiques",
+    brand: "Maison Verte", description: "Lot de 8 pinceaux essentiels en bambou FSC, poils synthétiques cruelty-free. Pochette de transport en lin offerte.",
+    category: "beaute", categoryPath: ["Beauté", "Accessoires", "Pinceaux"], seller: SELLERS[3],
+    images: ["/p-brush.jpg"], price: 39, currency: "EUR",
+    rating: 4.8, reviewCount: 412, sold: 2120, badges: ["eco"],
+    variants: [
+      { id: "v1", label: "Set 8 pinceaux", attrs: { Quantité: "8 pinceaux" }, price: 39, stock: 142, sku: "PIN-8" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p37", slug: "kit-voyage-soins", title: "Kit voyage soins essentiels 5 pièces",
+    brand: "Maison Verte", description: "Kit voyage avion : nettoyant 50 ml, sérum 15 ml, crème jour 30 ml, baume lèvres et trousse en lin. Tous formats < 100 ml.",
+    category: "beaute", categoryPath: ["Beauté", "Soins visage", "Kits"], seller: SELLERS[3],
+    images: ["/p-travelkit.jpg"], price: 45, compareAtPrice: 65, currency: "EUR",
+    rating: 4.7, reviewCount: 318, sold: 1820, badges: ["new"],
+    variants: [
+      { id: "v1", label: "Kit standard", attrs: { Pack: "5 pièces" }, price: 45, compareAtPrice: 65, stock: 78, sku: "KIT-VOY" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour sous 30 jours (non ouvert)",
+  },
+  // ───────── SPORT ─────────
+  {
+    id: "p38", slug: "tapis-yoga-liege", title: "Tapis de yoga Cork Pro liège naturel 5 mm",
+    brand: "Trail", description: "Tapis 183x68 cm en liège naturel et caoutchouc TPE, anti-dérapant, 5 mm d'épaisseur. Sangle de transport offerte.",
+    category: "sport", categoryPath: ["Sport", "Yoga", "Tapis"], seller: SELLERS[2],
+    images: ["/p-yogamat.jpg"], price: 79, compareAtPrice: 109, currency: "EUR",
+    rating: 4.7, reviewCount: 1420, sold: 7820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Liège 5 mm", attrs: { Épaisseur: "5 mm" }, price: 79, compareAtPrice: 109, stock: 124, sku: "YOG-5" },
+      { id: "v2", label: "Liège 8 mm", attrs: { Épaisseur: "8 mm" }, price: 99, compareAtPrice: 129, stock: 64, sku: "YOG-8" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p39", slug: "halteres-hex-paire", title: "Paire d'haltères hexagonaux fonte revêtement caoutchouc",
+    brand: "Trail", description: "Paire d'haltères hexagonaux fonte 10 kg, revêtement caoutchouc anti-rayures, poignée acier moletée. Garantie à vie.",
+    category: "sport", categoryPath: ["Sport", "Musculation", "Haltères"], seller: SELLERS[2],
+    images: ["/p-dumbbells.jpg"], price: 59, currency: "EUR",
+    rating: 4.8, reviewCount: 824, sold: 4120, badges: [],
+    variants: [
+      { id: "v1", label: "Paire 5 kg", attrs: { Poids: "5 kg" }, price: 39, stock: 84, sku: "HLT-5" },
+      { id: "v2", label: "Paire 10 kg", attrs: { Poids: "10 kg" }, price: 59, stock: 64, sku: "HLT-10" },
+      { id: "v3", label: "Paire 15 kg", attrs: { Poids: "15 kg" }, price: 89, stock: 38, sku: "HLT-15" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p40", slug: "montre-running-tempo", title: "Montre running Tempo GPS multi-bandes triathlon",
+    brand: "Pulse", description: "Montre running et triathlon, GPS multi-bandes, 80 profils sportifs, autonomie 36 h en GPS, ECG, suivi sommeil avancé.",
+    category: "sport", categoryPath: ["Sport", "Running", "Montres"], seller: SELLERS[2],
+    images: ["/p-runner.jpg"], price: 379, compareAtPrice: 449, currency: "EUR",
+    rating: 4.8, reviewCount: 624, sold: 2820, badges: ["new", "premium"],
+    variants: [
+      { id: "v1", label: "Noir 47 mm", attrs: { Couleur: "Noir", Taille: "47 mm" }, price: 379, compareAtPrice: 449, stock: 28, sku: "TMP-47" },
+      { id: "v2", label: "Bleu 42 mm", attrs: { Couleur: "Bleu", Taille: "42 mm" }, price: 379, compareAtPrice: 449, stock: 18, sku: "TMP-42" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p41", slug: "raquette-tennis-pro", title: "Raquette tennis Pro 300 g cordage hybride",
+    brand: "Trail", description: "Raquette compétition 300 g, tamis 645 cm², cordage hybride graphite. Idéale joueurs intermédiaires et confirmés.",
+    category: "sport", categoryPath: ["Sport", "Tennis", "Raquettes"], seller: SELLERS[2],
+    images: ["/p-tennis.jpg"], price: 189, compareAtPrice: 249, currency: "EUR",
+    rating: 4.6, reviewCount: 312, sold: 1240, badges: ["flash"],
+    variants: [
+      { id: "v1", label: "Manche L2", attrs: { Manche: "L2" }, price: 189, compareAtPrice: 249, stock: 28, sku: "TEN-L2" },
+      { id: "v2", label: "Manche L3", attrs: { Manche: "L3" }, price: 189, compareAtPrice: 249, stock: 38, sku: "TEN-L3" },
+      { id: "v3", label: "Manche L4", attrs: { Manche: "L4" }, price: 189, compareAtPrice: 249, stock: 22, sku: "TEN-L4" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p42", slug: "sac-sport-canvas-30l", title: "Sac de sport Athlete canvas 30 L poignées cuir",
+    brand: "Trail", description: "Sac duffel 30 L canvas robuste, poignées et bandoulière cuir, compartiment chaussures ventilé. Coloris charbon ou olive.",
+    category: "sport", categoryPath: ["Sport", "Bagagerie", "Sacs de sport"], seller: SELLERS[2],
+    images: ["/p-gymbag.jpg"], price: 89, compareAtPrice: 119, currency: "EUR",
+    rating: 4.7, reviewCount: 624, sold: 3120, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "Charbon", attrs: { Couleur: "Charbon" }, price: 89, compareAtPrice: 119, stock: 92, sku: "ATH-CH" },
+      { id: "v2", label: "Olive", attrs: { Couleur: "Olive" }, price: 89, compareAtPrice: 119, stock: 64, sku: "ATH-OL" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── ENFANT ─────────
+  {
+    id: "p43", slug: "peluche-ours-bio", title: "Peluche ours Eddy coton bio 35 cm",
+    brand: "Studio Kobe", description: "Peluche ours doudou en coton bio certifié GOTS, rembourrage fibres recyclées, sans plastique. Lavable en machine.",
+    category: "enfant", categoryPath: ["Enfant", "Jouets", "Peluches"], seller: SELLERS[4],
+    images: ["/p-plush.jpg"], price: 39, currency: "EUR",
+    rating: 4.9, reviewCount: 824, sold: 5820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "Crème 35 cm", attrs: { Couleur: "Crème", Taille: "35 cm" }, price: 39, stock: 184, sku: "EDD-35" },
+      { id: "v2", label: "Crème 50 cm", attrs: { Couleur: "Crème", Taille: "50 cm" }, price: 59, stock: 92, sku: "EDD-50" },
+    ],
+    reviews: baseReviews, shippingFrom: "Japon", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p44", slug: "blocs-bois-50pcs", title: "Set 50 blocs en bois naturel jeu construction",
+    brand: "Studio Kobe", description: "50 blocs en hêtre naturel non traité, formes variées, rangés dans une boîte en bois. Stimule motricité fine et créativité.",
+    category: "enfant", categoryPath: ["Enfant", "Jouets", "Construction"], seller: SELLERS[4],
+    images: ["/p-blocks.jpg"], price: 49, compareAtPrice: 65, currency: "EUR",
+    rating: 4.8, reviewCount: 612, sold: 3120, badges: ["eco", "bestseller"],
+    variants: [
+      { id: "v1", label: "Set 50 pièces", attrs: { Pack: "50 pièces" }, price: 49, compareAtPrice: 65, stock: 142, sku: "BLC-50" },
+      { id: "v2", label: "Set 100 pièces", attrs: { Pack: "100 pièces" }, price: 79, compareAtPrice: 99, stock: 64, sku: "BLC-100" },
+    ],
+    reviews: baseReviews, shippingFrom: "Japon", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p45", slug: "draisienne-rose", title: "Draisienne enfant Bloom rose pâle 2-5 ans",
+    brand: "Trail", description: "Draisienne enfant 2-5 ans, cadre acier laqué rose pâle, selle réglable, pneus gonflés. Apprentissage de l'équilibre en douceur.",
+    category: "enfant", categoryPath: ["Enfant", "Mobilité", "Draisiennes"], seller: SELLERS[2],
+    images: ["/p-kidbike.jpg"], price: 99, compareAtPrice: 139, currency: "EUR",
+    rating: 4.7, reviewCount: 412, sold: 1840, badges: ["new"],
+    variants: [
+      { id: "v1", label: "Rose pâle", attrs: { Couleur: "Rose pâle" }, price: 99, compareAtPrice: 139, stock: 38, sku: "BLM-RP" },
+      { id: "v2", label: "Sauge", attrs: { Couleur: "Sauge" }, price: 99, compareAtPrice: 139, stock: 28, sku: "BLM-SA" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 5 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p46", slug: "kit-aquarelle-junior", title: "Kit aquarelle Junior 24 couleurs boîte bois",
+    brand: "Studio Kobe", description: "Boîte en bois avec 24 godets aquarelle, 3 pinceaux, 20 feuilles 200 g/m². Pigments non toxiques, certifiés CE.",
+    category: "enfant", categoryPath: ["Enfant", "Loisirs créatifs", "Peinture"], seller: SELLERS[4],
+    images: ["/p-artkit.jpg"], price: 29, currency: "EUR",
+    rating: 4.7, reviewCount: 318, sold: 1620, badges: ["new"],
+    variants: [
+      { id: "v1", label: "24 couleurs", attrs: { Pack: "24 couleurs" }, price: 29, stock: 124, sku: "AQR-24" },
+      { id: "v2", label: "36 couleurs", attrs: { Pack: "36 couleurs" }, price: 39, stock: 78, sku: "AQR-36" },
+    ],
+    reviews: baseReviews, shippingFrom: "Japon", estimatedDelivery: "5 à 8 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── AUTO & MOTO ─────────
+  {
+    id: "p47", slug: "casque-moto-vector", title: "Casque moto Vector intégral fibre carbone",
+    brand: "Trail", description: "Casque intégral fibre carbone, homologué ECE 22.06, écran solaire intégré, ventilation avancée. Garantie 5 ans.",
+    category: "auto", categoryPath: ["Auto & Moto", "Moto", "Casques"], seller: SELLERS[2],
+    images: ["/p-helmet.jpg"], price: 349, compareAtPrice: 449, currency: "EUR",
+    rating: 4.7, reviewCount: 412, sold: 1820, badges: ["bestseller", "premium"],
+    variants: [
+      { id: "v1", label: "Noir mat M", attrs: { Couleur: "Noir mat", Taille: "M" }, price: 349, compareAtPrice: 449, stock: 22, sku: "VEC-M" },
+      { id: "v2", label: "Noir mat L", attrs: { Couleur: "Noir mat", Taille: "L" }, price: 349, compareAtPrice: 449, stock: 28, sku: "VEC-L" },
+      { id: "v3", label: "Noir mat XL", attrs: { Couleur: "Noir mat", Taille: "XL" }, price: 349, compareAtPrice: 449, stock: 14, sku: "VEC-XL" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p48", slug: "booster-batterie-voiture", title: "Booster batterie voiture portable 2000 A USB-C",
+    brand: "Aurora Audio", description: "Démarreur portable 2000 A pour véhicules essence et diesel jusqu'à 8 L. Batterie 20 000 mAh, lampe LED, ports USB-C et USB-A.",
+    category: "auto", categoryPath: ["Auto & Moto", "Voiture", "Batteries"], seller: SELLERS[2],
+    images: ["/p-charger.jpg"], price: 99, compareAtPrice: 139, currency: "EUR",
+    rating: 4.8, reviewCount: 1820, sold: 8420, badges: ["flash", "bestseller"],
+    variants: [
+      { id: "v1", label: "2000 A", attrs: { Puissance: "2000 A" }, price: 99, compareAtPrice: 139, stock: 84, sku: "BST-2000" },
+      { id: "v2", label: "3000 A Pro", attrs: { Puissance: "3000 A" }, price: 149, compareAtPrice: 199, stock: 38, sku: "BST-3000" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "1 à 3 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  {
+    id: "p49", slug: "kit-detailing-voiture", title: "Kit detailing voiture 12 pièces nettoyage premium",
+    brand: "Trail", description: "Kit complet 12 pièces : shampoing carrosserie, cire de carnauba, nettoyant jantes, microfibres, brosses. Convient toutes finitions.",
+    category: "auto", categoryPath: ["Auto & Moto", "Voiture", "Entretien"], seller: SELLERS[2],
+    images: ["/p-cleankit.jpg"], price: 79, compareAtPrice: 109, currency: "EUR",
+    rating: 4.6, reviewCount: 524, sold: 2820, badges: [],
+    variants: [
+      { id: "v1", label: "Kit 12 pièces", attrs: { Pack: "12 pièces" }, price: 79, compareAtPrice: 109, stock: 64, sku: "DTL-12" },
+    ],
+    reviews: baseReviews, shippingFrom: "Allemagne", estimatedDelivery: "2 à 4 jours ouvrés", returns: "Retour gratuit sous 30 jours",
+  },
+  // ───────── ALIMENTATION ─────────
+  {
+    id: "p50", slug: "huile-olive-toscane", title: "Huile d'olive Toscane extra vierge bio 500 ml",
+    brand: "Maison Verte", description: "Huile d'olive extra vierge AOC Toscane, première pression à froid, oliveraies bio à Florence. Récolte 2025, fruité intense.",
+    category: "alimentation", categoryPath: ["Alimentation", "Épicerie", "Huiles"], seller: SELLERS[3],
+    images: ["/p-oliveoil.jpg"], price: 24, currency: "EUR",
+    rating: 4.9, reviewCount: 1240, sold: 7820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "500 ml", attrs: { Format: "500 ml" }, price: 24, stock: 184, sku: "HOT-500" },
+      { id: "v2", label: "1 L", attrs: { Format: "1 L" }, price: 42, stock: 92, sku: "HOT-1L" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Non retournable",
+  },
+  {
+    id: "p51", slug: "miel-acacia-artisan", title: "Miel d'acacia artisanal pot 500 g France",
+    brand: "Maison Verte", description: "Miel d'acacia récolté par notre apiculteur partenaire en Provence, non chauffé, non filtré. Cristallisation lente naturelle.",
+    category: "alimentation", categoryPath: ["Alimentation", "Épicerie", "Miels"], seller: SELLERS[3],
+    images: ["/p-honey.jpg"], price: 18, currency: "EUR",
+    rating: 4.8, reviewCount: 824, sold: 4820, badges: ["bestseller", "eco"],
+    variants: [
+      { id: "v1", label: "500 g", attrs: { Format: "500 g" }, price: 18, stock: 142, sku: "MIE-500" },
+      { id: "v2", label: "1 kg", attrs: { Format: "1 kg" }, price: 32, stock: 78, sku: "MIE-1KG" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Non retournable",
+  },
+  {
+    id: "p52", slug: "cafe-grain-ethiopie", title: "Café grains Éthiopie Yirgacheffe 1 kg torréfié main",
+    brand: "Maison Verte", description: "Café 100 % arabica Yirgacheffe (Éthiopie), torréfaction artisanale toscane. Notes florales, fruits rouges, cacao. Sachet refermable 1 kg.",
+    category: "alimentation", categoryPath: ["Alimentation", "Boissons", "Café"], seller: SELLERS[3],
+    images: ["/p-coffeebag.jpg"], price: 32, currency: "EUR",
+    rating: 4.8, reviewCount: 612, sold: 3120, badges: ["bestseller"],
+    variants: [
+      { id: "v1", label: "1 kg grains", attrs: { Format: "1 kg", Forme: "Grains" }, price: 32, stock: 124, sku: "CAF-1KG-G" },
+      { id: "v2", label: "1 kg moulu", attrs: { Format: "1 kg", Forme: "Moulu" }, price: 32, stock: 64, sku: "CAF-1KG-M" },
+    ],
+    reviews: baseReviews, shippingFrom: "Italie", estimatedDelivery: "3 à 5 jours ouvrés", returns: "Non retournable",
+  },
 ]
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug)
+}
+
+export function getBestSellers(limit?: number): Product[] {
+  const sorted = [...PRODUCTS].sort((a, b) => b.sold - a.sold)
+  return typeof limit === "number" ? sorted.slice(0, limit) : sorted
+}
+
+export function getNewArrivals(limit?: number): Product[] {
+  const sorted = [...PRODUCTS]
+    .filter((p) => p.badges.includes("new"))
+    .concat([...PRODUCTS].filter((p) => !p.badges.includes("new")).reverse())
+  return typeof limit === "number" ? sorted.slice(0, limit) : sorted
+}
+
+export function getDeals(limit?: number): Product[] {
+  const sorted = [...PRODUCTS]
+    .filter((p) => p.compareAtPrice && p.compareAtPrice > p.price)
+    .sort((a, b) => {
+      const da = a.compareAtPrice ? (a.compareAtPrice - a.price) / a.compareAtPrice : 0
+      const db = b.compareAtPrice ? (b.compareAtPrice - b.price) / b.compareAtPrice : 0
+      return db - da
+    })
+  return typeof limit === "number" ? sorted.slice(0, limit) : sorted
 }
 
 export function getProductsByCategory(slug: string): Product[] {
