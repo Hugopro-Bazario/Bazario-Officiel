@@ -9,16 +9,22 @@ import {
   Plus,
   Megaphone,
   Wallet,
+  Globe,
+  Bell,
+  Sparkles,
 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { formatPrice } from "@/lib/data"
+import { RevenueChart } from "@/components/seller/revenue-chart"
+import { CategoryBreakdown } from "@/components/seller/category-breakdown"
+import { ConversionFunnel } from "@/components/seller/conversion-funnel"
 
 const KPI = [
   { label: "Ventes (30 j)", value: 12480, prefix: "€", delta: 18.4, icon: Wallet },
   { label: "Commandes (30 j)", value: 87, delta: 12.1, icon: ShoppingBag },
-  { label: "Visites fiche produit", value: 4321, delta: -3.2, icon: Eye },
+  { label: "Visites fiche", value: 4321, delta: -3.2, icon: Eye },
   { label: "Note moyenne", value: 4.8, suffix: " / 5", delta: 0.2, icon: Star },
 ]
 
@@ -30,9 +36,24 @@ const RECENT_ORDERS = [
 ]
 
 const TOP_PRODUCTS = [
-  { title: "Casque audio sans fil bluetooth premium ANC", sales: 142, revenue: 26838 },
-  { title: "Sneakers en cuir blanc minimaliste", sales: 98, revenue: 12642 },
-  { title: "Sérum vitamine C éclat 30 ml", sales: 73, revenue: 2847 },
+  { title: "Casque audio sans-fil Aurora Pro", sales: 142, revenue: 26838, image: "/product-headphones-1.jpg" },
+  { title: "Sneakers cuir blanc Lumen Classic", sales: 98, revenue: 12642, image: "/product-sneakers-1.jpg" },
+  { title: "Sérum Éclat Vitamine C 15% bio", sales: 73, revenue: 2847, image: "/product-serum-1.jpg" },
+]
+
+const COUNTRIES = [
+  { name: "France", flag: "🇫🇷", percent: 42, sales: 5240 },
+  { name: "Allemagne", flag: "🇩🇪", percent: 18, sales: 2246 },
+  { name: "Belgique", flag: "🇧🇪", percent: 11, sales: 1372 },
+  { name: "Espagne", flag: "🇪🇸", percent: 9, sales: 1123 },
+  { name: "Italie", flag: "🇮🇹", percent: 7, sales: 873 },
+  { name: "Autres", flag: "🌍", percent: 13, sales: 1626 },
+]
+
+const NOTIFICATIONS = [
+  { kind: "stock", text: "Stock bas : Sneakers Lumen Classic taille 42 (3 restants)", time: "il y a 2 h" },
+  { kind: "review", text: "Nouvelle note 5 étoiles sur le Casque Aurora Pro", time: "il y a 5 h" },
+  { kind: "payout", text: "Virement de 3 240,00 € envoyé sur votre compte", time: "hier" },
 ]
 
 export default function SellerDashboardPage() {
@@ -40,8 +61,10 @@ export default function SellerDashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Tableau de bord</h1>
-          <p className="text-muted-foreground">Bonjour Lumen Studio, voici vos performances aujourd&apos;hui.</p>
+          <h1 className="font-display text-3xl font-bold tracking-tight">Tableau de bord</h1>
+          <p className="text-muted-foreground">
+            Bonjour <span className="font-medium text-foreground">Lumen Studio</span>, voici vos performances aujourd&apos;hui.
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">
@@ -49,7 +72,7 @@ export default function SellerDashboardPage() {
             Lancer une promo
           </Button>
           <Button asChild>
-            <Link href="/seller/products/new">
+            <Link href="/seller/products">
               <Plus className="size-4" />
               Ajouter un produit
             </Link>
@@ -75,7 +98,7 @@ export default function SellerDashboardPage() {
                 </Badge>
               </div>
               <p className="mt-4 text-xs uppercase tracking-wide text-muted-foreground">{kpi.label}</p>
-              <p className="mt-1 text-3xl font-bold">
+              <p className="mt-1 font-display text-3xl font-bold tabular-nums">
                 {kpi.prefix === "€" ? formatPrice(kpi.value) : `${kpi.value.toLocaleString("fr-FR")}${kpi.suffix ?? ""}`}
               </p>
             </Card>
@@ -83,14 +106,14 @@ export default function SellerDashboardPage() {
         })}
       </div>
 
-      {/* Sales chart placeholder */}
+      {/* Revenue chart */}
       <Card className="p-6">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold">Ventes des 30 derniers jours</h2>
-            <p className="text-sm text-muted-foreground">Évolution journalière du chiffre d&apos;affaires</p>
+            <h2 className="text-lg font-semibold">Chiffre d&apos;affaires</h2>
+            <p className="text-sm text-muted-foreground">Évolution sur les 30 derniers jours</p>
           </div>
-          <div className="flex gap-2 text-xs">
+          <div className="flex gap-1.5 text-xs">
             {["7 j", "30 j", "90 j", "1 an"].map((p, i) => (
               <button
                 key={p}
@@ -103,11 +126,92 @@ export default function SellerDashboardPage() {
             ))}
           </div>
         </div>
-        <SalesSparkline />
+        <RevenueChart />
       </Card>
 
+      {/* Insights row */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card className="p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold">Répartition par catégorie</h2>
+              <p className="text-sm text-muted-foreground">Chiffre d&apos;affaires sur 30 j</p>
+            </div>
+            <Sparkles className="size-5 text-accent" />
+          </div>
+          <CategoryBreakdown />
+        </Card>
+
+        <Card className="p-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Tunnel de conversion</h2>
+            <p className="text-sm text-muted-foreground">De la visite à la commande finalisée</p>
+          </div>
+          <ConversionFunnel />
+        </Card>
+      </div>
+
+      {/* Geo + AI insight */}
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        {/* Recent orders */}
+        <Card className="overflow-hidden p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h2 className="flex items-center gap-2 text-lg font-semibold">
+                <Globe className="size-4 text-primary" />
+                Ventes par pays
+              </h2>
+              <p className="text-sm text-muted-foreground">Top 6 marchés sur 30 j</p>
+            </div>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="#">
+                Détails <ArrowUpRight className="size-4" />
+              </Link>
+            </Button>
+          </div>
+          <ul className="space-y-3">
+            {COUNTRIES.map((c) => (
+              <li key={c.name} className="space-y-1.5">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="flex items-center gap-2 font-medium">
+                    <span className="text-base" aria-hidden>
+                      {c.flag}
+                    </span>
+                    {c.name}
+                  </span>
+                  <span className="tabular-nums text-muted-foreground">
+                    <span className="font-semibold text-foreground">{formatPrice(c.sales)}</span>
+                    <span className="ml-2 text-xs">{c.percent}%</span>
+                  </span>
+                </div>
+                <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${c.percent}%` }} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+
+        <Card className="relative overflow-hidden bg-gradient-to-br from-primary to-primary/80 p-6 text-primary-foreground">
+          <div className="absolute -right-8 -top-8 size-40 rounded-full bg-accent/30 blur-3xl" aria-hidden />
+          <div className="relative">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-xs font-semibold backdrop-blur">
+              <Sparkles className="size-3" /> Insight IA
+            </div>
+            <h3 className="mt-4 font-display text-xl font-bold leading-snug">
+              +24 % de conversion attendue sur les Sneakers Lumen Classic ce week-end
+            </h3>
+            <p className="mt-2 text-sm text-primary-foreground/80">
+              Les recherches sur cette gamme ont bondi de 38 % cette semaine. Activez une promo flash pour capter la demande.
+            </p>
+            <Button variant="accent" className="mt-6 w-full">
+              Créer une promo flash
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* Recent orders + Top products */}
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between border-b px-5 py-4">
             <h2 className="font-semibold">Commandes récentes</h2>
@@ -134,7 +238,7 @@ export default function SellerDashboardPage() {
                     <td className="px-5 py-3 font-mono text-xs">{o.id}</td>
                     <td className="px-5 py-3">{o.buyer}</td>
                     <td className="px-5 py-3 text-muted-foreground">{o.product}</td>
-                    <td className="px-5 py-3 text-right font-semibold">{formatPrice(o.total)}</td>
+                    <td className="px-5 py-3 text-right font-semibold tabular-nums">{formatPrice(o.total)}</td>
                     <td className="px-5 py-3">
                       <Badge
                         variant={
@@ -155,7 +259,6 @@ export default function SellerDashboardPage() {
           </div>
         </Card>
 
-        {/* Top products */}
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between border-b px-5 py-4">
             <h2 className="font-semibold">Top produits</h2>
@@ -168,47 +271,49 @@ export default function SellerDashboardPage() {
           <ul className="divide-y">
             {TOP_PRODUCTS.map((p, i) => (
               <li key={i} className="flex items-center gap-3 px-5 py-3">
-                <div className="flex size-9 items-center justify-center rounded-md bg-primary/10 text-sm font-bold text-primary">
+                <div className="flex size-7 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">
                   {i + 1}
                 </div>
-                <div className="flex-1 min-w-0">
+                <div
+                  className="size-10 shrink-0 rounded-md bg-cover bg-center"
+                  style={{ backgroundImage: `url(${p.image})` }}
+                  aria-hidden
+                />
+                <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 text-sm font-medium">{p.title}</p>
                   <p className="text-xs text-muted-foreground">{p.sales} ventes</p>
                 </div>
-                <span className="text-sm font-semibold">{formatPrice(p.revenue)}</span>
+                <span className="text-sm font-semibold tabular-nums">{formatPrice(p.revenue)}</span>
               </li>
             ))}
           </ul>
         </Card>
       </div>
-    </div>
-  )
-}
 
-function SalesSparkline() {
-  // Simple SVG sparkline — illustrative.
-  const points = [
-    20, 28, 24, 35, 32, 40, 38, 50, 46, 55, 52, 60, 58, 70, 68, 80, 76, 90, 86, 95, 90, 100, 96, 110, 105, 120, 115,
-    130, 125, 140,
-  ]
-  const max = Math.max(...points)
-  const w = 1000
-  const h = 200
-  const step = w / (points.length - 1)
-  const path = points.map((v, i) => `${i === 0 ? "M" : "L"} ${i * step} ${h - (v / max) * (h - 20) - 10}`).join(" ")
-  const area = `${path} L ${w} ${h} L 0 ${h} Z`
-  return (
-    <div className="relative">
-      <svg viewBox={`0 0 ${w} ${h}`} className="h-48 w-full" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={area} fill="url(#sparkFill)" />
-        <path d={path} fill="none" stroke="hsl(var(--primary))" strokeWidth="2.5" strokeLinejoin="round" />
-      </svg>
+      {/* Notifications strip */}
+      <Card className="overflow-hidden">
+        <div className="flex items-center justify-between border-b px-5 py-4">
+          <h2 className="flex items-center gap-2 font-semibold">
+            <Bell className="size-4 text-primary" /> Notifications
+          </h2>
+          <Button variant="ghost" size="sm">
+            Tout marquer comme lu
+          </Button>
+        </div>
+        <ul className="divide-y">
+          {NOTIFICATIONS.map((n, i) => (
+            <li key={i} className="flex items-start gap-3 px-5 py-3 text-sm">
+              <span
+                className={`mt-1 size-2 shrink-0 rounded-full ${
+                  n.kind === "stock" ? "bg-destructive" : n.kind === "review" ? "bg-accent" : "bg-success"
+                }`}
+              />
+              <span className="flex-1">{n.text}</span>
+              <span className="text-xs text-muted-foreground">{n.time}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
     </div>
   )
 }
