@@ -20,6 +20,10 @@ import { ProductGallery } from "@/components/product/product-gallery"
 import { AddToCart } from "@/components/product/add-to-cart"
 import { ProductCard } from "@/components/product/product-card"
 import { ProductTabs } from "@/components/product/product-tabs"
+import {
+  RecentlyViewedTracker,
+  RecentlyViewedStrip,
+} from "@/components/product/recently-viewed"
 import { LiveActivity } from "@/components/product/live-activity"
 import { FrequentlyBought } from "@/components/product/frequently-bought"
 import { Reviews } from "@/components/product/reviews"
@@ -368,7 +372,12 @@ export default async function ProductPage({
             </div>
           </section>
         )}
+
       </div>
+
+      {/* Recently viewed */}
+      <RecentlyViewedStrip excludeSlug={product.slug} />
+      <RecentlyViewedTracker slug={product.slug} />
     </div>
   )
 }

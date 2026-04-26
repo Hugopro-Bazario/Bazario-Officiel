@@ -5,6 +5,7 @@ import "./globals.css"
 import { SiteChrome } from "@/components/layout/site-chrome"
 import { CartProvider } from "@/lib/cart-store"
 import { WishlistProvider } from "@/lib/wishlist-store"
+import { RecentlyViewedProvider } from "@/lib/recently-viewed-store"
 import { CookieConsent } from "@/components/legal/cookie-consent"
 
 const inter = Inter({
@@ -106,13 +107,15 @@ export default function RootLayout({
         >
           Aller au contenu principal
         </a>
-        <WishlistProvider>
-          <CartProvider>
-            <Suspense fallback={null}>
-              <SiteChrome>{children}</SiteChrome>
-            </Suspense>
-          </CartProvider>
-        </WishlistProvider>
+        <RecentlyViewedProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <Suspense fallback={null}>
+                <SiteChrome>{children}</SiteChrome>
+              </Suspense>
+            </CartProvider>
+          </WishlistProvider>
+        </RecentlyViewedProvider>
         <CookieConsent />
       </body>
     </html>
