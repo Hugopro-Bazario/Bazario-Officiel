@@ -540,3 +540,74 @@ export const mockAddresses: Address[] = [
   },
 ]
 
+// ───────────────────── Mock messages ─────────────────────
+export type Message = {
+  id: string
+  fromMe: boolean
+  body: string
+  time: string
+}
+
+export type Thread = {
+  id: string
+  sellerId: string
+  sellerName: string
+  sellerLogo: string
+  subject: string
+  unread: number
+  lastAt: string
+  productImage?: string
+  productTitle?: string
+  messages: Message[]
+}
+
+export const mockThreads: Thread[] = [
+  {
+    id: "t-1",
+    sellerId: "s3",
+    sellerName: "TechWave Global",
+    sellerLogo: "/seller-techwave.jpg",
+    subject: "Question sur le casque Aurora Pro",
+    unread: 1,
+    lastAt: "il y a 12 min",
+    productImage: "/product-headphones-1.jpg",
+    productTitle: "Casque audio sans-fil Aurora Pro",
+    messages: [
+      { id: "m-1", fromMe: true, body: "Bonjour, le casque est-il compatible avec un Mac M3 en USB-C ?", time: "10:14" },
+      { id: "m-2", fromMe: false, body: "Bonjour ! Oui, le câble USB-C fourni est plug-and-play sur macOS.", time: "10:21" },
+      { id: "m-3", fromMe: true, body: "Parfait, merci. Et la garantie est de combien ?", time: "10:22" },
+      { id: "m-4", fromMe: false, body: "2 ans constructeur + 30 jours satisfait ou remboursé chez Bazario.", time: "10:24" },
+    ],
+  },
+  {
+    id: "t-2",
+    sellerId: "s2",
+    sellerName: "NordicHome",
+    sellerLogo: "/seller-nordic.jpg",
+    subject: "Délais pour la Suisse",
+    unread: 0,
+    lastAt: "hier",
+    productImage: "/product-lamp-1.jpg",
+    productTitle: "Lampe de table Halo laiton brossé",
+    messages: [
+      { id: "m-1", fromMe: true, body: "Bonjour, vous livrez en Suisse ?", time: "hier · 14:02" },
+      { id: "m-2", fromMe: false, body: "Oui, sous 5 à 7 jours ouvrés via DHL Express.", time: "hier · 14:18" },
+    ],
+  },
+  {
+    id: "t-3",
+    sellerId: "s4",
+    sellerName: "Maison Verte",
+    sellerLogo: "/seller-verte.jpg",
+    subject: "Composition du sérum",
+    unread: 0,
+    lastAt: "lun.",
+    productImage: "/product-serum-1.jpg",
+    productTitle: "Sérum Éclat Vitamine C 15% bio",
+    messages: [
+      { id: "m-1", fromMe: true, body: "Le sérum est-il vegan et sans alcool ?", time: "lun. · 09:00" },
+      { id: "m-2", fromMe: false, body: "Oui, 100% vegan, sans alcool, certifié Cosmos Organic.", time: "lun. · 09:45" },
+    ],
+  },
+]
+
