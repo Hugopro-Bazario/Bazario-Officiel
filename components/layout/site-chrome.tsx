@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { MobileNav } from "@/components/layout/mobile-nav"
+import { CartDrawer } from "@/components/cart/cart-drawer"
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -27,6 +28,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       </main>
       <Footer />
       <MobileNav />
+      <CartDrawer />
     </>
   )
 }

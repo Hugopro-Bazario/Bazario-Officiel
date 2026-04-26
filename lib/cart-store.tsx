@@ -25,6 +25,9 @@ type CartContextValue = {
   clear: () => void
   count: number
   subtotal: number
+  isOpen: boolean
+  openCart: () => void
+  closeCart: () => void
 }
 
 const CartContext = React.createContext<CartContextValue | null>(null)
@@ -70,6 +73,7 @@ function denormalize(stored: StoredItem[]): CartItem[] {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [stored, setStored] = React.useState<StoredItem[]>([])
   const [hydrated, setHydrated] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
 
   React.useEffect(() => {
     setStored(readStorage())
@@ -81,6 +85,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
   }, [stored, hydrated])
 
+  // Allow other components (e.g. footer link) to open the cart via custom event
+  React.useEffect(() => {
+    function handleOpen() {
+      setIsOpen(true)
+    }
+    window.addEventListener("bazario:open-cart", handleOpen)
+    return () => window.removeEventListener("bazario:open-cart", handleOpen)
+  }, [])
+
   const addItem = React.useCallback((productId: string, variantId: string, qty: number = 1) => {
     setStored((prev) => {
       const existing = prev.find((i) => i.productId === productId && i.variantId === variantId)
@@ -91,6 +104,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { productId, variantId, qty }]
     })
+    setIsOpen(true)
   }, [])
 
   const removeById = React.useCallback((id: string) => {
@@ -109,6 +123,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const clear = React.useCallback(() => setStored([]), [])
+  const openCart = React.useCallback(() => setIsOpen(true), [])
+  const closeCart = React.useCallback(() => setIsOpen(false), [])
 
   const items = React.useMemo(() => denormalize(stored), [stored])
   const count = items.reduce((sum, i) => sum + i.qty, 0)
@@ -116,7 +132,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, remove: removeById, removeItem, updateQty, clear, count, subtotal }}
+      value={{
+        items,
+        addItem,
+        remove: removeById,
+        removeItem,
+        updateQty,
+        clear,
+        count,
+        subtotal,
+        isOpen,
+        openCart,
+        closeCart,
+      }}
     >
       {children}
     </CartContext.Provider>

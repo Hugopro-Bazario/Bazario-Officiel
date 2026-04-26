@@ -28,7 +28,7 @@ const COL_AIDE = [
   { label: "Retours & remboursements", href: "/help" },
   { label: "Paiement & sécurité", href: "/help" },
   { label: "Modes de livraison", href: "/help" },
-  { label: "Nous contacter", href: "/help" },
+  { label: "Nous contacter", href: "/contact" },
 ]
 
 const COL_VENDRE = [

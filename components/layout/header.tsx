@@ -28,7 +28,7 @@ export function Header() {
   const initialQuery = searchParams.get("q") ?? ""
   const [query, setQuery] = React.useState(initialQuery)
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const { count } = useCart()
+  const { count, openCart } = useCart()
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -138,10 +138,11 @@ export function Header() {
             <Heart className="h-5 w-5" />
           </Link>
 
-          <Link
-            href="/cart"
+          <button
+            type="button"
+            onClick={openCart}
             className="relative inline-flex h-10 items-center gap-2 rounded-md px-3 hover:bg-muted"
-            aria-label="Panier"
+            aria-label={`Ouvrir le panier${count > 0 ? ` (${count} articles)` : ""}`}
           >
             <ShoppingCart className="h-5 w-5" />
             {count > 0 && (
@@ -150,7 +151,7 @@ export function Header() {
               </Badge>
             )}
             <span className="hidden text-sm font-medium sm:inline">Panier</span>
-          </Link>
+          </button>
         </div>
       </div>
 
