@@ -2,9 +2,11 @@ import { Hero } from "@/components/home/hero"
 import { ValueProps } from "@/components/home/value-props"
 import { CategoriesGrid } from "@/components/home/categories-grid"
 import { FlashSales } from "@/components/home/flash-sales"
+import { LiveDrops } from "@/components/home/live-drops"
 import { Trending } from "@/components/home/trending"
 import { PremiumBanner } from "@/components/home/premium-banner"
 import { BrandMarquee } from "@/components/home/brand-marquee"
+import { Editorial } from "@/components/home/editorial"
 import { FeaturedSellers } from "@/components/home/featured-sellers"
 import { Testimonials } from "@/components/home/testimonials"
 import { Recommended } from "@/components/home/recommended"
@@ -17,9 +19,11 @@ export default function HomePage() {
       <ValueProps />
       <CategoriesGrid />
       <FlashSales />
+      <LiveDrops />
       <Trending />
       <PremiumBanner />
       <BrandMarquee />
+      <Editorial />
       <FeaturedSellers />
       <Testimonials />
       <Recommended />

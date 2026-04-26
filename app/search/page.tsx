@@ -2,12 +2,21 @@
 import * as React from "react"
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-import { ChevronDown, SlidersHorizontal, Grid3x3, List, X } from "lucide-react"
+import {
+  ChevronDown,
+  SlidersHorizontal,
+  Grid3x3,
+  List,
+  X,
+  Search as SearchIcon,
+  Star,
+  ShieldCheck,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ProductCard } from "@/components/product/product-card"
 import { SearchFilters, type Filters } from "@/components/search/search-filters"
-import { PRODUCTS, searchProducts } from "@/lib/data"
+import { PRODUCTS, searchProducts, CATEGORIES } from "@/lib/data"
 
 const DEFAULT_FILTERS: Filters = {
   categories: [],
@@ -27,6 +36,8 @@ const SORT_OPTIONS = [
   { value: "popular", label: "Plus vendus" },
   { value: "newest", label: "Nouveautés" },
 ]
+
+const POPULAR_QUERIES = ["Casque", "Sneakers", "Lampe", "Sérum", "Café", "Vélo"]
 
 function SearchPageInner() {
   const params = useSearchParams()
@@ -51,7 +62,6 @@ function SearchPageInner() {
 
   const filtered = React.useMemo(() => {
     let list = baseResults
-
     if (filters.categories.length > 0) {
       list = list.filter((p) => filters.categories.includes(p.category))
     }
@@ -70,7 +80,6 @@ function SearchPageInner() {
     if (filters.verified) {
       list = list.filter((p) => p.seller.verified)
     }
-    // freeShipping is informational in mock data; pass-through
     return list
   }, [baseResults, filters])
 
@@ -86,7 +95,10 @@ function SearchPageInner() {
       case "popular":
         return list.sort((a, b) => b.sold - a.sold)
       case "newest":
-        return list.sort((a, b) => (b.badges.includes("new") ? 1 : 0) - (a.badges.includes("new") ? 1 : 0))
+        return list.sort(
+          (a, b) =>
+            (b.badges.includes("new") ? 1 : 0) - (a.badges.includes("new") ? 1 : 0),
+        )
       default:
         return list
     }
@@ -96,10 +108,20 @@ function SearchPageInner() {
     setFilters(DEFAULT_FILTERS)
   }
 
+  function toggleCategory(slug: string) {
+    setFilters((f) => ({
+      ...f,
+      categories: f.categories.includes(slug)
+        ? f.categories.filter((x) => x !== slug)
+        : [...f.categories, slug],
+    }))
+  }
+
   const activeChips: { label: string; onRemove: () => void }[] = []
   filters.categories.forEach((c) => {
+    const cat = CATEGORIES.find((x) => x.slug === c)
     activeChips.push({
-      label: c,
+      label: cat?.name ?? c,
       onRemove: () =>
         setFilters((f) => ({ ...f, categories: f.categories.filter((x) => x !== c) })),
     })
@@ -127,176 +149,284 @@ function SearchPageInner() {
       onRemove: () => setFilters((f) => ({ ...f, verified: false })),
     })
 
-  return (
-    <div className="container py-6">
-      {/* Breadcrumb */}
-      <nav className="mb-3 text-xs text-muted-foreground" aria-label="Fil d'Ariane">
-        <ol className="flex items-center gap-1">
-          <li>
-            <button onClick={() => router.push("/")} className="hover:text-foreground">
-              Accueil
-            </button>
-          </li>
-          <li aria-hidden>/</li>
-          <li className="text-foreground">Recherche</li>
-        </ol>
-      </nav>
-
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-            {query ? (
-              <>
-                Résultats pour <span className="text-primary">&laquo;{query}&raquo;</span>
-              </>
-            ) : (
-              "Tous les produits"
-            )}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {sorted.length.toLocaleString("fr-FR")} produits trouvés
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="lg:hidden"
-            onClick={() => setMobileFiltersOpen(true)}
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            Filtres
-          </Button>
-
-          <div className="relative">
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              className="h-9 rounded-md border border-input bg-background pl-3 pr-9 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-              aria-label="Trier"
-            >
-              {SORT_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  Trier : {o.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2" />
-          </div>
-
-          <div className="hidden gap-1 rounded-md border bg-card p-0.5 sm:inline-flex">
-            <button
-              onClick={() => setView("grid")}
-              className={`inline-flex h-8 w-8 items-center justify-center rounded-sm ${view === "grid" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-              aria-label="Affichage grille"
-            >
-              <Grid3x3 className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setView("list")}
-              className={`inline-flex h-8 w-8 items-center justify-center rounded-sm ${view === "list" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-              aria-label="Affichage liste"
-            >
-              <List className="h-4 w-4" />
-            </button>
+  // Empty state
+  if (sorted.length === 0 && baseResults.length === 0) {
+    return (
+      <div className="bg-secondary/30">
+        <div className="container py-16">
+          <div className="mx-auto max-w-xl text-center">
+            <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-secondary">
+              <SearchIcon className="size-8 text-muted-foreground" />
+            </div>
+            <h1 className="font-display text-3xl font-bold tracking-tight">
+              Aucun résultat pour <span className="text-primary">«&nbsp;{query}&nbsp;»</span>
+            </h1>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Essayez avec d&apos;autres mots-clés ou explorez nos suggestions ci-dessous.
+            </p>
+            <div className="mt-6">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Recherches populaires
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {POPULAR_QUERIES.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => router.push(`/search?q=${encodeURIComponent(q)}`)}
+                    className="rounded-full border bg-card px-4 py-1.5 text-sm font-medium hover:border-primary hover:text-primary"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Button asChild className="mt-8">
+              <a href="/">Explorer la home</a>
+            </Button>
           </div>
         </div>
       </div>
+    )
+  }
 
-      {activeChips.length > 0 && (
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="text-xs text-muted-foreground">Filtres actifs :</span>
-          {activeChips.map((chip, i) => (
-            <button
-              key={i}
-              onClick={chip.onRemove}
-              className="inline-flex items-center gap-1 rounded-full border bg-card px-2.5 py-0.5 text-xs hover:bg-muted"
+  return (
+    <div className="bg-secondary/30 pb-16">
+      <div className="container py-6">
+        {/* Breadcrumb */}
+        <nav className="mb-3 text-xs text-muted-foreground" aria-label="Fil d'Ariane">
+          <ol className="flex items-center gap-1">
+            <li>
+              <button onClick={() => router.push("/")} className="hover:text-foreground">
+                Accueil
+              </button>
+            </li>
+            <li aria-hidden>/</li>
+            <li className="font-medium text-foreground">Recherche</li>
+          </ol>
+        </nav>
+
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+              {query ? (
+                <>
+                  Résultats pour <span className="text-primary">«&nbsp;{query}&nbsp;»</span>
+                </>
+              ) : (
+                "Tous les produits"
+              )}
+            </h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              <strong className="font-semibold tabular-nums text-foreground">
+                {sorted.length.toLocaleString("fr-FR")}
+              </strong>{" "}
+              produits trouvés ·{" "}
+              <span className="inline-flex items-center gap-1">
+                <ShieldCheck className="size-3.5 text-success" />
+                vendeurs vérifiés
+              </span>
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="lg:hidden"
+              onClick={() => setMobileFiltersOpen(true)}
             >
-              {chip.label}
-              <X className="h-3 w-3" />
-            </button>
-          ))}
+              <SlidersHorizontal className="h-4 w-4" />
+              Filtres
+            </Button>
+
+            <div className="relative">
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="h-9 appearance-none rounded-md border border-input bg-card pl-3 pr-9 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                aria-label="Trier"
+              >
+                {SORT_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    Trier : {o.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2" />
+            </div>
+
+            <div className="hidden gap-1 rounded-md border bg-card p-0.5 sm:inline-flex">
+              <button
+                onClick={() => setView("grid")}
+                className={`inline-flex h-8 w-8 items-center justify-center rounded-sm transition-colors ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                aria-label="Affichage grille"
+              >
+                <Grid3x3 className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => setView("list")}
+                className={`inline-flex h-8 w-8 items-center justify-center rounded-sm transition-colors ${view === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                aria-label="Affichage liste"
+              >
+                <List className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Category pills */}
+        <div className="mt-5 flex gap-2 overflow-x-auto no-scrollbar">
           <button
-            onClick={reset}
-            className="text-xs font-medium text-primary hover:underline"
+            onClick={() => setFilters((f) => ({ ...f, categories: [] }))}
+            className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+              filters.categories.length === 0
+                ? "border-primary bg-primary text-primary-foreground"
+                : "bg-card hover:border-primary hover:text-primary"
+            }`}
           >
-            Tout effacer
+            Tous
           </button>
+          {CATEGORIES.map((c) => {
+            const isActive = filters.categories.includes(c.slug)
+            return (
+              <button
+                key={c.slug}
+                onClick={() => toggleCategory(c.slug)}
+                className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "bg-card hover:border-primary hover:text-primary"
+                }`}
+              >
+                {c.name}
+              </button>
+            )
+          })}
         </div>
-      )}
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[260px_1fr]">
-        <div className="hidden lg:block">
-          <SearchFilters
-            filters={filters}
-            onChange={setFilters}
-            brands={allBrands}
-            onReset={reset}
-          />
-        </div>
+        {/* Active filter chips */}
+        {activeChips.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-medium text-muted-foreground">Filtres actifs :</span>
+            {activeChips.map((chip, i) => (
+              <button
+                key={i}
+                onClick={chip.onRemove}
+                className="inline-flex items-center gap-1 rounded-full border bg-card px-2.5 py-0.5 text-xs hover:bg-secondary"
+              >
+                {chip.label}
+                <X className="h-3 w-3" />
+              </button>
+            ))}
+            <button
+              onClick={reset}
+              className="text-xs font-semibold text-primary hover:underline"
+            >
+              Tout effacer
+            </button>
+          </div>
+        )}
 
-        <div>
-          {sorted.length === 0 ? (
-            <div className="rounded-lg border bg-card p-12 text-center">
-              <p className="text-base font-medium">Aucun produit ne correspond à vos critères.</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Essayez d&apos;élargir votre recherche ou de modifier les filtres.
-              </p>
-              <Button onClick={reset} variant="outline" className="mt-4">
-                Réinitialiser les filtres
-              </Button>
+        <div className="mt-6 grid gap-6 lg:grid-cols-[260px_1fr]">
+          <div className="hidden lg:block">
+            <div className="sticky top-24">
+              <SearchFilters
+                filters={filters}
+                onChange={setFilters}
+                brands={allBrands}
+                onReset={reset}
+              />
             </div>
-          ) : view === "grid" ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
-              {sorted.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          ) : (
-            <ul className="space-y-3">
-              {sorted.map((p) => (
-                <li key={p.id} className="rounded-lg border bg-card p-3">
-                  <a href={`/p/${p.slug}`} className="flex gap-4">
-                    <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-md bg-muted">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={p.images[0]}
-                        alt={p.title}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col">
-                      <p className="text-xs text-muted-foreground">{p.brand}</p>
-                      <h3 className="text-sm font-medium">{p.title}</h3>
-                      <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
-                        {p.description}
-                      </p>
-                      <div className="mt-auto flex items-baseline gap-2">
-                        <span className="text-lg font-bold">
-                          {new Intl.NumberFormat("fr-FR", {
-                            style: "currency",
-                            currency: p.currency,
-                          }).format(p.price)}
-                        </span>
-                        {p.compareAtPrice && (
-                          <span className="text-xs text-muted-foreground line-through">
-                            {new Intl.NumberFormat("fr-FR", {
-                              style: "currency",
-                              currency: p.currency,
-                            }).format(p.compareAtPrice)}
-                          </span>
-                        )}
-                        <Badge variant="secondary" className="ml-auto">
-                          {p.seller.name}
-                        </Badge>
+          </div>
+
+          <div>
+            {sorted.length === 0 ? (
+              <div className="rounded-2xl border bg-card p-12 text-center">
+                <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-secondary">
+                  <SearchIcon className="size-5 text-muted-foreground" />
+                </div>
+                <p className="font-display text-lg font-bold">
+                  Aucun produit ne correspond à vos critères
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Essayez d&apos;élargir votre recherche ou de modifier les filtres.
+                </p>
+                <Button onClick={reset} variant="outline" className="mt-5">
+                  Réinitialiser les filtres
+                </Button>
+              </div>
+            ) : view === "grid" ? (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+                {sorted.map((p) => (
+                  <ProductCard key={p.id} product={p} />
+                ))}
+              </div>
+            ) : (
+              <ul className="space-y-3">
+                {sorted.map((p) => (
+                  <li
+                    key={p.id}
+                    className="rounded-2xl border bg-card p-3 transition-shadow hover:shadow-md"
+                  >
+                    <a href={`/p/${p.slug}`} className="flex gap-4">
+                      <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-xl bg-secondary sm:h-40 sm:w-40">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={p.images[0]}
+                          alt={p.title}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+                      <div className="flex flex-1 flex-col">
+                        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                          {p.brand}
+                        </p>
+                        <h3 className="mt-0.5 line-clamp-1 font-display text-base font-bold sm:text-lg">
+                          {p.title}
+                        </h3>
+                        <div className="mt-1 flex items-center gap-1 text-xs">
+                          <Star className="size-3.5 fill-accent text-accent" />
+                          <span className="font-semibold tabular-nums">{p.rating.toFixed(1)}</span>
+                          <span className="text-muted-foreground">
+                            ({p.reviewCount.toLocaleString("fr-FR")})
+                          </span>
+                          <span className="text-muted-foreground">·</span>
+                          <span className="text-muted-foreground">
+                            {p.sold.toLocaleString("fr-FR")} vendus
+                          </span>
+                        </div>
+                        <p className="mt-1.5 line-clamp-2 text-xs text-muted-foreground">
+                          {p.description}
+                        </p>
+                        <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-3">
+                          <div className="flex items-baseline gap-2">
+                            <span className="font-display text-xl font-bold tabular-nums">
+                              {new Intl.NumberFormat("fr-FR", {
+                                style: "currency",
+                                currency: p.currency,
+                              }).format(p.price)}
+                            </span>
+                            {p.compareAtPrice && (
+                              <span className="text-xs text-muted-foreground line-through tabular-nums">
+                                {new Intl.NumberFormat("fr-FR", {
+                                  style: "currency",
+                                  currency: p.currency,
+                                }).format(p.compareAtPrice)}
+                              </span>
+                            )}
+                          </div>
+                          <Badge variant="secondary" className="gap-1">
+                            <ShieldCheck className="size-3" />
+                            {p.seller.name}
+                          </Badge>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
 
@@ -312,7 +442,7 @@ function SearchPageInner() {
               <p className="text-base font-semibold">Filtres</p>
               <button
                 onClick={() => setMobileFiltersOpen(false)}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-secondary"
                 aria-label="Fermer"
               >
                 <X className="h-4 w-4" />
@@ -340,7 +470,11 @@ function SearchPageInner() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="container py-12 text-center text-muted-foreground">Chargement…</div>}>
+    <Suspense
+      fallback={
+        <div className="container py-12 text-center text-muted-foreground">Chargement…</div>
+      }
+    >
       <SearchPageInner />
     </Suspense>
   )
