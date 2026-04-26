@@ -186,7 +186,7 @@ export function Header() {
             Toutes les catégories
           </Link>
           <div className="hidden h-5 w-px bg-border lg:block" />
-          {CATEGORIES.slice(0, 7).map((c) => (
+          {CATEGORIES.slice(0, 6).map((c) => (
             <Link
               key={c.slug}
               href={`/c/${c.slug}`}
@@ -196,7 +196,19 @@ export function Header() {
             </Link>
           ))}
           <Link
-            href="/seller/dashboard"
+            href="/discover"
+            className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
+          >
+            Découvrir
+          </Link>
+          <Link
+            href="/compare"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Comparer
+          </Link>
+          <Link
+            href="/sell"
             className="ml-auto hidden rounded-md px-3 py-2 text-sm font-medium text-accent hover:bg-accent/10 lg:inline-flex"
           >
             Devenir vendeur

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Package, Truck, CheckCircle2, XCircle, Download, MessageSquare } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -96,12 +97,12 @@ export default function OrdersPage() {
               <Separator />
               <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
                 <div className="flex flex-wrap gap-2">
-                  {order.trackingUrl && (
-                    <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`/account/orders/${order.id}`}>
                       <Truck className="mr-1.5 size-4" />
                       Suivre le colis
-                    </Button>
-                  )}
+                    </Link>
+                  </Button>
                   <Button variant="outline" size="sm">
                     <Download className="mr-1.5 size-4" />
                     Facture

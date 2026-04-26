@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
+import { MobileNav } from "@/components/layout/mobile-nav"
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -21,8 +22,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className="min-h-[60vh]">{children}</main>
+      <main className="min-h-[60vh] pb-16 md:pb-0">{children}</main>
       <Footer />
+      <MobileNav />
     </>
   )
 }
