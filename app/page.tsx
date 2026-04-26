@@ -1,21 +1,29 @@
 import { Hero } from "@/components/home/hero"
+import { ValueProps } from "@/components/home/value-props"
 import { CategoriesGrid } from "@/components/home/categories-grid"
 import { FlashSales } from "@/components/home/flash-sales"
 import { Trending } from "@/components/home/trending"
 import { PremiumBanner } from "@/components/home/premium-banner"
+import { BrandMarquee } from "@/components/home/brand-marquee"
 import { FeaturedSellers } from "@/components/home/featured-sellers"
+import { Testimonials } from "@/components/home/testimonials"
 import { Recommended } from "@/components/home/recommended"
+import { Newsletter } from "@/components/home/newsletter"
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <ValueProps />
       <CategoriesGrid />
       <FlashSales />
       <Trending />
       <PremiumBanner />
+      <BrandMarquee />
       <FeaturedSellers />
+      <Testimonials />
       <Recommended />
+      <Newsletter />
     </>
   )
 }

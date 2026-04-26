@@ -1,8 +1,7 @@
 "use client"
 import Link from "next/link"
 import * as React from "react"
-import { Zap, ArrowRight } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Zap, ArrowRight, Flame } from "lucide-react"
 import { ProductCard } from "@/components/product/product-card"
 import { PRODUCTS, FLASH_SALE_END } from "@/lib/data"
 
@@ -24,27 +23,42 @@ export function FlashSales() {
   const { hours, minutes, seconds } = useCountdown(FLASH_SALE_END)
 
   return (
-    <section className="container py-10">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-destructive/10 text-destructive">
-            <Zap className="h-5 w-5" />
-          </span>
-          <div>
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-              Ventes flash
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Stocks limités, prix imbattables.
-            </p>
+    <section className="container py-12 lg:py-16">
+      <div className="mb-8 overflow-hidden rounded-2xl border bg-gradient-to-br from-destructive/5 via-accent/5 to-background">
+        <div className="flex flex-wrap items-center justify-between gap-4 p-6 sm:p-8">
+          <div className="flex items-center gap-4">
+            <span className="relative inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-destructive text-destructive-foreground shadow-lg">
+              <Flame className="h-6 w-6" />
+              <span className="absolute -right-1 -top-1 h-3 w-3 animate-soft-pulse rounded-full bg-accent ring-2 ring-background" />
+            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+                  Ventes flash
+                </h2>
+                <span className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-destructive">
+                  <Zap className="h-3 w-3" />
+                  En direct
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Stocks limités · réductions jusqu&apos;à -70 % · réapprovisionnés à minuit.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Fin dans</span>
-          <Countdown unit={hours.toString().padStart(2, "0")} label="h" />
-          <Countdown unit={minutes.toString().padStart(2, "0")} label="min" />
-          <Countdown unit={seconds.toString().padStart(2, "0")} label="s" />
+          <div className="flex items-center gap-3">
+            <span className="hidden text-xs font-medium text-muted-foreground sm:inline">
+              Se termine dans
+            </span>
+            <div className="flex items-center gap-1.5">
+              <Countdown unit={hours.toString().padStart(2, "0")} label="Heures" />
+              <span className="font-display text-xl font-bold text-muted-foreground/40">:</span>
+              <Countdown unit={minutes.toString().padStart(2, "0")} label="Min." />
+              <span className="font-display text-xl font-bold text-muted-foreground/40">:</span>
+              <Countdown unit={seconds.toString().padStart(2, "0")} label="Sec." />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -54,10 +68,10 @@ export function FlashSales() {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center">
+      <div className="mt-8 flex justify-center">
         <Link
           href="/search?sale=flash"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+          className="group inline-flex items-center gap-1.5 rounded-full border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-all hover:gap-3 hover:border-primary hover:bg-primary hover:text-primary-foreground"
         >
           Voir toutes les ventes flash
           <ArrowRight className="h-4 w-4" />
@@ -69,9 +83,13 @@ export function FlashSales() {
 
 function Countdown({ unit, label }: { unit: string; label: string }) {
   return (
-    <span className="inline-flex items-baseline gap-0.5 rounded-md bg-foreground px-2 py-1 font-mono text-sm font-bold tabular-nums text-background">
-      {unit}
-      <span className="text-[10px] font-normal opacity-70">{label}</span>
-    </span>
+    <div className="flex flex-col items-center gap-0.5">
+      <span className="inline-flex h-11 min-w-[3rem] items-center justify-center rounded-lg bg-foreground px-2 font-display font-bold tabular-nums text-background shadow-md">
+        {unit}
+      </span>
+      <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+    </div>
   )
 }

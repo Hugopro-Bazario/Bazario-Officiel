@@ -17,6 +17,7 @@ export type Seller = {
   country: string
   verified: boolean
   logo: string
+  productCount: number
 }
 
 export type Variant = {
@@ -86,6 +87,7 @@ export const SELLERS: Seller[] = [
     country: "France",
     verified: true,
     logo: "/seller-lumen.jpg",
+    productCount: 142,
   },
   {
     id: "s2",
@@ -96,6 +98,7 @@ export const SELLERS: Seller[] = [
     country: "Suède",
     verified: true,
     logo: "/seller-nordic.jpg",
+    productCount: 318,
   },
   {
     id: "s3",
@@ -106,6 +109,7 @@ export const SELLERS: Seller[] = [
     country: "Allemagne",
     verified: true,
     logo: "/seller-techwave.jpg",
+    productCount: 524,
   },
   {
     id: "s4",
@@ -116,6 +120,7 @@ export const SELLERS: Seller[] = [
     country: "Italie",
     verified: true,
     logo: "/seller-verte.jpg",
+    productCount: 86,
   },
   {
     id: "s5",
@@ -126,6 +131,7 @@ export const SELLERS: Seller[] = [
     country: "Japon",
     verified: true,
     logo: "/seller-kobe.jpg",
+    productCount: 207,
   },
 ]
 

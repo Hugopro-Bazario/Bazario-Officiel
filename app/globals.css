@@ -103,3 +103,43 @@
 /* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Subtle grain texture for hero overlays */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.animate-marquee-slow {
+  animation: marquee 60s linear infinite;
+}
+
+/* Subtle pulse for live indicators */
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-soft-pulse {
+  animation: soft-pulse 2s ease-in-out infinite;
+}
+
+/* Editorial blur halo */
+.halo-primary::before {
+  content: "";
+  position: absolute;
+  inset: auto;
+  width: 60%;
+  height: 60%;
+  background: hsl(var(--primary) / 0.4);
+  filter: blur(80px);
+  border-radius: 9999px;
+  pointer-events: none;
+}
