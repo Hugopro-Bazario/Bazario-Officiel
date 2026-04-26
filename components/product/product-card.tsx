@@ -17,6 +17,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { type Product } from "@/lib/data"
 import { formatPrice, discountPercent, cn } from "@/lib/utils"
+import { useWishlist } from "@/lib/wishlist-store"
 
 const BADGE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   flash: Zap,
@@ -41,7 +42,8 @@ export function ProductCard({
   product: Product
   size?: "default" | "compact"
 }) {
-  const [wishlisted, setWishlisted] = React.useState(false)
+  const { has, toggle } = useWishlist()
+  const wishlisted = has(product.id)
 
   const discount = product.compareAtPrice
     ? discountPercent(product.compareAtPrice, product.price)
@@ -55,7 +57,7 @@ export function ProductCard({
   function handleWishlist(e: React.MouseEvent) {
     e.preventDefault()
     e.stopPropagation()
-    setWishlisted((w) => !w)
+    toggle(product.id)
   }
 
   return (
@@ -172,6 +174,13 @@ export function ProductCard({
 
         <p className="mt-2 truncate border-t pt-2 text-[11px] text-muted-foreground">
           Vendu par <span className="font-semibold text-foreground">{product.seller.name}</span>
+          {product.seller.verified && (
+            <span className="ml-1 inline-flex align-text-bottom text-primary">
+              <svg viewBox="0 0 16 16" className="size-3" fill="currentColor" aria-hidden="true">
+                <path d="M8 1l1.7 1.7L12 2l.3 2.3L14.3 5 14 7.3 15.3 9 14 10.7 14.3 13l-2.3.3L11.7 15 9.3 14 8 15.3 6.7 14 4.3 15 4 12.7 1.7 12 2 9.7.7 8 2 6.3 1.7 4 4 3.7 4.3 1.3 6.7 2 8 1zm-.7 9.4l4.2-4.2-1-1L7.3 8.4 5.5 6.6l-1 1 2.8 2.8z" />
+              </svg>
+            </span>
+          )}
         </p>
       </div>
     </Link>

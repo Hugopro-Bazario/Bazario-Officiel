@@ -295,7 +295,7 @@ export default async function ProductPage({
 
               <div className="mt-4 grid grid-cols-2 gap-2">
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/seller/${product.seller.slug}`}>
+                  <Link href={`/s/${product.seller.slug}`}>
                     <Store className="h-4 w-4" />
                     Boutique
                   </Link>

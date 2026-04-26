@@ -135,7 +135,7 @@ export const SELLERS: Seller[] = [
   },
 ]
 
-const baseReviews: Review[] = [
+export const baseReviews: Review[] = [
   {
     id: "r1",
     author: "Camille D.",
@@ -616,4 +616,134 @@ export const mockThreads: Thread[] = [
     ],
   },
 ]
+
+// ───────────────────── Seller profiles (storefront) ─────────────────────
+export type SellerProfile = {
+  cover: string
+  city: string
+  founded: number
+  tagline: string
+  story: string
+  specialties: string[]
+  responseTime: string
+  shippingTime: string
+  languages: string[]
+  certifications: string[]
+  followers: number
+  joinedYear: number
+  policies: { label: string; value: string }[]
+}
+
+export const SELLER_PROFILES: Record<string, SellerProfile> = {
+  "atelier-lumen": {
+    cover: "/cover-lumen.jpg",
+    city: "Paris",
+    founded: 2014,
+    tagline: "L'artisanat parisien, transmis depuis quatre générations.",
+    story:
+      "Fondé en 2014 par Léa et Mathéo, Atelier Lumen perpétue l'héritage d'une famille de luminairiers parisiens depuis 1908. Chaque pièce est conçue, prototypée et assemblée à la main dans notre atelier du Marais, à partir de laiton recyclé et de bois locaux. Nos lampes accompagnent aujourd'hui des hôtels boutiques, des restaurants étoilés et des intérieurs particuliers dans 42 pays.",
+    specialties: ["Luminaires", "Mobilier", "Décoration"],
+    responseTime: "moins de 2 h",
+    shippingTime: "2 à 4 jours",
+    languages: ["Français", "English", "Italiano"],
+    certifications: ["Origine France Garantie", "Bazario Vérifié", "Made in Europe"],
+    followers: 28400,
+    joinedYear: 2018,
+    policies: [
+      { label: "Retours", value: "30 jours satisfait ou remboursé" },
+      { label: "Garantie", value: "5 ans pièces et main-d'oeuvre" },
+      { label: "Livraison", value: "Offerte dès 49 €, Express 24h disponible" },
+    ],
+  },
+  nordichome: {
+    cover: "/cover-nordic.jpg",
+    city: "Stockholm",
+    founded: 2011,
+    tagline: "Le mobilier scandinave qui dure une vie.",
+    story:
+      "NordicHome, c'est l'histoire d'une obsession : celle de la durabilité. Depuis Stockholm, notre équipe sourcing parcourt la Scandinavie pour dénicher les meilleurs ateliers - bois certifié FSC, textiles Oeko-Tex, productions à moins de 200 km. Nos meubles sont pensés pour traverser les modes et les générations.",
+    specialties: ["Mobilier", "Textile", "Maison"],
+    responseTime: "moins de 4 h",
+    shippingTime: "5 à 8 jours",
+    languages: ["Français", "English", "Svenska", "Deutsch"],
+    certifications: ["FSC", "Oeko-Tex", "Bazario Vérifié"],
+    followers: 41200,
+    joinedYear: 2017,
+    policies: [
+      { label: "Retours", value: "60 jours sans condition" },
+      { label: "Garantie", value: "10 ans sur la structure" },
+      { label: "Livraison", value: "Offerte dès 79 €, transporteur dédié pour le mobilier" },
+    ],
+  },
+  "techwave-global": {
+    cover: "/cover-techwave.jpg",
+    city: "Berlin",
+    founded: 2017,
+    tagline: "La pointe de la tech, sans le surplus.",
+    story:
+      "Basés à Berlin, nous sélectionnons et testons chaque produit pendant 6 semaines avant de le mettre en vente : audio, smart-home, accessoires PC. Nous ne référençons que ce qui passe nos 47 critères techniques. Nos clients, eux, gagnent du temps et un produit qui tient ses promesses.",
+    specialties: ["Audio", "Smart-home", "Accessoires"],
+    responseTime: "moins de 1 h",
+    shippingTime: "1 à 3 jours",
+    languages: ["Français", "English", "Deutsch", "Español"],
+    certifications: ["Bazario Vérifié", "Pro Reseller", "RGPD Compliant"],
+    followers: 89600,
+    joinedYear: 2019,
+    policies: [
+      { label: "Retours", value: "30 jours, étiquette retour incluse" },
+      { label: "Garantie", value: "2 ans constructeur + 1 an Bazario" },
+      { label: "Livraison", value: "Express 24h offerte dès 39 €" },
+    ],
+  },
+  "maison-verte": {
+    cover: "/cover-verte.jpg",
+    city: "Florence",
+    founded: 2019,
+    tagline: "La beauté vivante, formulée en Toscane.",
+    story:
+      "Maison Verte, c'est la rencontre de la tradition cosmétique italienne et de la science verte moderne. Toutes nos formules sont conçues à Florence par notre laboratoire de 12 chimistes, à partir d'ingrédients bio cultivés dans nos partenariats fermiers de Toscane. Aucun test sur les animaux, packaging 100 % recyclable, et chaque vente plante un olivier.",
+    specialties: ["Soins visage", "Corps", "Bien-être"],
+    responseTime: "moins de 6 h",
+    shippingTime: "3 à 5 jours",
+    languages: ["Français", "English", "Italiano"],
+    certifications: ["Cosmos Organic", "Vegan Society", "Bazario Vérifié"],
+    followers: 18700,
+    joinedYear: 2021,
+    policies: [
+      { label: "Retours", value: "30 jours, échantillon offert si non satisfait" },
+      { label: "Garantie", value: "Fraîcheur garantie 18 mois" },
+      { label: "Livraison", value: "Offerte dès 35 €, échantillons gratuits" },
+    ],
+  },
+  "studio-kobe": {
+    cover: "/cover-kobe.jpg",
+    city: "Kyoto",
+    founded: 2009,
+    tagline: "L'art de vivre japonais, du bol au bain.",
+    story:
+      "Studio Kobe est un collectif de 18 céramistes et artisans textiles établis autour de Kyoto. Nous proposons l'art de vivre japonais dans son expression la plus pure : bols Iga, théières Tokoname, peignoirs en lin de Kurume, encens d'Awaji. Chaque commande est emballée à la main avec un mot du créateur.",
+    specialties: ["Céramique", "Textile", "Art de la table"],
+    responseTime: "moins de 12 h",
+    shippingTime: "7 à 10 jours",
+    languages: ["Français", "English", "日本語"],
+    certifications: ["Artisans certifiés", "Bazario Vérifié", "Made in Japan"],
+    followers: 52300,
+    joinedYear: 2020,
+    policies: [
+      { label: "Retours", value: "14 jours hors pièces uniques" },
+      { label: "Garantie", value: "Casse au transport remboursée" },
+      { label: "Livraison", value: "Express DHL depuis Osaka" },
+    ],
+  },
+}
+
+export function getSellerBySlug(slug: string) {
+  return SELLERS.find((s) => s.slug === slug)
+}
+
+export function getSellerProductsBySlug(slug: string) {
+  const seller = getSellerBySlug(slug)
+  if (!seller) return []
+  return PRODUCTS.filter((p) => p.seller.id === seller.id)
+}
 

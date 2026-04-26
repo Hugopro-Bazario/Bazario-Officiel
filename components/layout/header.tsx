@@ -1,9 +1,7 @@
 "use client"
 import * as React from "react"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
 import {
-  Search,
   ShoppingCart,
   Heart,
   User,
@@ -14,27 +12,18 @@ import {
   Store,
   HelpCircle,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/layout/logo"
+import { SearchBar } from "@/components/search/search-bar"
 import { CATEGORIES } from "@/lib/data"
 import { useCart } from "@/lib/cart-store"
+import { useWishlist } from "@/lib/wishlist-store"
 import { cn } from "@/lib/utils"
 
 export function Header() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const initialQuery = searchParams.get("q") ?? ""
-  const [query, setQuery] = React.useState(initialQuery)
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const { count, openCart } = useCart()
-
-  function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    const q = query.trim()
-    router.push(q ? `/search?q=${encodeURIComponent(q)}` : "/search")
-  }
+  const { count: wishlistCount } = useWishlist()
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
@@ -85,30 +74,9 @@ export function Header() {
 
         <Logo />
 
-        <form
-          onSubmit={onSubmit}
-          className="ml-2 hidden flex-1 items-center md:flex"
-          role="search"
-        >
-          <div className="relative flex w-full max-w-2xl">
-            <div className="hidden items-center border border-r-0 border-input bg-secondary px-3 text-sm text-muted-foreground rounded-l-md lg:flex">
-              Tout
-              <ChevronDown className="ml-1 h-3.5 w-3.5" />
-            </div>
-            <Input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Rechercher un produit, une marque, un vendeur…"
-              className="rounded-none border-r-0 lg:rounded-none"
-              aria-label="Rechercher"
-            />
-            <Button type="submit" className="rounded-l-none" size="default" aria-label="Lancer la recherche">
-              <Search className="h-4 w-4" />
-              <span className="sr-only md:not-sr-only md:ml-1">Rechercher</span>
-            </Button>
-          </div>
-        </form>
+        <div className="ml-2 hidden w-full max-w-2xl flex-1 md:block">
+          <SearchBar variant="desktop" />
+        </div>
 
         <div className="ml-auto flex items-center gap-1">
           <button className="hidden items-center gap-1 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground lg:inline-flex">
@@ -131,11 +99,19 @@ export function Header() {
           </Link>
 
           <Link
-            href="/account?tab=wishlist"
+            href="/account/wishlist"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-muted"
-            aria-label="Liste de souhaits"
+            aria-label={`Liste de souhaits${wishlistCount > 0 ? ` (${wishlistCount})` : ""}`}
           >
             <Heart className="h-5 w-5" />
+            {wishlistCount > 0 && (
+              <Badge
+                variant="accent"
+                className="absolute -right-1 -top-1 h-5 min-w-5 justify-center px-1 text-[10px]"
+              >
+                {wishlistCount > 99 ? "99+" : wishlistCount}
+              </Badge>
+            )}
           </Link>
 
           <button
@@ -156,19 +132,9 @@ export function Header() {
       </div>
 
       {/* Mobile search */}
-      <form onSubmit={onSubmit} className="container pb-3 md:hidden" role="search">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Rechercher sur Bazario…"
-            className="pl-9"
-            aria-label="Rechercher"
-          />
-        </div>
-      </form>
+      <div className="container pb-3 md:hidden">
+        <SearchBar variant="mobile" />
+      </div>
 
       {/* Categories nav */}
       <nav

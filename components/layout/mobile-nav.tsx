@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Search, ShoppingBag, Heart, User } from "lucide-react"
 import { useCart } from "@/lib/cart-store"
+import { useWishlist } from "@/lib/wishlist-store"
 import { cn } from "@/lib/utils"
 
 type NavItem = {
@@ -11,19 +12,21 @@ type NavItem = {
   label: string
   icon: typeof Home
   isCart?: boolean
+  isWishlist?: boolean
 }
 
 const ITEMS: NavItem[] = [
   { href: "/", label: "Accueil", icon: Home },
   { href: "/search", label: "Recherche", icon: Search },
   { href: "/cart", label: "Panier", icon: ShoppingBag, isCart: true },
-  { href: "/account/wishlist", label: "Favoris", icon: Heart },
+  { href: "/account/wishlist", label: "Favoris", icon: Heart, isWishlist: true },
   { href: "/account", label: "Compte", icon: User },
 ]
 
 export function MobileNav() {
   const pathname = usePathname()
   const { items } = useCart()
+  const { count: wishlistCount } = useWishlist()
   const cartCount = items.reduce((sum, it) => sum + it.qty, 0)
 
   return (
@@ -51,6 +54,11 @@ export function MobileNav() {
                   {item.isCart && cartCount > 0 && (
                     <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">
                       {cartCount > 99 ? "99+" : cartCount}
+                    </span>
+                  )}
+                  {item.isWishlist && wishlistCount > 0 && (
+                    <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-foreground">
+                      {wishlistCount > 99 ? "99+" : wishlistCount}
                     </span>
                   )}
                 </span>

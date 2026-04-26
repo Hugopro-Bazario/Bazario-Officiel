@@ -4,6 +4,7 @@ import { Suspense } from "react"
 import "./globals.css"
 import { SiteChrome } from "@/components/layout/site-chrome"
 import { CartProvider } from "@/lib/cart-store"
+import { WishlistProvider } from "@/lib/wishlist-store"
 import { CookieConsent } from "@/components/legal/cookie-consent"
 
 const inter = Inter({
@@ -105,11 +106,13 @@ export default function RootLayout({
         >
           Aller au contenu principal
         </a>
-        <CartProvider>
-          <Suspense fallback={null}>
-            <SiteChrome>{children}</SiteChrome>
-          </Suspense>
-        </CartProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <Suspense fallback={null}>
+              <SiteChrome>{children}</SiteChrome>
+            </Suspense>
+          </CartProvider>
+        </WishlistProvider>
         <CookieConsent />
       </body>
     </html>
