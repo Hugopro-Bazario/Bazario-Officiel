@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { Check, X, Star, ShieldCheck, Truck, Award, Plus } from "lucide-react"
@@ -6,6 +7,13 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { products, formatPrice } from "@/lib/data"
+
+export const metadata: Metadata = {
+  title: "Comparer les produits — 11 critères côte à côte",
+  description:
+    "Comparez jusqu'à 4 produits Bazario sur 11 critères : prix, note, garantie, livraison, vendeur. Faites le bon choix en 30 secondes.",
+  alternates: { canonical: "/compare" },
+}
 
 const BADGE_LABELS: Record<string, string> = {
   flash: "Vente flash",

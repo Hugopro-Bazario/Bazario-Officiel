@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
@@ -25,6 +26,39 @@ import { Reviews } from "@/components/product/reviews"
 import { getProductBySlug, getRelatedProducts } from "@/lib/data"
 import { discountPercent } from "@/lib/utils"
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const product = getProductBySlug(slug)
+  if (!product) return {}
+
+  const description = product.description.slice(0, 158)
+
+  return {
+    title: `${product.title} — ${product.seller.name}`,
+    description,
+    alternates: { canonical: `/p/${product.slug}` },
+    openGraph: {
+      title: product.title,
+      description,
+      type: "website",
+      url: `/p/${product.slug}`,
+      images: product.images.length
+        ? [{ url: product.images[0], width: 1200, height: 1200, alt: product.title }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description,
+      images: product.images.length ? [product.images[0]] : undefined,
+    },
+  }
+}
+
 export default async function ProductPage({
   params,
 }: {
@@ -35,6 +69,59 @@ export default async function ProductPage({
   if (!product) notFound()
 
   const related = getRelatedProducts(slug)
+
+  // JSON-LD schema.org
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: product.images,
+    brand: { "@type": "Brand", name: product.seller.name },
+    sku: product.variants[0]?.sku ?? product.slug,
+    offers: {
+      "@type": "Offer",
+      url: `https://bazario.com/p/${product.slug}`,
+      priceCurrency: "EUR",
+      price: product.price.toFixed(2),
+      availability:
+        product.variants.reduce((s, v) => s + v.stock, 0) > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: product.seller.name },
+    },
+    aggregateRating:
+      product.reviewCount > 0
+        ? {
+            "@type": "AggregateRating",
+            ratingValue: product.rating.toFixed(1),
+            reviewCount: product.reviewCount,
+            bestRating: 5,
+            worstRating: 1,
+          }
+        : undefined,
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://bazario.com" },
+      ...product.categoryPath.map((label, i) => ({
+        "@type": "ListItem",
+        position: i + 2,
+        name: label,
+        item: `https://bazario.com/c/${label.toLowerCase().replace(/\s+/g, "-")}`,
+      })),
+      {
+        "@type": "ListItem",
+        position: product.categoryPath.length + 2,
+        name: product.title,
+        item: `https://bazario.com/p/${product.slug}`,
+      },
+    ],
+  }
+
   const galleryBadge = product.badges.includes("flash")
     ? {
         text: `Flash -${discountPercent(product.compareAtPrice ?? product.price, product.price)}%`,
@@ -48,6 +135,16 @@ export default async function ProductPage({
 
   return (
     <div className="bg-secondary/30">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="container py-6">
         {/* Breadcrumb */}
         <nav className="mb-4 text-xs text-muted-foreground" aria-label="Fil d'Ariane">

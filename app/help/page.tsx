@@ -1,4 +1,13 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Centre d'aide — Réponses 24/7",
+  description:
+    "Trouvez la réponse à toutes vos questions Bazario : commandes, livraison, retours, paiement, vendeurs. Notre équipe vous répond en moins d'une heure.",
+  alternates: { canonical: "/help" },
+}
+
 import {
   Search,
   Package,
@@ -18,7 +27,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-export const metadata = { title: "Centre d'aide Bazario" }
+
 
 const TOPICS = [
   {

@@ -43,9 +43,8 @@ const COL_VENDRE = [
 const COL_LEGAL = [
   { label: "Conditions générales", href: "/legal/terms" },
   { label: "Politique de confidentialité", href: "/legal/privacy" },
-  { label: "Cookies & consentements", href: "/legal/cookies" },
-  { label: "Mentions légales", href: "/legal/notices" },
-  { label: "RGPD", href: "/legal/gdpr" },
+  { label: "Politique cookies", href: "/legal/cookies" },
+  { label: "Mentions légales", href: "/legal/mentions" },
   { label: "Signaler un produit", href: "/help" },
 ]
 
@@ -134,10 +133,23 @@ export function Footer() {
 
       <div className="border-t bg-background">
         <div className="container flex flex-col items-start justify-between gap-4 py-6 md:flex-row md:items-center">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Bazario SAS. Tous droits réservés ·{" "}
-            <span className="font-medium">Bazario®</span> est une marque déposée.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground">
+            <p>
+              © {new Date().getFullYear()} Bazario SAS. Tous droits réservés ·{" "}
+              <span className="font-medium">Bazario®</span> est une marque déposée.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("bazario:open-cookies"))
+                }
+              }}
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              Gérer mes cookies
+            </button>
+          </div>
           <div className="flex flex-wrap items-center gap-2">
             {PAYMENT_METHODS.map((method) => (
               <span

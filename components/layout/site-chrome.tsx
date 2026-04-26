@@ -22,7 +22,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main className="min-h-[60vh] pb-16 md:pb-0">{children}</main>
+      <main id="main-content" tabIndex={-1} className="min-h-[60vh] pb-16 md:pb-0">
+        {children}
+      </main>
       <Footer />
       <MobileNav />
     </>

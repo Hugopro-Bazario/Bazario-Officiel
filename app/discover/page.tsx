@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { Sparkles, Clock, Bookmark, ArrowRight, Compass, TrendingUp, Heart } from "lucide-react"
@@ -5,6 +6,13 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { products, formatPrice } from "@/lib/data"
+
+export const metadata: Metadata = {
+  title: "Découvrir — Le Journal Bazario",
+  description:
+    "Inspirations, guides et coups de cœur sélectionnés par notre équipe : mode, maison, tech, beauté. Trouvez ce que vous cherchez et ce que vous ne cherchiez pas encore.",
+  alternates: { canonical: "/discover" },
+}
 
 const STORIES = [
   {
