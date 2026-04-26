@@ -415,3 +415,128 @@ export function searchProducts(query: string): Product[] {
 }
 
 export const FLASH_SALE_END = "2026-04-27T23:59:59"
+
+// ───────────────────── Convenience aliases & helpers ─────────────────────
+export const products = PRODUCTS
+export const sellers = SELLERS
+export const categories = CATEGORIES
+
+export function formatPrice(value: number, currency: string = "EUR", locale: string = "fr-FR"): string {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 2,
+  }).format(value)
+}
+
+// ───────────────────── Mock orders ─────────────────────
+export type OrderStatus = "pending" | "shipped" | "delivered" | "cancelled"
+
+export type Order = {
+  id: string
+  date: string
+  status: OrderStatus
+  statusLabel: string
+  total: number
+  trackingUrl?: string
+  items: { title: string; image: string; qty: number; price: number; sellerId: string }[]
+}
+
+export const mockOrders: Order[] = [
+  {
+    id: "BZ-20264102",
+    date: "12 avril 2026",
+    status: "delivered",
+    statusLabel: "Livrée",
+    total: 412.5,
+    items: [
+      {
+        title: "Casque audio sans fil bluetooth premium ANC",
+        image: "/product-headphones-1.jpg",
+        qty: 1,
+        price: 189,
+        sellerId: "techwave",
+      },
+      {
+        title: "Sneakers en cuir blanc minimaliste",
+        image: "/product-sneakers-1.jpg",
+        qty: 1,
+        price: 129,
+        sellerId: "lumen",
+      },
+    ],
+  },
+  {
+    id: "BZ-20264087",
+    date: "8 avril 2026",
+    status: "shipped",
+    statusLabel: "En cours de livraison",
+    total: 219,
+    trackingUrl: "#",
+    items: [
+      {
+        title: "Lampe de table en laiton brossé",
+        image: "/product-lamp-1.jpg",
+        qty: 1,
+        price: 219,
+        sellerId: "nordic",
+      },
+    ],
+  },
+  {
+    id: "BZ-20264055",
+    date: "2 avril 2026",
+    status: "pending",
+    statusLabel: "Préparation en cours",
+    total: 78,
+    items: [
+      {
+        title: "Sérum vitamine C éclat 30 ml",
+        image: "/product-serum-1.jpg",
+        qty: 2,
+        price: 39,
+        sellerId: "verte",
+      },
+    ],
+  },
+]
+
+// ───────────────────── Mock addresses ─────────────────────
+export type Address = {
+  id: string
+  label: string
+  fullName: string
+  line1: string
+  line2?: string
+  zip: string
+  city: string
+  country: string
+  phone: string
+  isDefault?: boolean
+}
+
+export const mockAddresses: Address[] = [
+  {
+    id: "addr-1",
+    label: "Domicile",
+    fullName: "Hugo Pro",
+    line1: "12 rue de la République",
+    line2: "Apt 4B",
+    zip: "75001",
+    city: "Paris",
+    country: "France",
+    phone: "+33 6 12 34 56 78",
+    isDefault: true,
+  },
+  {
+    id: "addr-2",
+    label: "Bureau",
+    fullName: "Hugo Pro",
+    line1: "55 avenue des Champs-Élysées",
+    zip: "75008",
+    city: "Paris",
+    country: "France",
+    phone: "+33 6 12 34 56 78",
+  },
+]
+

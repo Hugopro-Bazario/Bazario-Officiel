@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
 import { Suspense } from "react"
 import "./globals.css"
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
+import { SiteChrome } from "@/components/layout/site-chrome"
 import { CartProvider } from "@/lib/cart-store"
 
 const inter = Inter({
@@ -64,10 +63,8 @@ export default function RootLayout({
       <body className="min-h-screen font-sans antialiased">
         <CartProvider>
           <Suspense fallback={null}>
-            <Header />
+            <SiteChrome>{children}</SiteChrome>
           </Suspense>
-          <main>{children}</main>
-          <Footer />
         </CartProvider>
       </body>
     </html>
