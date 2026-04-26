@@ -10,3 +10,4 @@ git remote set-url origin https://github.com/Hugopro-Bazario/Bazario.git
 
 # 4. Pousser votre code
 git push -u origin main
+git pull
