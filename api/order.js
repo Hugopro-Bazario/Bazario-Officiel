@@ -1,8 +1,16 @@
-const OFFERS = {
-  travelOrganizer: { label: "Organisateur de voyage compact", price: 24.9 },
-  phoneStand: { label: "Support telephone pliable", price: 19.9 },
-  ledLamp: { label: "Lampe LED nomade", price: 32.9 }
-};
+const products = require("../src/data/products.json");
+
+const OFFERS = Object.fromEntries(
+  products
+    .filter((product) => product.active !== false)
+    .map((product) => [
+      product.id,
+      {
+        label: product.name,
+        price: product.price
+      }
+    ])
+);
 
 function cleanEnv(value) {
   if (typeof value !== "string") return "";

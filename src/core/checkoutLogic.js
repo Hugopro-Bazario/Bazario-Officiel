@@ -1,8 +1,7 @@
-export const AVAILABLE_OFFERS = Object.freeze({
-  "organisateur-voyage": { label: "Organisateur de voyage compact", price: 24.9 },
-  "support-telephone": { label: "Support téléphone pliable", price: 19.9 },
-  "lampe-led-nomade": { label: "Lampe LED nomade", price: 32.9 }
-});
+import { buildOfferMap } from "./productCatalog.js";
+import products from "../data/products.json" with { type: "json" };
+
+export const AVAILABLE_OFFERS = Object.freeze(buildOfferMap(products));
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
