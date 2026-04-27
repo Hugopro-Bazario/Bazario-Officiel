@@ -68,6 +68,26 @@
         margin-top: 1rem;
         padding: 0.8rem 1rem;
       }
+      button:disabled {
+        cursor: wait;
+        opacity: 0.7;
+      }
+      .status {
+        border-radius: 0.65rem;
+        display: none;
+        margin-top: 1rem;
+        padding: 0.75rem;
+      }
+      .status.success {
+        background: #ecfdf5;
+        color: #065f46;
+        display: block;
+      }
+      .status.error {
+        background: #fef2f2;
+        color: #991b1b;
+        display: block;
+      }
       p,
       li {
         color: #475569;
@@ -90,7 +110,7 @@
       </p>
       <section class="card">
         <h2>Envoyer une demande</h2>
-        <form action="mailto:support@bazario-official.com" method="post" enctype="text/plain">
+        <form id="contact-form" novalidate>
           <label for="name">Nom</label>
           <input id="name" name="name" autocomplete="name" required />
           <label for="email">Email</label>
@@ -104,7 +124,8 @@
           </select>
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="6" minlength="10" required></textarea>
-          <button type="submit">Envoyer</button>
+          <button id="contact-submit" type="submit">Envoyer</button>
+          <div id="contact-status" class="status" role="status" aria-live="polite"></div>
         </form>
       </section>
       <section>
@@ -119,5 +140,50 @@
     <footer>
       <div class="container"><a href="faq.html">FAQ</a> - <a href="mentions-legales.html">Mentions légales</a></div>
     </footer>
+    <script>
+      const contactForm = document.getElementById("contact-form");
+      const contactSubmit = document.getElementById("contact-submit");
+      const contactStatus = document.getElementById("contact-status");
+
+      function setContactStatus(type, message) {
+        contactStatus.className = "status " + type;
+        contactStatus.textContent = message;
+      }
+
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        contactSubmit.disabled = true;
+        setContactStatus("success", "Envoi en cours...");
+
+        const payload = {
+          name: contactForm.name.value,
+          email: contactForm.email.value,
+          topic: contactForm.topic.value,
+          message: contactForm.message.value
+        };
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || "Impossible d'envoyer le message.");
+
+          contactForm.reset();
+          setContactStatus(
+            "success",
+            data.warning
+              ? "Message enregistré côté site, mais l'email Brevo doit être configuré."
+              : "Message envoyé. Réponse annoncée sous 24 à 48h ouvrées."
+          );
+        } catch (error) {
+          setContactStatus("error", error.message || "Erreur inattendue.");
+        } finally {
+          contactSubmit.disabled = false;
+        }
+      });
+    </script>
   </body>
 </html>

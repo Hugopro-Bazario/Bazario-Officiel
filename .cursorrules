@@ -1,0 +1,20 @@
+You are working on Bazario Officiel, a French e-commerce project currently implemented as a Vite static site with Vercel serverless API routes.
+
+Priorities:
+- Keep the site indexable without JavaScript where possible.
+- Preserve clear trust signals: delivery delays, returns, support, legal pages and payment security.
+- Keep API secrets server-side only. Never expose Brevo, Stripe, CJ Dropshipping or Supabase service keys in client code.
+- Prefer small, testable changes that improve conversion, SEO, accessibility or operational readiness.
+- Run `npm test` and `npm run build` before shipping.
+
+Current stack:
+- Frontend: static HTML built by Vite.
+- API: Vercel serverless functions in `api/`.
+- Tests: Vitest unit tests in `tests/unit/`.
+- Planned integrations: Brevo, Stripe, CJDropshipping, Supabase.
+
+When adding pages:
+- Add canonical metadata.
+- Link from footer or sitemap when public.
+- Add the page to `vite.config.js` rollup inputs.
+- Keep copy honest: do not claim real inventory, reviews, fast delivery or payment integrations before they exist.

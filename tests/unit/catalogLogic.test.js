@@ -3,7 +3,9 @@ import {
   buildCategorySummary,
   getFeaturedProducts,
   isValidContactRequest,
-  normalizeCategoryName
+  normalizeCategoryName,
+  normalizeContactRequest,
+  validateContactRequest
 } from "../../src/core/catalogLogic";
 
 describe("normalizeCategoryName", () => {
@@ -61,6 +63,7 @@ describe("isValidContactRequest", () => {
       isValidContactRequest({
         name: "Hugo",
         email: "hugo@example.com",
+        topic: "commande",
         message: "Bonjour, je veux plus d'informations."
       })
     ).toBe(true);
@@ -71,8 +74,55 @@ describe("isValidContactRequest", () => {
       isValidContactRequest({
         name: "H",
         email: "not-an-email",
+        topic: "invalid",
         message: "short"
       })
     ).toBe(false);
+  });
+});
+
+describe("normalizeContactRequest", () => {
+  it("trims contact fields", () => {
+    expect(
+      normalizeContactRequest({
+        name: "  Hugo  ",
+        email: "  hugo@example.com ",
+        topic: " commande ",
+        message: "  Bonjour Bazario  "
+      })
+    ).toEqual({
+      name: "Hugo",
+      email: "hugo@example.com",
+      topic: "commande",
+      message: "Bonjour Bazario"
+    });
+  });
+});
+
+describe("validateContactRequest", () => {
+  it("returns normalized data and no errors for valid contact requests", () => {
+    const result = validateContactRequest({
+      name: "Hugo",
+      email: "hugo@example.com",
+      topic: "partenariat",
+      message: "Bonjour, je souhaite proposer un partenariat."
+    });
+
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toEqual([]);
+    expect(result.data.topic).toBe("partenariat");
+  });
+
+  it("rejects unknown topics and overly long messages", () => {
+    const result = validateContactRequest({
+      name: "Hugo",
+      email: "hugo@example.com",
+      topic: "spam",
+      message: "x".repeat(2001)
+    });
+
+    expect(result.isValid).toBe(false);
+    expect(result.errors).toContain("Sujet invalide");
+    expect(result.errors).toContain("Message trop long");
   });
 });
