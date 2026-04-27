@@ -13,5 +13,8 @@
   "devDependencies": {
     "vite": "^7.1.10",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
