@@ -85,7 +85,7 @@ export default async function ProductPage({
     sku: product.variants[0]?.sku ?? product.slug,
     offers: {
       "@type": "Offer",
-      url: `https://bazario.com/p/${product.slug}`,
+      url: `https://www.bazario-official.com/p/${product.slug}`,
       priceCurrency: "EUR",
       price: product.price.toFixed(2),
       availability:
@@ -110,18 +110,18 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://bazario.com" },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://www.bazario-official.com" },
       ...product.categoryPath.map((label, i) => ({
         "@type": "ListItem",
         position: i + 2,
         name: label,
-        item: `https://bazario.com/c/${label.toLowerCase().replace(/\s+/g, "-")}`,
+        item: `https://www.bazario-official.com/c/${label.toLowerCase().replace(/\s+/g, "-")}`,
       })),
       {
         "@type": "ListItem",
         position: product.categoryPath.length + 2,
         name: product.title,
-        item: `https://bazario.com/p/${product.slug}`,
+        item: `https://www.bazario-official.com/p/${product.slug}`,
       },
     ],
   }

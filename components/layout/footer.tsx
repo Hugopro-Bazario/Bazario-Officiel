@@ -24,10 +24,11 @@ const COL_DECOUVRIR = [
 
 const COL_AIDE = [
   { label: "Centre d'aide", href: "/help" },
+  { label: "FAQ", href: "/faq" },
   { label: "Suivi de commande", href: "/account/orders" },
-  { label: "Retours & remboursements", href: "/help" },
-  { label: "Paiement & sécurité", href: "/help" },
-  { label: "Modes de livraison", href: "/help" },
+  { label: "Retours & remboursements", href: "/faq#retours" },
+  { label: "Paiement & sécurité", href: "/faq#paiement" },
+  { label: "Modes de livraison", href: "/faq#livraison" },
   { label: "Nous contacter", href: "/contact" },
 ]
 

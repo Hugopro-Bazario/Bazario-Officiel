@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { products, categories } from "@/lib/data"
 
-const BASE_URL = "https://bazario.com"
+const BASE_URL = "https://www.bazario-official.com"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/premium`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/sell`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/help`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/login`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/signup`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },

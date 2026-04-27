@@ -75,9 +75,9 @@ export default async function SellerPage({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: seller.name,
-    url: `https://bazario.com/s/${seller.slug}`,
-    logo: `https://bazario.com${seller.logo}`,
-    image: `https://bazario.com${profile.cover}`,
+    url: `https://www.bazario-official.com/s/${seller.slug}`,
+    logo: `https://www.bazario-official.com${seller.logo}`,
+    image: `https://www.bazario-official.com${profile.cover}`,
     foundingDate: String(profile.founded),
     address: {
       "@type": "PostalAddress",

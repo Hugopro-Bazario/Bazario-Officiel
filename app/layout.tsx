@@ -7,6 +7,7 @@ import { CartProvider } from "@/lib/cart-store"
 import { WishlistProvider } from "@/lib/wishlist-store"
 import { RecentlyViewedProvider } from "@/lib/recently-viewed-store"
 import { CookieConsent } from "@/components/legal/cookie-consent"
+import { SiteJsonLd } from "@/components/seo/site-json-ld"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +27,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 })
 
-const siteUrl = "https://bazario.com"
+const siteUrl = "https://www.bazario-official.com"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -117,6 +118,7 @@ export default function RootLayout({
           </WishlistProvider>
         </RecentlyViewedProvider>
         <CookieConsent />
+        <SiteJsonLd />
       </body>
     </html>
   )
