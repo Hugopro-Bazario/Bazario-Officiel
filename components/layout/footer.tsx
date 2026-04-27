@@ -26,6 +26,7 @@ const COL_DECOUVRIR = [
 const COL_AIDE = [
   { label: "Centre d'aide", href: "/help" },
   { label: "FAQ", href: "/faq" },
+  { label: "Centre de confiance", href: "/trust" },
   { label: "Suivi de commande", href: "/track" },
   { label: "Retours & remboursements", href: "/faq#retours" },
   { label: "Paiement & sécurité", href: "/faq#paiement" },
