@@ -319,6 +319,19 @@
       const qtyInput = document.getElementById("quantity");
       const totalLine = document.getElementById("estimated-total");
 
+      function applyCheckoutParams() {
+        const params = new URLSearchParams(window.location.search);
+        const offer = params.get("offer");
+        const qty = Number.parseInt(params.get("qty") || "1", 10);
+
+        if (offer && OFFER_PRICES[offer]) {
+          offerIdInput.value = offer;
+        }
+        if (Number.isInteger(qty) && qty > 0) {
+          qtyInput.value = String(Math.min(qty, 20));
+        }
+      }
+
       function updateEstimatedTotal() {
         const offer = offerIdInput.value;
         const qty = Math.max(1, Number.parseInt(qtyInput.value || "1", 10));
@@ -376,6 +389,7 @@
         }
       });
 
+      applyCheckoutParams();
       updateEstimatedTotal();
     </script>
   </body>

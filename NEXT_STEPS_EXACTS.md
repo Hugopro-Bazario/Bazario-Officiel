@@ -113,10 +113,25 @@ Avant d'aller plus loin, prends ces décisions :
 Demande à l'agent :
 
 ```txt
-Ajoute 10 vrais produits Bazario dans le catalogue statique actuel, crée une fiche HTML indexable pour chaque produit prioritaire, mets à jour le sitemap, et aligne le checkout sur ces produits.
+Branche Stripe Checkout réel sur le panier actuel : crée /api/create-checkout-session, ajoute les variables Stripe, redirige depuis panier.html vers Stripe, puis ajoute un webhook /api/stripe-webhook pour confirmer les commandes.
 ```
 
-Objectif : passer du mini-catalogue démonstrateur à une vraie première sélection vendable avant d'envoyer du trafic.
+Objectif : passer du tunnel de simulation à un tunnel de paiement réellement vendable avant d'envoyer du trafic.
+
+## 7 bis. Plan Amazon-level
+
+Lis aussi `AMAZON_LEVEL_ROADMAP.md`. Il liste les chantiers par domaine :
+
+- UX/UI
+- logistique
+- paiement
+- catalogue
+- confiance
+- marketing
+- technologie/IA
+- vendeurs marketplace
+- international
+- financement
 
 ## 8. À ne pas faire tout de suite
 

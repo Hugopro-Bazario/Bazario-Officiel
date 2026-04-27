@@ -8,6 +8,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         checkout: resolve(__dirname, "checkout.html"),
         catalogue: resolve(__dirname, "catalogue.html"),
+        cart: resolve(__dirname, "panier.html"),
         productOrganizer: resolve(__dirname, "produit-organisateur-voyage.html"),
         about: resolve(__dirname, "a-propos.html"),
         faq: resolve(__dirname, "faq.html"),
