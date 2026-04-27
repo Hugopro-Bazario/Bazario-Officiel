@@ -18,6 +18,7 @@ const COL_DECOUVRIR = [
   { label: "Carrières", href: "/careers" },
   { label: "Salle de presse", href: "/press" },
   { label: "Le Mag Bazario", href: "/blog" },
+  { label: "Bazario+ (fidélité)", href: "/loyalty" },
   { label: "Bazario Premium", href: "/premium" },
   { label: "Bazario Coins", href: "/account/coins" },
 ]
@@ -25,7 +26,7 @@ const COL_DECOUVRIR = [
 const COL_AIDE = [
   { label: "Centre d'aide", href: "/help" },
   { label: "FAQ", href: "/faq" },
-  { label: "Suivi de commande", href: "/account/orders" },
+  { label: "Suivi de commande", href: "/track" },
   { label: "Retours & remboursements", href: "/faq#retours" },
   { label: "Paiement & sécurité", href: "/faq#paiement" },
   { label: "Modes de livraison", href: "/faq#livraison" },

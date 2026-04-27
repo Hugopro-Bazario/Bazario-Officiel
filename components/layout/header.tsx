@@ -6,7 +6,6 @@ import {
   Heart,
   User,
   MapPin,
-  Globe,
   Menu,
   ChevronDown,
   Store,
@@ -15,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/layout/logo"
 import { SearchBar } from "@/components/search/search-bar"
+import { RegionSwitcher } from "@/components/layout/region-switcher"
 import { CATEGORIES } from "@/lib/data"
 import { useCart } from "@/lib/cart-store"
 import { useWishlist } from "@/lib/wishlist-store"
@@ -31,15 +31,7 @@ export function Header() {
       <div className="hidden border-b bg-secondary/60 text-xs md:block">
         <div className="container flex h-9 items-center justify-between">
           <div className="flex items-center gap-4 text-muted-foreground">
-            <button className="inline-flex items-center gap-1 hover:text-foreground">
-              <Globe className="h-3.5 w-3.5" />
-              FR
-              <ChevronDown className="h-3 w-3" />
-            </button>
-            <button className="inline-flex items-center gap-1 hover:text-foreground">
-              EUR
-              <ChevronDown className="h-3 w-3" />
-            </button>
+            <RegionSwitcher />
             <span className="text-muted-foreground">Livraison gratuite dès 49 €</span>
           </div>
           <div className="flex items-center gap-4 text-muted-foreground">
