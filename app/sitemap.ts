@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { products, categories } from "@/lib/data"
+import { getAllPosts } from "@/lib/blog"
 
 const BASE_URL = "https://www.bazario-official.com"
 
@@ -42,5 +43,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes]
+  const blogIndex: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+  ]
+
+  const blogRoutes: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.75,
+  }))
+
+  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...blogIndex, ...blogRoutes]
 }

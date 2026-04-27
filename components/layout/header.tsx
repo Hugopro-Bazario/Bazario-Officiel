@@ -188,6 +188,12 @@ export function Header() {
             Découvrir
           </Link>
           <Link
+            href="/blog"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Journal
+          </Link>
+          <Link
             href="/sell"
             className="ml-auto hidden rounded-md px-3 py-2 text-sm font-medium text-accent hover:bg-accent/10 lg:inline-flex"
           >
