@@ -9,6 +9,7 @@ export default defineConfig({
         checkout: resolve(__dirname, "checkout.html"),
         catalogue: resolve(__dirname, "catalogue.html"),
         cart: resolve(__dirname, "panier.html"),
+        thanks: resolve(__dirname, "merci.html"),
         productOrganizer: resolve(__dirname, "produit-organisateur-voyage.html"),
         about: resolve(__dirname, "a-propos.html"),
         faq: resolve(__dirname, "faq.html"),

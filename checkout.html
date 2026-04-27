@@ -365,6 +365,23 @@
         };
 
         try {
+          const stripeResponse = await fetch("/api/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const stripeData = await stripeResponse.json();
+
+          if (stripeResponse.ok && stripeData.url) {
+            window.location.href = stripeData.url;
+            return;
+          }
+
+          if (stripeResponse.status !== 503) {
+            throw new Error(stripeData.error || "Impossible de créer le paiement Stripe.");
+          }
+
           const response = await fetch("/api/order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -380,7 +397,7 @@
           const warnings = Array.isArray(data.warnings) && data.warnings.length > 0 ? " (avec avertissements d'intégration)" : "";
           setStatus(
             "success",
-            "Commande créée : " + data.order.reference + " — Total " + data.order.totalAmount.toFixed(2).replace(".", ",") + " €" + warnings
+            "Mode test sans Stripe : commande créée " + data.order.reference + " — Total " + data.order.totalAmount.toFixed(2).replace(".", ",") + " €" + warnings
           );
         } catch (error) {
           setStatus("error", error.message || "Erreur inattendue.");
