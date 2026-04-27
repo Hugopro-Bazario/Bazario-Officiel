@@ -186,6 +186,18 @@ export function Header() {
             Journal
           </Link>
           <Link
+            href="/gift-cards"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Cartes cadeaux
+          </Link>
+          <Link
+            href="/why-bazario"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Pourquoi Bazario
+          </Link>
+          <Link
             href="/sell"
             className="ml-auto hidden rounded-md px-3 py-2 text-sm font-medium text-accent hover:bg-accent/10 lg:inline-flex"
           >

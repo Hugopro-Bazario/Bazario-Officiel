@@ -10,6 +10,8 @@ import { CookieConsent } from "@/components/legal/cookie-consent"
 import { SiteJsonLd } from "@/components/seo/site-json-ld"
 import { CurrencyProvider } from "@/lib/currency-context"
 import { SupportWidget } from "@/components/support/support-widget"
+import { LiveActivity } from "@/components/social-proof/live-activity"
+import { NewsletterPopup } from "@/components/marketing/newsletter-popup"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -133,6 +135,8 @@ export default function RootLayout({
         </CurrencyProvider>
         <CookieConsent />
         <SupportWidget />
+        <LiveActivity />
+        <NewsletterPopup />
         <SiteJsonLd />
       </body>
     </html>
