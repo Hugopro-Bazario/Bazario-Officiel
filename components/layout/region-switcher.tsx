@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ChevronDown, Globe, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useCurrency, SUPPORTED_CURRENCIES } from "@/lib/currency-context"
 
 const COUNTRIES = [
   { code: "FR", name: "France", flag: "🇫🇷", currency: "EUR" },
@@ -35,6 +36,7 @@ export function RegionSwitcher() {
   const [open, setOpen] = useState(false)
   const [country, setCountry] = useState<string>("FR")
   const [language, setLanguage] = useState<string>("fr")
+  const { setCurrency } = useCurrency()
 
   useEffect(() => {
     try {
@@ -75,6 +77,10 @@ export function RegionSwitcher() {
       )
     } catch {
       /* noop */
+    }
+    const meta = COUNTRIES.find((c) => c.code === nextCountry)
+    if (meta && SUPPORTED_CURRENCIES.includes(meta.currency)) {
+      setCurrency(meta.currency)
     }
   }
 

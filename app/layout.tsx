@@ -8,6 +8,8 @@ import { WishlistProvider } from "@/lib/wishlist-store"
 import { RecentlyViewedProvider } from "@/lib/recently-viewed-store"
 import { CookieConsent } from "@/components/legal/cookie-consent"
 import { SiteJsonLd } from "@/components/seo/site-json-ld"
+import { CurrencyProvider } from "@/lib/currency-context"
+import { SupportWidget } from "@/components/support/support-widget"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -108,16 +110,19 @@ export default function RootLayout({
         >
           Aller au contenu principal
         </a>
-        <RecentlyViewedProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <Suspense fallback={null}>
-                <SiteChrome>{children}</SiteChrome>
-              </Suspense>
-            </CartProvider>
-          </WishlistProvider>
-        </RecentlyViewedProvider>
+        <CurrencyProvider>
+          <RecentlyViewedProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <Suspense fallback={null}>
+                  <SiteChrome>{children}</SiteChrome>
+                </Suspense>
+              </CartProvider>
+            </WishlistProvider>
+          </RecentlyViewedProvider>
+        </CurrencyProvider>
         <CookieConsent />
+        <SupportWidget />
         <SiteJsonLd />
       </body>
     </html>

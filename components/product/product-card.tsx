@@ -16,8 +16,9 @@ import {
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { type Product } from "@/lib/data"
-import { formatPrice, discountPercent, cn } from "@/lib/utils"
+import { discountPercent, cn } from "@/lib/utils"
 import { useWishlist } from "@/lib/wishlist-store"
+import { Price } from "@/components/product/price"
 
 const BADGE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   flash: Zap,
@@ -156,13 +157,18 @@ export function ProductCard({
 
         <div className="mt-3 flex items-end justify-between gap-2">
           <div className="flex flex-col">
-            <span className="font-display text-xl font-bold leading-none text-foreground">
-              {formatPrice(product.price, product.currency)}
-            </span>
+            <Price
+              value={product.price}
+              baseCurrency={product.currency}
+              className="font-display text-xl font-bold leading-none text-foreground"
+            />
             {product.compareAtPrice && (
-              <span className="mt-0.5 text-xs text-muted-foreground line-through">
-                {formatPrice(product.compareAtPrice, product.currency)}
-              </span>
+              <Price
+                value={product.compareAtPrice}
+                baseCurrency={product.currency}
+                strike
+                className="mt-0.5 text-xs text-muted-foreground"
+              />
             )}
           </div>
           {lowStock && (
