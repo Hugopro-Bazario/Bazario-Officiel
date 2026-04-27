@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     images: [
       {
-        url: "/hero-summer.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Bazario — Marketplace mondiale",
@@ -69,7 +69,17 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bazario — Tout, mieux, partout.",
     description: "La marketplace mondiale qui connecte acheteurs et vendeurs de confiance.",
-    images: ["/hero-summer.jpg"],
+    images: ["/og-image.jpg"],
+  },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/icon-512.jpg",
+    apple: "/apple-icon.jpg",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Bazario",
   },
   robots: {
     index: true,

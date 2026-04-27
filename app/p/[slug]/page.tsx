@@ -20,6 +20,7 @@ import { ProductGallery } from "@/components/product/product-gallery"
 import { AddToCart } from "@/components/product/add-to-cart"
 import { ProductCard } from "@/components/product/product-card"
 import { ProductTabs } from "@/components/product/product-tabs"
+import { PriceCompare } from "@/components/product/price-compare"
 import {
   RecentlyViewedTracker,
   RecentlyViewedStrip,
@@ -335,6 +336,11 @@ export default async function ProductPage({
             <FrequentlyBought main={product} suggestions={related.slice(0, 2)} />
           </div>
         )}
+
+        {/* Price comparison vs competitors */}
+        <div className="mt-10">
+          <PriceCompare product={product} />
+        </div>
 
         {/* Tabs */}
         <div className="mt-10">

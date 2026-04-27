@@ -14,6 +14,7 @@ import { SocialProof } from "@/components/home/social-proof"
 import { Recommended } from "@/components/home/recommended"
 import { Newsletter } from "@/components/home/newsletter"
 import { RecentlyViewedStrip } from "@/components/product/recently-viewed"
+import { ForYou } from "@/components/home/for-you"
 
 export default function HomePage() {
   return (
@@ -24,6 +25,7 @@ export default function HomePage() {
       <FlashSales />
       <LiveDrops />
       <Trending />
+      <ForYou />
       <RecentlyViewedStrip />
       <PressBar />
       <PremiumBanner />
