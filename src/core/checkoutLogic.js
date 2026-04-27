@@ -1,7 +1,7 @@
 export const AVAILABLE_OFFERS = Object.freeze({
-  starter: { label: "Starter", price: 29.9 },
-  growth: { label: "Growth", price: 79.9 },
-  premium: { label: "Premium", price: 149.9 }
+  "organisateur-voyage": { label: "Organisateur de voyage compact", price: 24.9 },
+  "support-telephone": { label: "Support téléphone pliable", price: 19.9 },
+  "lampe-led-nomade": { label: "Lampe LED nomade", price: 32.9 }
 });
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -12,7 +12,7 @@ describe("checkoutLogic > normalizeCheckoutPayload", () => {
       fullName: "  Hugo Pro  ",
       email: "  hugo@mail.com ",
       quantity: "2",
-      offerId: "starter"
+      offerId: "organisateur-voyage"
     });
 
     expect(data.fullName).toBe("Hugo Pro");
@@ -23,12 +23,12 @@ describe("checkoutLogic > normalizeCheckoutPayload", () => {
 
 describe("checkoutLogic > calculateOrderTotal", () => {
   it("calculates total from offer and quantity", () => {
-    expect(calculateOrderTotal("growth", 2)).toBe(159.8);
+    expect(calculateOrderTotal("lampe-led-nomade", 2)).toBe(65.8);
   });
 
   it("returns 0 for invalid input", () => {
     expect(calculateOrderTotal("unknown", 2)).toBe(0);
-    expect(calculateOrderTotal("starter", 0)).toBe(0);
+    expect(calculateOrderTotal("organisateur-voyage", 0)).toBe(0);
   });
 });
 
@@ -41,7 +41,7 @@ describe("checkoutLogic > validateCheckoutPayload", () => {
       city: "Paris",
       country: "France",
       address: "10 rue Victor Hugo",
-      offerId: "premium",
+      offerId: "support-telephone",
       quantity: 1,
       note: "Livraison rapide"
     });
@@ -67,6 +67,10 @@ describe("checkoutLogic > validateCheckoutPayload", () => {
   });
 
   it("keeps offer ids aligned with configured offers", () => {
-    expect(Object.keys(AVAILABLE_OFFERS)).toEqual(["starter", "growth", "premium"]);
+    expect(Object.keys(AVAILABLE_OFFERS)).toEqual([
+      "organisateur-voyage",
+      "support-telephone",
+      "lampe-led-nomade"
+    ]);
   });
 });

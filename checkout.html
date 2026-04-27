@@ -188,22 +188,22 @@
         "itemListElement": [
           {
             "@type": "Offer",
-            "name": "Pack Starter",
-            "price": "29.90",
+            "name": "Organisateur de voyage compact",
+            "price": "24.90",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
           },
           {
             "@type": "Offer",
-            "name": "Pack Growth",
-            "price": "79.90",
+            "name": "Support téléphone pliable",
+            "price": "19.90",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
           },
           {
             "@type": "Offer",
-            "name": "Pack Premium",
-            "price": "149.90",
+            "name": "Lampe LED nomade",
+            "price": "32.90",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
           }
@@ -263,9 +263,9 @@
               <div class="field">
                 <label for="offerId">Offre</label>
                 <select id="offerId" name="offerId" required>
-                  <option value="starter">Starter — 29,90 €</option>
-                  <option value="growth">Growth — 79,90 €</option>
-                  <option value="premium">Premium — 149,90 €</option>
+                  <option value="organisateur-voyage">Organisateur de voyage compact — 24,90 €</option>
+                  <option value="support-telephone">Support téléphone pliable — 19,90 €</option>
+                  <option value="lampe-led-nomade">Lampe LED nomade — 32,90 €</option>
                 </select>
               </div>
               <div class="field">
@@ -291,7 +291,7 @@
           <h2>Résumé</h2>
           <p><strong>Pipeline :</strong> Frontend → `/api/order` → Brevo/CJ check.</p>
           <p><strong>Paiement :</strong> simulation de commande (pré-intégration Stripe checkout).</p>
-          <p id="estimated-total"><strong>Total estimé :</strong> 29,90 €</p>
+          <p id="estimated-total"><strong>Total estimé :</strong> 24,90 €</p>
           <p><strong>Sécurité :</strong> les clés API restent côté serveur.</p>
           <div class="trust-list">
             <strong>Garanties visibles</strong>
@@ -307,9 +307,9 @@
 
     <script>
       const OFFER_PRICES = {
-        starter: 29.9,
-        growth: 79.9,
-        premium: 149.9
+        "organisateur-voyage": 24.9,
+        "support-telephone": 19.9,
+        "lampe-led-nomade": 32.9
       };
 
       const form = document.getElementById("checkout-form");

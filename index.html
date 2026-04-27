@@ -240,6 +240,10 @@
         line-height: 1.6;
         margin: 0;
       }
+      .product-card a {
+        color: inherit;
+        text-decoration: none;
+      }
       .category-card {
         background: linear-gradient(180deg, #fff, var(--soft));
         min-height: 150px;
@@ -446,30 +450,35 @@
 
       <section id="best-sellers">
         <p class="section-kicker">Conversion</p>
-        <h2 class="section-title">Offres test disponibles</h2>
+        <h2 class="section-title">Premiers produits démonstrateurs</h2>
         <p class="section-text">
-          En attendant la synchronisation fournisseurs, ces offres servent à valider le tunnel de commande, les emails
-          Brevo et la qualité de l'expérience mobile.
+          Ces produits temporaires permettent de tester un parcours e-commerce plus concret avant la synchronisation
+          fournisseur. Ils devront être remplacés par le catalogue réel avant toute campagne payante.
         </p>
         <div class="product-grid">
           <article class="product-card">
-            <h3>Pack Starter</h3>
-            <p>Première commande test pour valider le formulaire, la notification et le suivi interne.</p>
-            <span class="price">29,90 € <span class="old-price">39,90 €</span></span>
-            <div class="rating" aria-label="Note 4,6 sur 5">4,6/5 - 18 avis pilotes</div>
+            <a href="produit-organisateur-voyage.html">
+              <h3>Organisateur de voyage compact</h3>
+              <p>Pochette multi-compartiments pour câbles, chargeurs et accessoires de déplacement.</p>
+              <span class="price">24,90 € <span class="old-price">34,90 €</span></span>
+              <div class="rating" aria-label="Note 4,6 sur 5">4,6/5 - 18 avis pilotes</div>
+            </a>
           </article>
           <article class="product-card">
-            <h3>Pack Growth</h3>
-            <p>Commande intermédiaire pour tester le panier avec quantité et montant plus élevé.</p>
-            <span class="price">79,90 € <span class="old-price">99,90 €</span></span>
-            <div class="rating" aria-label="Note 4,7 sur 5">4,7/5 - 11 avis pilotes</div>
+            <h3>Support téléphone pliable</h3>
+            <p>Support léger pour bureau, cuisine ou table de nuit, utile en vidéo et lecture.</p>
+            <span class="price">19,90 € <span class="old-price">29,90 €</span></span>
+            <div class="rating" aria-label="Note 4,5 sur 5">4,5/5 - 12 avis pilotes</div>
           </article>
           <article class="product-card">
-            <h3>Pack Premium</h3>
-            <p>Offre complète pour éprouver les confirmations et préparer le futur checkout Stripe.</p>
-            <span class="price">149,90 € <span class="old-price">179,90 €</span></span>
-            <div class="rating" aria-label="Note 4,8 sur 5">4,8/5 - 9 avis pilotes</div>
+            <h3>Lampe LED nomade</h3>
+            <p>Petite lampe rechargeable pour lecture, bureau d'appoint ou ambiance douce.</p>
+            <span class="price">32,90 € <span class="old-price">44,90 €</span></span>
+            <div class="rating" aria-label="Note 4,7 sur 5">4,7/5 - 9 avis pilotes</div>
           </article>
+        </div>
+        <div class="actions">
+          <a class="btn btn-secondary" href="catalogue.html">Voir le catalogue</a>
         </div>
       </section>
 
@@ -526,8 +535,8 @@
       <section class="cta">
         <h2 class="section-title">Prochaine étape technique</h2>
         <p class="section-text">
-          Brancher une vraie source catalogue, créer des fiches produits server-rendered et remplacer les offres test
-          par des produits réels avec données structurées Product/Offer.
+          Brancher une vraie source catalogue, enrichir les fiches produits démonstrateurs et connecter le checkout au
+          panier produit avant d'envoyer du trafic.
         </p>
       </section>
     </main>
@@ -548,6 +557,7 @@
         <div>
           <strong>Entreprise</strong>
           <a href="a-propos.html">À propos</a>
+          <a href="catalogue.html">Catalogue</a>
           <a href="checkout.html">Checkout</a>
           <a href="sitemap.xml">Sitemap</a>
         </div>

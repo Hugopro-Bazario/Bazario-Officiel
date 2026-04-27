@@ -7,6 +7,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         checkout: resolve(__dirname, "checkout.html"),
+        catalogue: resolve(__dirname, "catalogue.html"),
+        productOrganizer: resolve(__dirname, "produit-organisateur-voyage.html"),
         about: resolve(__dirname, "a-propos.html"),
         faq: resolve(__dirname, "faq.html"),
         returns: resolve(__dirname, "politique-de-retours.html"),

@@ -1,7 +1,7 @@
 const OFFERS = {
-  starter: { label: "Starter", price: 29.9 },
-  growth: { label: "Growth", price: 79.9 },
-  premium: { label: "Premium", price: 149.9 }
+  travelOrganizer: { label: "Organisateur de voyage compact", price: 24.9 },
+  phoneStand: { label: "Support telephone pliable", price: 19.9 },
+  ledLamp: { label: "Lampe LED nomade", price: 32.9 }
 };
 
 function cleanEnv(value) {

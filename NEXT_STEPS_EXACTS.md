@@ -75,9 +75,15 @@ Puis redéploie le site.
    - demande d'avis
 5. Note les IDs de templates dans un futur fichier `.env.example` si tu les utilises.
 
-## 6. Remplacer les offres test par un vrai catalogue
+## 6. Remplacer le mini-catalogue démonstrateur par un vrai catalogue
 
-Décision à prendre avant de coder :
+Le dépôt contient maintenant :
+
+- `/catalogue.html`
+- `/produit-organisateur-voyage.html`
+- trois produits démonstrateurs dans la home et le checkout.
+
+Avant d'aller plus loin, prends ces décisions :
 
 1. Choisir le fournisseur principal :
    - CJDropshipping
@@ -98,17 +104,19 @@ Décision à prendre avant de coder :
    - délai de livraison
    - fournisseur
    - SKU
-3. Créer ensuite une vraie page produit et une vraie page catégorie.
+3. Remplacer les trois produits démonstrateurs par les vrais produits du fournisseur.
+4. Ajouter une fiche statique ou dynamique pour chaque produit prioritaire.
+5. Garder les données structurées Product/Offer/BreadcrumbList sur chaque fiche.
 
 ## 7. Prochaine tâche code recommandée
 
 Demande à l'agent :
 
 ```txt
-Crée un catalogue statique temporaire Bazario dans src/data/products.js, une page categorie.html, une page product.html lisible sans JavaScript, et ajoute les données structurées Product/Offer/BreadcrumbList pour chaque produit test.
+Ajoute 10 vrais produits Bazario dans le catalogue statique actuel, crée une fiche HTML indexable pour chaque produit prioritaire, mets à jour le sitemap, et aligne le checkout sur ces produits.
 ```
 
-Objectif : remplacer les offres génériques Starter/Growth/Premium par de vrais produits démonstrateurs avant d'envoyer du trafic.
+Objectif : passer du mini-catalogue démonstrateur à une vraie première sélection vendable avant d'envoyer du trafic.
 
 ## 8. À ne pas faire tout de suite
 
