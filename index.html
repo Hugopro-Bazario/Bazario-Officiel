@@ -136,6 +136,58 @@
         line-height: 1.6;
         font-size: 0.95rem;
       }
+      .auth-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+        margin-top: 1.25rem;
+      }
+      .auth-form {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .field-input {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 0.6rem;
+        padding: 0.65rem 0.7rem;
+        font: inherit;
+      }
+      .inline-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .notice {
+        display: none;
+        margin-top: 0.65rem;
+        border-radius: 0.6rem;
+        padding: 0.6rem 0.7rem;
+        font-size: 0.9rem;
+      }
+      .notice.info {
+        display: block;
+        background: #eff6ff;
+        color: #1e3a8a;
+      }
+      .notice.success {
+        display: block;
+        background: #ecfdf5;
+        color: #065f46;
+      }
+      .notice.error {
+        display: block;
+        background: #fef2f2;
+        color: #991b1b;
+      }
+      .todo-list {
+        margin: 0.8rem 0 0;
+        padding-left: 1rem;
+        color: var(--text);
+      }
+      .todo-list li {
+        margin: 0.35rem 0;
+      }
       .cta {
         margin: 2rem 0 3rem;
         background: #0f172a;
@@ -172,7 +224,6 @@
         </nav>
       </div>
     </header>
-
     <main class="container">
       <section class="hero">
         <span class="badge">Nouveau</span>
@@ -186,7 +237,51 @@
           <a class="btn btn-secondary" href="checkout.html">Découvrir les offres</a>
         </div>
       </section>
-
+      <section>
+        <h2 class="section-title">Espace membre Supabase</h2>
+        <p class="section-text">
+          Authentifie-toi pour tester la session Supabase et charger les données de la table <code>todos</code>.
+        </p>
+        <div class="auth-grid">
+          <article class="card">
+            <h3 style="margin: 0 0 0.8rem">Connexion</h3>
+            <form id="auth-form" class="auth-form" novalidate>
+              <input
+                id="auth-email"
+                class="field-input"
+                type="email"
+                name="email"
+                placeholder="email@exemple.com"
+                autocomplete="email"
+                required
+              />
+              <input
+                id="auth-password"
+                class="field-input"
+                type="password"
+                name="password"
+                placeholder="Mot de passe"
+                autocomplete="current-password"
+                required
+              />
+              <div class="inline-actions">
+                <button type="submit" id="signin-btn" class="btn btn-primary">Se connecter</button>
+                <button type="button" id="signup-btn" class="btn btn-secondary">Créer un compte</button>
+                <button type="button" id="signout-btn" class="btn btn-secondary">Se déconnecter</button>
+              </div>
+            </form>
+            <p id="session-state" class="section-text" style="margin-top: 0.8rem"></p>
+            <div id="auth-feedback" class="notice"></div>
+          </article>
+          <article class="card">
+            <h3 style="margin: 0 0 0.8rem">Table <code>todos</code></h3>
+            <p class="section-text">Lecture directe via Supabase JS.</p>
+            <button type="button" id="refresh-todos" class="btn btn-secondary" style="margin-top: 0.8rem">Rafraîchir</button>
+            <div id="todos-feedback" class="notice"></div>
+            <ul id="todos-list" class="todo-list"></ul>
+          </article>
+        </div>
+      </section>
       <section>
         <h2 class="section-title">Ce que nous proposons</h2>
         <p class="section-text">
@@ -208,7 +303,6 @@
           </article>
         </div>
       </section>
-
       <section>
         <h2 class="section-title">Catégories en préparation</h2>
         <div class="cards">
@@ -226,15 +320,14 @@
           </article>
         </div>
       </section>
-
       <section class="cta">
         <h2 class="section-title">Prêt pour la suite ?</h2>
         <p>Le socle est en place : GitHub + Vercel + domaine personnalisé. On peut maintenant développer le site page par page.</p>
       </section>
     </main>
-
     <footer>
       <div class="container">© 2026 Bazario Officiel — Tous droits réservés.</div>
     </footer>
+    <script type="module" src="/src/index.js"></script>
   </body>
 </html>

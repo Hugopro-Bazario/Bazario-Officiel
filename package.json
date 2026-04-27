@@ -13,5 +13,9 @@
   "devDependencies": {
     "vite": "^7.1.10",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.104.1",
+    "stripe": "^22.1.0"
   }
 }

@@ -19,6 +19,8 @@
         --border: #e2e8f0;
         --success-bg: #ecfdf5;
         --success-text: #065f46;
+        --warning-bg: #fff7ed;
+        --warning-text: #9a3412;
         --error-bg: #fef2f2;
         --error-text: #991b1b;
       }
@@ -137,6 +139,11 @@
         background: var(--success-bg);
         color: var(--success-text);
       }
+      .status.warning {
+        display: block;
+        background: var(--warning-bg);
+        color: var(--warning-text);
+      }
       .status.error {
         display: block;
         background: var(--error-bg);
@@ -160,8 +167,8 @@
       <section class="intro">
         <h1>Tunnel de commande</h1>
         <p>
-          Complète ce formulaire pour créer une commande. La demande est traitée par l’API du projet, avec notification
-          Brevo et vérification de connectivité CJDropshipping.
+          Complète ce formulaire pour passer au paiement sécurisé Stripe. Une fois le paiement confirmé, la commande est
+          enregistrée puis envoyée vers le flux logistique dropshipping.
         </p>
       </section>
 
@@ -201,9 +208,9 @@
               <div class="field">
                 <label for="offerId">Offre</label>
                 <select id="offerId" name="offerId" required>
-                  <option value="starter">Starter — 29,90 €</option>
-                  <option value="growth">Growth — 79,90 €</option>
-                  <option value="premium">Premium — 149,90 €</option>
+                  <option value="organisateur-voyage">Organisateur de voyage compact — 24,90 €</option>
+                  <option value="support-telephone">Support téléphone pliable — 19,90 €</option>
+                  <option value="lampe-led-nomade">Lampe LED nomade — 32,90 €</option>
                 </select>
               </div>
               <div class="field">
@@ -215,26 +222,27 @@
               <label for="note">Note (optionnel)</label>
               <textarea id="note" name="note" rows="3" maxlength="500"></textarea>
             </div>
-            <button class="submit" id="submit-btn" type="submit">Confirmer la commande</button>
+            <button class="submit" id="submit-btn" type="submit">Payer maintenant</button>
             <div id="status" class="status"></div>
           </form>
         </article>
 
         <aside class="card summary">
           <h2>Résumé</h2>
-          <p><strong>Pipeline :</strong> Frontend → `/api/order` → Brevo/CJ check.</p>
-          <p><strong>Paiement :</strong> simulation de commande (pré-intégration Stripe checkout).</p>
-          <p id="estimated-total"><strong>Total estimé :</strong> 29,90 €</p>
+          <p><strong>Pipeline :</strong> Frontend → `/api/stripe/checkout-session` → Stripe Checkout.</p>
+          <p><strong>Paiement :</strong> paiement sécurisé Stripe (carte, wallet selon disponibilité).</p>
+          <p id="estimated-total"><strong>Total estimé :</strong> 24,90 €</p>
           <p><strong>Sécurité :</strong> les clés API restent côté serveur.</p>
+          <p id="supabase-session-status"><strong>Session Supabase :</strong> vérification...</p>
         </aside>
       </section>
     </main>
 
     <script>
       const OFFER_PRICES = {
-        starter: 29.9,
-        growth: 79.9,
-        premium: 149.9
+        "organisateur-voyage": 24.9,
+        "support-telephone": 19.9,
+        "lampe-led-nomade": 32.9
       };
 
       const form = document.getElementById("checkout-form");
@@ -262,22 +270,23 @@
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         submitBtn.disabled = true;
-        setStatus("success", "Traitement en cours...");
+        setStatus("success", "Redirection vers Stripe...");
 
         const payload = {
+          offer_id: form.offerId.value,
+          quantity: Number.parseInt(form.quantity.value || "1", 10),
+          customer_email: form.email.value,
           fullName: form.fullName.value,
           email: form.email.value,
           phone: form.phone.value,
           city: form.city.value,
           country: form.country.value,
           address: form.address.value,
-          offerId: form.offerId.value,
-          quantity: Number.parseInt(form.quantity.value || "1", 10),
           note: form.note.value
         };
 
         try {
-          const response = await fetch("/api/order", {
+          const response = await fetch("/api/stripe/checkout-session", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -288,20 +297,20 @@
           if (!response.ok) {
             throw new Error(data.error || "La commande a échoué.");
           }
-
-          const warnings = Array.isArray(data.warnings) && data.warnings.length > 0 ? " (avec avertissements d'intégration)" : "";
-          setStatus(
-            "success",
-            "Commande créée : " + data.order.reference + " — Total " + data.order.totalAmount.toFixed(2).replace(".", ",") + " €" + warnings
-          );
+          if (!data.url) throw new Error("Session Stripe créée sans URL de redirection.");
+          window.location.href = data.url;
         } catch (error) {
           setStatus("error", error.message || "Erreur inattendue.");
-        } finally {
           submitBtn.disabled = false;
+        } finally {
+          if (statusBox.className.includes("error")) {
+            submitBtn.disabled = false;
+          }
         }
       });
 
       updateEstimatedTotal();
     </script>
+    <script type="module" src="/src/checkout.js"></script>
   </body>
 </html>

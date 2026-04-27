@@ -3,6 +3,8 @@ const OFFERS = {
   growth: { label: "Growth", price: 79.9 },
   premium: { label: "Premium", price: 149.9 }
 };
+const DEFAULT_BREVO_BASE_URL = "https://api.brevo.com/v3";
+const DEFAULT_CJ_BASE_URL = "https://developers.cjdropshipping.com/api2.0/v1";
 
 function cleanEnv(value) {
   if (typeof value !== "string") return "";
@@ -14,6 +16,25 @@ function parseJsonSafely(input) {
     return JSON.parse(input);
   } catch {
     return null;
+  }
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 9000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -96,6 +117,7 @@ function buildOrder(normalized) {
 async function sendBrevoNotification(order) {
   const apiKey = cleanEnv(process.env.BREVO_API_KEY);
   const senderEmail = cleanEnv(process.env.BREVO_SENDER_EMAIL);
+  const baseUrl = cleanEnv(process.env.BREVO_BASE_URL) || DEFAULT_BREVO_BASE_URL;
 
   if (!apiKey || !senderEmail) {
     return { ok: false, code: "BREVO_CONFIG_MISSING" };
@@ -108,19 +130,19 @@ async function sendBrevoNotification(order) {
     subject: `Nouvelle commande ${order.reference}`,
     htmlContent: `
       <h3>Nouvelle commande Bazario</h3>
-      <p><strong>Référence :</strong> ${order.reference}</p>
-      <p><strong>Offre :</strong> ${order.offerLabel}</p>
+      <p><strong>Référence :</strong> ${escapeHtml(order.reference)}</p>
+      <p><strong>Offre :</strong> ${escapeHtml(order.offerLabel)}</p>
       <p><strong>Quantité :</strong> ${order.quantity}</p>
       <p><strong>Total :</strong> ${order.totalAmount} ${order.currency}</p>
-      <p><strong>Client :</strong> ${order.customer.fullName} (${order.customer.email})</p>
-      <p><strong>Téléphone :</strong> ${order.customer.phone}</p>
-      <p><strong>Adresse :</strong> ${order.customer.address}, ${order.customer.city}, ${order.customer.country}</p>
-      <p><strong>Note :</strong> ${order.customer.note || "Aucune"}</p>
+      <p><strong>Client :</strong> ${escapeHtml(order.customer.fullName)} (${escapeHtml(order.customer.email)})</p>
+      <p><strong>Téléphone :</strong> ${escapeHtml(order.customer.phone)}</p>
+      <p><strong>Adresse :</strong> ${escapeHtml(order.customer.address)}, ${escapeHtml(order.customer.city)}, ${escapeHtml(order.customer.country)}</p>
+      <p><strong>Note :</strong> ${escapeHtml(order.customer.note || "Aucune")}</p>
     `
   };
 
   try {
-    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    const response = await fetchWithTimeout(`${baseUrl.replace(/\/$/, "")}/smtp/email`, {
       method: "POST",
       headers: {
         "api-key": apiKey,
@@ -128,30 +150,35 @@ async function sendBrevoNotification(order) {
         accept: "application/json"
       },
       body: JSON.stringify(payload)
-    });
+    }, 10000);
 
-    return response.ok
-      ? { ok: true }
-      : { ok: false, code: `BREVO_HTTP_${response.status}` };
-  } catch {
+    if (response.ok) return { ok: true };
+
+    const errorBody = await response.json().catch(() => null);
+    const providerCode = errorBody?.code ? `_${String(errorBody.code).toUpperCase()}` : "";
+    return { ok: false, code: `BREVO_HTTP_${response.status}${providerCode}` };
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      return { ok: false, code: "BREVO_TIMEOUT" };
+    }
     return { ok: false, code: "BREVO_NETWORK_ERROR" };
   }
 }
 
 async function validateCjConnection() {
   const apiKey = cleanEnv(process.env.CJ_API_KEY) || cleanEnv(process.env.CJ_API_SECRET);
-  const baseUrl = cleanEnv(process.env.CJ_API_BASE_URL);
+  const baseUrl = cleanEnv(process.env.CJ_API_BASE_URL) || DEFAULT_CJ_BASE_URL;
 
-  if (!apiKey || !baseUrl) {
+  if (!apiKey) {
     return { ok: false, code: "CJ_CONFIG_MISSING" };
   }
 
   try {
-    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/authentication/getAccessToken`, {
+    const response = await fetchWithTimeout(`${baseUrl.replace(/\/$/, "")}/authentication/getAccessToken`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ apiKey })
-    });
+    }, 8000);
 
     const data = await response.json().catch(() => ({}));
     const success = response.ok && Number(data.code) === 200 && data.success === true;
@@ -159,7 +186,10 @@ async function validateCjConnection() {
     return success
       ? { ok: true }
       : { ok: false, code: `CJ_AUTH_FAILED_${data.code ?? response.status}` };
-  } catch {
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      return { ok: false, code: "CJ_TIMEOUT" };
+    }
     return { ok: false, code: "CJ_NETWORK_ERROR" };
   }
 }
