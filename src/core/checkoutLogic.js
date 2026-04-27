@@ -1,8 +1,7 @@
-export const AVAILABLE_OFFERS = Object.freeze({
-  starter: { label: "Starter", price: 29.9 },
-  growth: { label: "Growth", price: 79.9 },
-  premium: { label: "Premium", price: 149.9 }
-});
+import { buildOfferMap } from "./productCatalog.js";
+import products from "../data/products.json" with { type: "json" };
+
+export const AVAILABLE_OFFERS = Object.freeze(buildOfferMap(products));
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

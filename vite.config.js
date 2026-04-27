@@ -6,7 +6,19 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        checkout: resolve(__dirname, "checkout.html")
+        checkout: resolve(__dirname, "checkout.html"),
+        catalogue: resolve(__dirname, "catalogue.html"),
+        cart: resolve(__dirname, "panier.html"),
+        thanks: resolve(__dirname, "merci.html"),
+        productOrganizer: resolve(__dirname, "produit-organisateur-voyage.html"),
+        about: resolve(__dirname, "a-propos.html"),
+        faq: resolve(__dirname, "faq.html"),
+        returns: resolve(__dirname, "politique-de-retours.html"),
+        delivery: resolve(__dirname, "delais-de-livraison.html"),
+        contact: resolve(__dirname, "contact.html"),
+        terms: resolve(__dirname, "cgv.html"),
+        legal: resolve(__dirname, "mentions-legales.html"),
+        privacy: resolve(__dirname, "politique-de-confidentialite.html")
       }
     }
   }

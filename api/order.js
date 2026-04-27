@@ -1,8 +1,16 @@
-const OFFERS = {
-  starter: { label: "Starter", price: 29.9 },
-  growth: { label: "Growth", price: 79.9 },
-  premium: { label: "Premium", price: 149.9 }
-};
+const products = require("../src/data/products.json");
+
+const OFFERS = Object.fromEntries(
+  products
+    .filter((product) => product.active !== false)
+    .map((product) => [
+      product.id,
+      {
+        label: product.name,
+        price: product.price
+      }
+    ])
+);
 
 function cleanEnv(value) {
   if (typeof value !== "string") return "";
@@ -15,6 +23,15 @@ function parseJsonSafely(input) {
   } catch {
     return null;
   }
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 async function parseBody(req) {
@@ -108,14 +125,14 @@ async function sendBrevoNotification(order) {
     subject: `Nouvelle commande ${order.reference}`,
     htmlContent: `
       <h3>Nouvelle commande Bazario</h3>
-      <p><strong>Référence :</strong> ${order.reference}</p>
-      <p><strong>Offre :</strong> ${order.offerLabel}</p>
-      <p><strong>Quantité :</strong> ${order.quantity}</p>
-      <p><strong>Total :</strong> ${order.totalAmount} ${order.currency}</p>
-      <p><strong>Client :</strong> ${order.customer.fullName} (${order.customer.email})</p>
-      <p><strong>Téléphone :</strong> ${order.customer.phone}</p>
-      <p><strong>Adresse :</strong> ${order.customer.address}, ${order.customer.city}, ${order.customer.country}</p>
-      <p><strong>Note :</strong> ${order.customer.note || "Aucune"}</p>
+      <p><strong>Référence :</strong> ${escapeHtml(order.reference)}</p>
+      <p><strong>Offre :</strong> ${escapeHtml(order.offerLabel)}</p>
+      <p><strong>Quantité :</strong> ${escapeHtml(order.quantity)}</p>
+      <p><strong>Total :</strong> ${escapeHtml(order.totalAmount)} ${escapeHtml(order.currency)}</p>
+      <p><strong>Client :</strong> ${escapeHtml(order.customer.fullName)} (${escapeHtml(order.customer.email)})</p>
+      <p><strong>Téléphone :</strong> ${escapeHtml(order.customer.phone)}</p>
+      <p><strong>Adresse :</strong> ${escapeHtml(order.customer.address)}, ${escapeHtml(order.customer.city)}, ${escapeHtml(order.customer.country)}</p>
+      <p><strong>Note :</strong> ${escapeHtml(order.customer.note || "Aucune")}</p>
     `
   };
 

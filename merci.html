@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Confirmation de commande Bazario Officiel après paiement Stripe." />
+    <link rel="canonical" href="https://www.bazario-official.com/merci.html" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Merci pour votre commande | Bazario</title>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="index.html">Bazario Officiel</a>
+        <nav aria-label="Navigation principale">
+          <a href="catalogue.html">Catalogue</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <p class="kicker">Commande reçue</p>
+        <h1>Merci, votre paiement est en cours de confirmation.</h1>
+        <p class="lead">
+          Si Stripe confirme le paiement, Bazario enregistrera la commande via le webhook et l'email de confirmation sera
+          déclenché. Gardez votre email ouvert pour la suite.
+        </p>
+      </section>
+      <section class="panel">
+        <h2>Que se passe-t-il maintenant ?</h2>
+        <ol>
+          <li>Stripe confirme le paiement de façon sécurisée.</li>
+          <li>La commande passe au statut payé côté serveur.</li>
+          <li>Vous recevez les informations de confirmation et de suivi quand elles sont disponibles.</li>
+        </ol>
+        <p id="session-info" class="note"></p>
+        <a class="button" href="catalogue.html">Continuer mes achats</a>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <a href="politique-de-retours.html">Retours</a>
+        <a href="delais-de-livraison.html">Livraison</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </footer>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+      if (sessionId) {
+        document.getElementById("session-info").textContent = "Session Stripe : " + sessionId;
+      }
+    </script>
+  </body>
+</html>

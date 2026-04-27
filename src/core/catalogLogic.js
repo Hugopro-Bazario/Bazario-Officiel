@@ -30,16 +30,36 @@ export function getFeaturedProducts(products, max = 3) {
     .slice(0, max);
 }
 
+export function normalizeContactRequest(payload) {
+  const input = payload && typeof payload === "object" ? payload : {};
+
+  return {
+    name: String(input.name ?? "").trim(),
+    email: String(input.email ?? "").trim(),
+    topic: String(input.topic ?? "").trim(),
+    message: String(input.message ?? "").trim()
+  };
+}
+
+export function validateContactRequest(payload) {
+  const data = normalizeContactRequest(payload);
+  const errors = [];
+
+  if (data.name.length < 2) errors.push("Nom invalide");
+  if (!EMAIL_PATTERN.test(data.email)) errors.push("Email invalide");
+  if (!["commande", "livraison", "retour", "partenariat", "autre"].includes(data.topic)) {
+    errors.push("Sujet invalide");
+  }
+  if (data.message.length < 10) errors.push("Message trop court");
+  if (data.message.length > 2000) errors.push("Message trop long");
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+    data
+  };
+}
+
 export function isValidContactRequest(payload) {
-  if (!payload || typeof payload !== "object") return false;
-
-  const name = String(payload.name ?? "").trim();
-  const email = String(payload.email ?? "").trim();
-  const message = String(payload.message ?? "").trim();
-
-  if (name.length < 2) return false;
-  if (!EMAIL_PATTERN.test(email)) return false;
-  if (message.length < 10) return false;
-
-  return true;
+  return validateContactRequest(payload).isValid;
 }

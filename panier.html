@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Panier Bazario Officiel : verifiez vos produits, ajustez les quantites et passez au checkout."
+    />
+    <link rel="canonical" href="https://www.bazario-official.com/panier.html" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Panier | Bazario Officiel</title>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="index.html">Bazario Officiel</a>
+        <nav aria-label="Navigation principale">
+          <a href="catalogue.html">Catalogue</a>
+          <a href="checkout.html">Checkout</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <p class="kicker">Panier</p>
+        <h1>Validez votre selection.</h1>
+        <p class="lead">
+          Cette page garde un panier local simple pour tester le parcours avant Stripe, stock temps reel et compte client.
+        </p>
+      </section>
+
+      <section class="commerce-layout">
+        <div class="card">
+          <h2>Vos produits</h2>
+          <div id="cart-items" class="cart-items"></div>
+          <p id="empty-cart" class="note">Votre panier est vide. Ajoutez un produit depuis le catalogue.</p>
+          <a class="button button-secondary" href="catalogue.html">Continuer mes achats</a>
+        </div>
+
+        <aside class="card sticky-summary">
+          <h2>Resume</h2>
+          <p id="cart-total" class="price-line">0,00 EUR</p>
+          <ul>
+            <li>Paiement securise a brancher via Stripe.</li>
+            <li>Retours sous 14 jours.</li>
+            <li>Support francophone.</li>
+          </ul>
+          <a id="checkout-link" class="button" href="checkout.html">Passer au checkout</a>
+          <button id="clear-cart" class="button button-secondary" type="button">Vider le panier</button>
+        </aside>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <a href="politique-de-retours.html">Retours</a>
+        <a href="delais-de-livraison.html">Livraison</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+
+    <script>
+      const PRODUCTS = {
+        "organisateur-voyage": { name: "Organisateur de voyage compact", price: 24.9 },
+        "support-telephone": { name: "Support telephone pliable", price: 19.9 },
+        "lampe-led-nomade": { name: "Lampe LED nomade", price: 32.9 }
+      };
+      const CART_KEY = "bazario_cart";
+      const cartItems = document.getElementById("cart-items");
+      const emptyCart = document.getElementById("empty-cart");
+      const cartTotal = document.getElementById("cart-total");
+      const checkoutLink = document.getElementById("checkout-link");
+      const clearCart = document.getElementById("clear-cart");
+
+      function formatPrice(value) {
+        return value.toFixed(2).replace(".", ",") + " EUR";
+      }
+
+      function loadCart() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      }
+
+      function renderCart() {
+        const cart = loadCart().filter((item) => PRODUCTS[item.id]);
+        saveCart(cart);
+        cartItems.innerHTML = "";
+        emptyCart.style.display = cart.length ? "none" : "block";
+
+        let total = 0;
+        for (const item of cart) {
+          const product = PRODUCTS[item.id];
+          const quantity = Math.min(Math.max(Number.parseInt(item.quantity, 10) || 1, 1), 20);
+          total += product.price * quantity;
+          const row = document.createElement("article");
+          row.className = "cart-row";
+          row.innerHTML = `
+            <div>
+              <strong>${product.name}</strong>
+              <p>${formatPrice(product.price)} x ${quantity}</p>
+            </div>
+            <div class="cart-actions">
+              <button type="button" data-action="minus" data-id="${item.id}">-</button>
+              <span>${quantity}</span>
+              <button type="button" data-action="plus" data-id="${item.id}">+</button>
+              <button type="button" data-action="remove" data-id="${item.id}">Supprimer</button>
+            </div>
+          `;
+          cartItems.appendChild(row);
+        }
+
+        cartTotal.textContent = formatPrice(total);
+        const firstItem = cart[0];
+        checkoutLink.href = firstItem
+          ? `checkout.html?offer=${encodeURIComponent(firstItem.id)}&qty=${encodeURIComponent(firstItem.quantity || 1)}`
+          : "checkout.html";
+      }
+
+      cartItems.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+        const cart = loadCart();
+        const item = cart.find((entry) => entry.id === button.dataset.id);
+        if (!item) return;
+
+        if (button.dataset.action === "plus") item.quantity = Math.min((item.quantity || 1) + 1, 20);
+        if (button.dataset.action === "minus") item.quantity = Math.max((item.quantity || 1) - 1, 1);
+        if (button.dataset.action === "remove") {
+          saveCart(cart.filter((entry) => entry.id !== button.dataset.id));
+        } else {
+          saveCart(cart);
+        }
+        renderCart();
+      });
+
+      clearCart.addEventListener("click", () => {
+        saveCart([]);
+        renderCart();
+      });
+
+      renderCart();
+    </script>
+  </body>
+</html>

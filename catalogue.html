@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Catalogue Bazario Officiel avec recherche rapide, filtres, tri, panier local et produits demonstrateurs."
+    />
+    <link rel="canonical" href="https://www.bazario-official.com/catalogue.html" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Catalogue | Bazario Officiel</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Catalogue Bazario",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://www.bazario-official.com/produit-organisateur-voyage.html",
+            "name": "Organisateur de voyage compact"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://www.bazario-official.com/catalogue.html#support-telephone",
+            "name": "Support telephone pliable"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://www.bazario-official.com/catalogue.html#lampe-led-nomade",
+            "name": "Lampe LED nomade"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="brand" href="index.html">Bazario Officiel</a>
+        <nav aria-label="Navigation principale">
+          <a href="index.html">Accueil</a>
+          <a href="catalogue.html">Catalogue</a>
+          <a href="panier.html">Panier <span id="cart-count" class="pill">0</span></a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero catalog-hero">
+        <div>
+          <p class="kicker">Catalogue pilote</p>
+          <h1>Recherche rapide, choix clair, achat simple.</h1>
+          <p class="lead">
+            Cette page pose le comportement attendu d'un grand site e-commerce : trouver vite, filtrer, comparer, ajouter
+            au panier et passer au checkout sans friction.
+          </p>
+        </div>
+        <div class="panel">
+          <strong>Objectif traction</strong>
+          <p>Remplacer ces produits demonstrateurs par des references fournisseur validees avant publicite.</p>
+        </div>
+      </section>
+
+      <section class="trust-strip" aria-label="Avantages Bazario">
+        <span>Livraison suivie</span>
+        <span>Retours 14 jours</span>
+        <span>Paiement securise a brancher Stripe</span>
+        <span>Support francophone</span>
+      </section>
+
+      <section class="catalog-tools" aria-label="Recherche et filtres">
+        <label>
+          Rechercher
+          <input id="search-input" type="search" placeholder="Produit, categorie, usage..." autocomplete="off" />
+        </label>
+        <label>
+          Categorie
+          <select id="category-filter">
+            <option value="">Toutes</option>
+            <option value="Maison pratique">Maison pratique</option>
+            <option value="Tech & mobilite">Tech & mobilite</option>
+          </select>
+        </label>
+        <label>
+          Trier
+          <select id="sort-select">
+            <option value="score-desc">Recommande</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix decroissant</option>
+            <option value="name-asc">Nom A-Z</option>
+          </select>
+        </label>
+      </section>
+
+      <p id="result-count" class="note" aria-live="polite"></p>
+
+      <section id="product-grid" class="grid" aria-label="Produits">
+        <article
+          class="card product-card"
+          id="organisateur-voyage"
+          data-id="organisateur-voyage"
+          data-name="Organisateur de voyage compact"
+          data-category="Maison pratique"
+          data-price="24.90"
+          data-score="94"
+          data-url="produit-organisateur-voyage.html"
+        >
+          <p class="kicker">Maison pratique</p>
+          <h2>Organisateur de voyage compact</h2>
+          <p>Pochette multi-compartiments pour cables, chargeurs et accessoires.</p>
+          <p><strong>24,90 EUR</strong> <span class="note">au lieu de 34,90 EUR</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="produit-organisateur-voyage.html">Voir</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="support-telephone"
+          data-id="support-telephone"
+          data-name="Support telephone pliable"
+          data-category="Tech & mobilite"
+          data-price="19.90"
+          data-score="87"
+          data-url="catalogue.html#support-telephone"
+        >
+          <p class="kicker">Tech & mobilite</p>
+          <h2>Support telephone pliable</h2>
+          <p>Support leger pour bureau, cuisine ou table de nuit. Bon produit d'appel.</p>
+          <p><strong>19,90 EUR</strong> <span class="note">au lieu de 29,90 EUR</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=support-telephone">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="lampe-led-nomade"
+          data-id="lampe-led-nomade"
+          data-name="Lampe LED nomade"
+          data-category="Maison pratique"
+          data-price="32.90"
+          data-score="90"
+          data-url="catalogue.html#lampe-led-nomade"
+        >
+          <p class="kicker">Maison pratique</p>
+          <h2>Lampe LED nomade</h2>
+          <p>Petite lampe rechargeable pour lecture, bureau d'appoint ou ambiance douce.</p>
+          <p><strong>32,90 EUR</strong> <span class="note">au lieu de 44,90 EUR</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=lampe-led-nomade">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Pour devenir meilleur qu'un grand generaliste</h2>
+        <ul>
+          <li>Moins de bruit : selection utile, fiches claires, promesses verifiees.</li>
+          <li>Plus de confiance : delais, retours et support visibles avant achat.</li>
+          <li>Plus de vitesse : pages statiques, recherche instantanee, checkout direct.</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <a href="faq.html">FAQ</a>
+        <a href="politique-de-retours.html">Retours</a>
+        <a href="mentions-legales.html">Mentions legales</a>
+      </div>
+    </footer>
+    <script>
+      const CART_KEY = "bazario_cart";
+      const cards = [...document.querySelectorAll(".product-card")];
+      const searchInput = document.getElementById("search-input");
+      const categoryFilter = document.getElementById("category-filter");
+      const sortSelect = document.getElementById("sort-select");
+      const resultCount = document.getElementById("result-count");
+      const grid = document.getElementById("product-grid");
+      const cartCount = document.getElementById("cart-count");
+
+      function readCart() {
+        try {
+          return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeCart(items) {
+        localStorage.setItem(CART_KEY, JSON.stringify(items));
+        updateCartCount();
+      }
+
+      function updateCartCount() {
+        const total = readCart().reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = String(total);
+      }
+
+      function normalize(value) {
+        return String(value || "").toLowerCase();
+      }
+
+      function applyFilters() {
+        const query = normalize(searchInput.value);
+        const category = categoryFilter.value;
+        const sorted = [...cards].sort((a, b) => {
+          if (sortSelect.value === "price-asc") return Number(a.dataset.price) - Number(b.dataset.price);
+          if (sortSelect.value === "price-desc") return Number(b.dataset.price) - Number(a.dataset.price);
+          if (sortSelect.value === "name-asc") return a.dataset.name.localeCompare(b.dataset.name);
+          return Number(b.dataset.score) - Number(a.dataset.score);
+        });
+
+        let visible = 0;
+        sorted.forEach((card) => {
+          const text = normalize([card.dataset.name, card.dataset.category, card.textContent].join(" "));
+          const matchesQuery = !query || text.includes(query);
+          const matchesCategory = !category || card.dataset.category === category;
+          const show = matchesQuery && matchesCategory;
+          card.hidden = !show;
+          if (show) visible += 1;
+          grid.appendChild(card);
+        });
+
+        resultCount.textContent = visible + " produit(s) trouve(s)";
+      }
+
+      document.querySelectorAll(".add-cart").forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const cart = readCart();
+          const existing = cart.find((item) => item.id === card.dataset.id);
+          if (existing) existing.quantity += 1;
+          else {
+            cart.push({
+              id: card.dataset.id,
+              name: card.dataset.name,
+              price: Number(card.dataset.price),
+              quantity: 1
+            });
+          }
+          writeCart(cart);
+          button.textContent = "Ajoute";
+          setTimeout(() => {
+            button.textContent = "Ajouter";
+          }, 1200);
+        });
+      });
+
+      [searchInput, categoryFilter, sortSelect].forEach((input) => {
+        input.addEventListener("input", applyFilters);
+        input.addEventListener("change", applyFilters);
+      });
+
+      updateCartCount();
+      applyFilters();
+    </script>
+  </body>
+</html>

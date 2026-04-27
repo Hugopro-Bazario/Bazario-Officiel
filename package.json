@@ -13,5 +13,12 @@
   "devDependencies": {
     "vite": "^7.1.10",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.0",
+    "stripe": "^22.1.0"
   }
 }
