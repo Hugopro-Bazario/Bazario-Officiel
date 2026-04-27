@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Bazario Officiel - Plateforme de découverte, vente et promotion de produits et services."
+      content="Bazario Officiel rassemble une sélection de produits utiles, tendance et accessibles avec paiement sécurisé, retours 14 jours et support client francophone."
     />
-    <title>Bazario Officiel | Plateforme digitale</title>
+    <link rel="canonical" href="https://www.bazario-official.com/" />
+    <meta property="og:title" content="Bazario Officiel | Tout, mieux, partout" />
+    <meta
+      property="og:description"
+      content="Découvrez Bazario : des offres claires, une livraison suivie et un parcours d'achat simple pour le marché francophone."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.bazario-official.com/" />
+    <title>Bazario Officiel | Tout, mieux, partout</title>
     <style>
       * {
         box-sizing: border-box;
@@ -19,7 +27,9 @@
         --card: #ffffff;
         --primary: #1d4ed8;
         --primary-dark: #1e40af;
+        --accent: #f97316;
         --border: #e2e8f0;
+        --soft: #eff6ff;
       }
       body {
         margin: 0;
@@ -27,55 +37,84 @@
         background: var(--bg);
         color: var(--text);
       }
+      a {
+        color: inherit;
+      }
       .container {
-        width: min(1100px, calc(100% - 2rem));
+        width: min(1120px, calc(100% - 2rem));
         margin: 0 auto;
       }
-      header {
-        border-bottom: 1px solid var(--border);
+      .skip-link {
+        left: 1rem;
+        position: absolute;
+        top: -4rem;
+      }
+      .skip-link:focus {
         background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        top: 1rem;
+        z-index: 10;
+      }
+      header {
+        background: rgba(255, 255, 255, 0.94);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 5;
       }
       .nav {
+        align-items: center;
         display: flex;
         justify-content: space-between;
-        align-items: center;
         padding: 1rem 0;
       }
       .brand {
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 0.03em;
       }
       .menu {
-        display: flex;
-        gap: 1rem;
+        align-items: center;
         color: var(--muted);
+        display: flex;
         font-size: 0.95rem;
+        gap: 1rem;
+      }
+      .menu a {
+        text-decoration: none;
+      }
+      .menu a:hover {
+        color: var(--text);
       }
       .hero {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
         padding: 4.5rem 0 3rem;
       }
       .badge {
-        display: inline-block;
         background: #dbeafe;
-        color: #1e3a8a;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 0.35rem 0.6rem;
         border-radius: 999px;
+        color: #1e3a8a;
+        display: inline-block;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
         margin-bottom: 1rem;
+        padding: 0.35rem 0.6rem;
+        text-transform: uppercase;
       }
       h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        line-height: 1.05;
         margin: 0;
-        font-size: clamp(2rem, 5vw, 3.3rem);
-        line-height: 1.15;
       }
       .lead {
-        margin-top: 1rem;
         color: var(--muted);
-        max-width: 780px;
         font-size: 1.1rem;
         line-height: 1.7;
+        margin-top: 1rem;
+        max-width: 760px;
       }
       .actions {
         display: flex;
@@ -85,10 +124,10 @@
       }
       .btn {
         border: 0;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        padding: 0.8rem 1.05rem;
         text-decoration: none;
-        padding: 0.75rem 1rem;
-        border-radius: 0.65rem;
-        font-weight: 600;
       }
       .btn-primary {
         background: var(--primary);
@@ -99,142 +138,426 @@
       }
       .btn-secondary {
         background: #fff;
+        border: 1px solid var(--border);
         color: var(--text);
-        border: 1px solid var(--border);
       }
-      section {
-        padding: 2rem 0;
-      }
-      .section-title {
-        margin: 0 0 1rem;
-        font-size: 1.5rem;
-      }
-      .section-text {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1rem;
-        margin-top: 1.25rem;
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 0.9rem;
-        padding: 1rem;
-      }
-      .card h3 {
-        margin: 0 0 0.6rem;
-        font-size: 1.05rem;
-      }
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.6;
-        font-size: 0.95rem;
-      }
-      .cta {
-        margin: 2rem 0 3rem;
-        background: #0f172a;
-        color: #e2e8f0;
-        border-radius: 1rem;
+      .hero-panel {
+        background: linear-gradient(135deg, #1d4ed8, #0f172a);
+        border-radius: 1.4rem;
+        color: #fff;
         padding: 1.5rem;
       }
-      .cta p {
-        margin: 0.5rem 0 0;
-        opacity: 0.9;
+      .hero-panel strong {
+        display: block;
+        font-size: 2.4rem;
+        line-height: 1;
+      }
+      .hero-panel p {
+        color: #dbeafe;
+        line-height: 1.6;
+      }
+      .metric-grid,
+      .cards,
+      .product-grid,
+      .footer-grid {
+        display: grid;
+        gap: 1rem;
+      }
+      .metric-grid {
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 1.5rem;
+      }
+      .metric {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 1rem;
+      }
+      section {
+        padding: 2.2rem 0;
+      }
+      .section-kicker {
+        color: var(--primary);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        margin: 0 0 0.45rem;
+        text-transform: uppercase;
+      }
+      .section-title {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        margin: 0 0 0.8rem;
+      }
+      .section-text {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0;
+        max-width: 780px;
+      }
+      .trust-bar {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 1rem;
+      }
+      .trust-item {
+        border-left: 3px solid var(--primary);
+        padding-left: 0.8rem;
+      }
+      .trust-item strong {
+        display: block;
+      }
+      .trust-item span {
+        color: var(--muted);
+        display: block;
+        font-size: 0.92rem;
+        margin-top: 0.25rem;
+      }
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 1.25rem;
+      }
+      .card,
+      .product-card,
+      .newsletter,
+      .cta {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 1rem;
+        padding: 1rem;
+      }
+      .card h3,
+      .product-card h3 {
+        font-size: 1.05rem;
+        margin: 0 0 0.55rem;
+      }
+      .card p,
+      .product-card p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .category-card {
+        background: linear-gradient(180deg, #fff, var(--soft));
+        min-height: 150px;
+      }
+      .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        margin-top: 1.25rem;
+      }
+      .price {
+        color: var(--primary);
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin-top: 0.7rem;
+      }
+      .old-price {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-left: 0.4rem;
+        text-decoration: line-through;
+      }
+      .rating {
+        color: #92400e;
+        font-size: 0.9rem;
+        margin-top: 0.7rem;
+      }
+      .newsletter {
+        align-items: center;
+        background: #0f172a;
+        color: #fff;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr auto;
+        margin-top: 1.25rem;
+      }
+      .newsletter p {
+        color: #cbd5e1;
+        margin: 0.35rem 0 0;
+      }
+      .newsletter form {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .newsletter input {
+        border: 0;
+        border-radius: 0.65rem;
+        font: inherit;
+        min-width: 240px;
+        padding: 0.75rem;
+      }
+      .newsletter button {
+        background: var(--accent);
+        border: 0;
+        border-radius: 0.65rem;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 800;
+        padding: 0.75rem 1rem;
+      }
+      .cta {
+        background: var(--soft);
       }
       footer {
+        background: #fff;
         border-top: 1px solid var(--border);
-        padding: 1.2rem 0 2rem;
         color: var(--muted);
         font-size: 0.92rem;
+        margin-top: 2rem;
+        padding: 2rem 0;
       }
-      @media (max-width: 700px) {
+      .footer-grid {
+        grid-template-columns: 1.3fr repeat(3, 1fr);
+      }
+      footer a {
+        display: block;
+        margin-top: 0.45rem;
+        text-decoration: none;
+      }
+      @media (max-width: 860px) {
+        .hero,
+        .newsletter,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .trust-bar,
+        .metric-grid {
+          grid-template-columns: 1fr;
+        }
         .menu {
           display: none;
         }
+        .newsletter form {
+          flex-direction: column;
+        }
+        .newsletter input {
+          min-width: 0;
+          width: 100%;
+        }
       }
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Bazario Officiel",
+        "url": "https://www.bazario-official.com/",
+        "slogan": "Tout, mieux, partout",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "availableLanguage": ["fr"]
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bazario Officiel",
+        "url": "https://www.bazario-official.com/",
+        "inLanguage": "fr-FR"
+      }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header>
       <div class="container nav">
-        <div class="brand">Bazario Officiel</div>
+        <a class="brand" href="index.html">Bazario Officiel</a>
         <nav class="menu" aria-label="Navigation principale">
-          <span>Accueil</span>
-          <span>Services</span>
-          <span>Catégories</span>
-          <a href="checkout.html" style="text-decoration: none; color: inherit">Commander</a>
+          <a href="#categories">Catégories</a>
+          <a href="#best-sellers">Best-sellers</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+          <a href="checkout.html">Commander</a>
         </nav>
       </div>
     </header>
 
-    <main class="container">
+    <main id="contenu" class="container">
       <section class="hero">
-        <span class="badge">Nouveau</span>
-        <h1>Lancez, promouvez et développez votre présence digitale avec Bazario</h1>
-        <p class="lead">
-          Bazario Officiel est votre espace central pour présenter vos offres, toucher vos clients et accélérer votre
-          activité en ligne. Cette page constitue la base de votre futur site complet.
-        </p>
-        <div class="actions">
-          <a class="btn btn-primary" href="checkout.html">Passer commande</a>
-          <a class="btn btn-secondary" href="checkout.html">Découvrir les offres</a>
+        <div>
+          <span class="badge">Bazario démarre sa sélection francophone</span>
+          <h1>Tout ce que vous voulez, livré comme vous le voulez.</h1>
+          <p class="lead">
+            Bazario rassemble des produits utiles, tendance et accessibles dans un parcours simple : offres lisibles,
+            paiement sécurisé, suivi de commande et support humain. La sélection évolue progressivement pour devenir
+            une marketplace francophone fiable.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#best-sellers">Voir les offres</a>
+            <a class="btn btn-secondary" href="checkout.html">Tester le checkout</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="Promesse Bazario">
+          <strong>Tout, mieux, partout.</strong>
+          <p>
+            Une base e-commerce rapide et indexable, avec les pages de confiance essentielles avant l'ajout massif du
+            catalogue.
+          </p>
+          <div class="metric-grid">
+            <div class="metric"><strong>14j</strong><span>Retours</span></div>
+            <div class="metric"><strong>7j/7</strong><span>Support</span></div>
+            <div class="metric"><strong>FR</strong><span>Marché cible</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section aria-label="Garanties Bazario">
+        <div class="trust-bar">
+          <div class="trust-item"><strong>Paiement sécurisé</strong><span>Préparation Stripe checkout.</span></div>
+          <div class="trust-item"><strong>Retours 14 jours</strong><span>Procédure claire et conforme UE.</span></div>
+          <div class="trust-item"><strong>Livraison suivie</strong><span>Délais annoncés avec transparence.</span></div>
+          <div class="trust-item"><strong>Support francophone</strong><span>Réponse annoncée sous 24 à 48h ouvrées.</span></div>
         </div>
       </section>
 
-      <section>
-        <h2 class="section-title">Ce que nous proposons</h2>
+      <section id="categories">
+        <p class="section-kicker">Catalogue</p>
+        <h2 class="section-title">Catégories prioritaires</h2>
         <p class="section-text">
-          Une plateforme simple pour mettre en valeur vos produits et services, avec un parcours clair pour vos
-          visiteurs et vos futurs clients.
+          Les catégories sont posées pour préparer les futures pages SEO dédiées. Chaque univers devra recevoir ses
+          produits, son contenu éditorial et ses filtres dès que la source catalogue sera branchée.
         </p>
         <div class="cards">
-          <article class="card">
-            <h3>Vitrine professionnelle</h3>
-            <p>Présentez votre marque avec une image claire, moderne et crédible.</p>
+          <article class="card category-card">
+            <h3>Mode & Lifestyle</h3>
+            <p>Accessoires, essentiels du quotidien et articles tendance pour une sélection grand public.</p>
           </article>
-          <article class="card">
-            <h3>Acquisition client</h3>
-            <p>Attirez de nouveaux prospects avec des contenus orientés conversion.</p>
+          <article class="card category-card">
+            <h3>Maison pratique</h3>
+            <p>Objets utiles, rangement, confort et petites solutions pour améliorer la maison.</p>
           </article>
-          <article class="card">
-            <h3>Évolutivité</h3>
-            <p>Ajoutez facilement de nouvelles pages, sections et fonctionnalités au fil du temps.</p>
+          <article class="card category-card">
+            <h3>Tech & mobilité</h3>
+            <p>Accessoires connectés, organisation et produits compacts orientés usage réel.</p>
+          </article>
+          <article class="card category-card">
+            <h3>Bien-être</h3>
+            <p>Produits légers pour routines personnelles, détente et idées cadeaux accessibles.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="best-sellers">
+        <p class="section-kicker">Conversion</p>
+        <h2 class="section-title">Offres test disponibles</h2>
+        <p class="section-text">
+          En attendant la synchronisation fournisseurs, ces offres servent à valider le tunnel de commande, les emails
+          Brevo et la qualité de l'expérience mobile.
+        </p>
+        <div class="product-grid">
+          <article class="product-card">
+            <h3>Pack Starter</h3>
+            <p>Première commande test pour valider le formulaire, la notification et le suivi interne.</p>
+            <span class="price">29,90 € <span class="old-price">39,90 €</span></span>
+            <div class="rating" aria-label="Note 4,6 sur 5">4,6/5 - 18 avis pilotes</div>
+          </article>
+          <article class="product-card">
+            <h3>Pack Growth</h3>
+            <p>Commande intermédiaire pour tester le panier avec quantité et montant plus élevé.</p>
+            <span class="price">79,90 € <span class="old-price">99,90 €</span></span>
+            <div class="rating" aria-label="Note 4,7 sur 5">4,7/5 - 11 avis pilotes</div>
+          </article>
+          <article class="product-card">
+            <h3>Pack Premium</h3>
+            <p>Offre complète pour éprouver les confirmations et préparer le futur checkout Stripe.</p>
+            <span class="price">149,90 € <span class="old-price">179,90 €</span></span>
+            <div class="rating" aria-label="Note 4,8 sur 5">4,8/5 - 9 avis pilotes</div>
           </article>
         </div>
       </section>
 
       <section>
-        <h2 class="section-title">Catégories en préparation</h2>
+        <p class="section-kicker">Pourquoi Bazario</p>
+        <h2 class="section-title">Des fondations avant la publicité</h2>
         <div class="cards">
           <article class="card">
-            <h3>Mode & Lifestyle</h3>
-            <p>Sélection d’articles tendance et collections en vedette.</p>
+            <h3>Indexable sans JavaScript</h3>
+            <p>La home, le checkout et les pages de confiance existent en HTML statique pour préserver le SEO de base.</p>
           </article>
           <article class="card">
-            <h3>Tech & Innovation</h3>
-            <p>Produits numériques et services orientés performance.</p>
+            <h3>Promesse transparente</h3>
+            <p>Délais, retours et contact sont expliqués avant d'envoyer du trafic payant vers le site.</p>
           </article>
           <article class="card">
-            <h3>Services Pro</h3>
-            <p>Solutions pour entrepreneurs, indépendants et entreprises.</p>
+            <h3>Prêt pour l'itération</h3>
+            <p>Le dépôt contient maintenant un plan produit, SEO et social pour guider les prochains commits.</p>
           </article>
         </div>
+      </section>
+
+      <section>
+        <p class="section-kicker">Preuve sociale</p>
+        <h2 class="section-title">Avis pilotes à remplacer par des avis vérifiés</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Claire M.</h3>
+            <p>"Le parcours est clair et je comprends tout de suite comment commander et obtenir de l'aide."</p>
+          </article>
+          <article class="card">
+            <h3>Yanis B.</h3>
+            <p>"Les informations de livraison et de retour sont visibles, c'est rassurant avant de payer."</p>
+          </article>
+          <article class="card">
+            <h3>Sofia R.</h3>
+            <p>"La page mobile va droit au but : promesse, offres, garanties et contact."</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="newsletter" aria-label="Inscription newsletter">
+        <div>
+          <h2 class="section-title">Recevoir les offres de lancement</h2>
+          <p>Inscrivez-vous pour recevoir les nouveautés Bazario et une future offre de bienvenue.</p>
+        </div>
+        <form action="contact.html" method="get">
+          <label class="skip-link" for="newsletter-email">Email</label>
+          <input id="newsletter-email" name="email" type="email" placeholder="vous@example.com" required />
+          <button type="submit">S'inscrire</button>
+        </form>
       </section>
 
       <section class="cta">
-        <h2 class="section-title">Prêt pour la suite ?</h2>
-        <p>Le socle est en place : GitHub + Vercel + domaine personnalisé. On peut maintenant développer le site page par page.</p>
+        <h2 class="section-title">Prochaine étape technique</h2>
+        <p class="section-text">
+          Brancher une vraie source catalogue, créer des fiches produits server-rendered et remplacer les offres test
+          par des produits réels avec données structurées Product/Offer.
+        </p>
       </section>
     </main>
 
     <footer>
-      <div class="container">© 2026 Bazario Officiel — Tous droits réservés.</div>
+      <div class="container footer-grid">
+        <div>
+          <strong>Bazario Officiel</strong>
+          <p>Tout, mieux, partout. Site e-commerce francophone en construction active.</p>
+        </div>
+        <div>
+          <strong>Aide</strong>
+          <a href="faq.html">FAQ</a>
+          <a href="delais-de-livraison.html">Délais de livraison</a>
+          <a href="politique-de-retours.html">Politique de retours</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div>
+          <strong>Entreprise</strong>
+          <a href="a-propos.html">À propos</a>
+          <a href="checkout.html">Checkout</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+        <div>
+          <strong>Légal</strong>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="cgv.html">CGV</a>
+          <a href="politique-de-confidentialite.html">Confidentialité</a>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

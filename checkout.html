@@ -3,7 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Tunnel de commande Bazario Officiel." />
+    <meta
+      name="description"
+      content="Tunnel de commande Bazario Officiel avec total visible, informations de livraison, support francophone et préparation Stripe checkout."
+    />
+    <link rel="canonical" href="https://www.bazario-official.com/checkout.html" />
+    <meta property="og:title" content="Checkout | Bazario Officiel" />
+    <meta
+      property="og:description"
+      content="Testez le parcours de commande Bazario avec résumé clair, garanties visibles et notification serveur."
+    />
+    <meta property="og:type" content="website" />
     <title>Checkout | Bazario Officiel</title>
     <style>
       * {
@@ -45,6 +55,7 @@
       .brand {
         font-weight: 700;
         letter-spacing: 0.03em;
+        text-decoration: none;
       }
       .back {
         color: var(--muted);
@@ -142,25 +153,76 @@
         background: var(--error-bg);
         color: var(--error-text);
       }
+      .trust-list {
+        border-top: 1px solid var(--border);
+        margin-top: 1rem;
+        padding-top: 1rem;
+      }
+      .trust-list ul {
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 0.5rem 0 0;
+        padding-left: 1.2rem;
+      }
+      .fine-print {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-top: 1rem;
+      }
+      .fine-print a {
+        color: var(--primary);
+      }
       @media (max-width: 860px) {
         .grid {
           grid-template-columns: 1fr;
         }
       }
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "OfferCatalog",
+        "name": "Offres test Bazario",
+        "url": "https://www.bazario-official.com/checkout.html",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Pack Starter",
+            "price": "29.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pack Growth",
+            "price": "79.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pack Premium",
+            "price": "149.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header>
       <div class="container nav">
-        <div class="brand">Bazario Officiel</div>
-        <a class="back" href="index.html">← Retour à l’accueil</a>
+        <a class="brand" href="index.html">Bazario Officiel</a>
+        <a class="back" href="index.html">Retour à l'accueil</a>
       </div>
     </header>
     <main class="container">
       <section class="intro">
         <h1>Tunnel de commande</h1>
         <p>
-          Complète ce formulaire pour créer une commande. La demande est traitée par l’API du projet, avec notification
+          Completez ce formulaire pour créer une commande. La demande est traitée par l'API du projet, avec notification
           Brevo et vérification de connectivité CJDropshipping.
         </p>
       </section>
@@ -217,6 +279,11 @@
             </div>
             <button class="submit" id="submit-btn" type="submit">Confirmer la commande</button>
             <div id="status" class="status"></div>
+            <p class="fine-print">
+              En confirmant, vous acceptez les <a href="cgv.html">CGV</a> et la
+              <a href="politique-de-confidentialite.html">politique de confidentialité</a>. Cette version reste un
+              tunnel de test avant intégration Stripe complète.
+            </p>
           </form>
         </article>
 
@@ -226,6 +293,14 @@
           <p><strong>Paiement :</strong> simulation de commande (pré-intégration Stripe checkout).</p>
           <p id="estimated-total"><strong>Total estimé :</strong> 29,90 €</p>
           <p><strong>Sécurité :</strong> les clés API restent côté serveur.</p>
+          <div class="trust-list">
+            <strong>Garanties visibles</strong>
+            <ul>
+              <li>Retours possibles sous 14 jours selon la politique Bazario.</li>
+              <li>Support client francophone via la page contact.</li>
+              <li>Délais de livraison à confirmer produit par produit.</li>
+            </ul>
+          </div>
         </aside>
       </section>
     </main>
