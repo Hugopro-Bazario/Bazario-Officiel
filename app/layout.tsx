@@ -10,6 +10,7 @@ import { CookieConsent } from "@/components/legal/cookie-consent"
 import { SiteJsonLd } from "@/components/seo/site-json-ld"
 import { CurrencyProvider } from "@/lib/currency-context"
 import { SupportWidget } from "@/components/support/support-widget"
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -134,6 +135,7 @@ export default function RootLayout({
         <CookieConsent />
         <SupportWidget />
         <SiteJsonLd />
+        <Analytics />
       </body>
     </html>
   )
