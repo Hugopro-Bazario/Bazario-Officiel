@@ -12,6 +12,10 @@ import {
   Star,
   Settings,
   HelpCircle,
+  Truck,
+  Boxes,
+  Warehouse,
+  RotateCcw,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/layout/logo"
@@ -20,6 +24,10 @@ const NAV = [
   { href: "/seller/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
   { href: "/seller/products", label: "Produits", icon: Package },
   { href: "/seller/orders", label: "Commandes", icon: ShoppingBag },
+  { href: "/seller/logistics", label: "Logistique", icon: Warehouse },
+  { href: "/seller/shipments", label: "Expéditions", icon: Truck },
+  { href: "/seller/returns", label: "Retours", icon: RotateCcw },
+  { href: "/seller/dropshipping", label: "Dropshipping", icon: Boxes },
   { href: "/seller/analytics", label: "Statistiques", icon: BarChart3 },
   { href: "/seller/marketing", label: "Marketing", icon: Megaphone },
   { href: "/seller/finance", label: "Finances", icon: Wallet },
