@@ -1,0 +1,52 @@
+name: Weekly DB Backup
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Ensure backup database URL is configured
+        env:
+          BACKUP_DATABASE_URL: ${{ secrets.BACKUP_DATABASE_URL }}
+        run: |
+          if [ -z "$BACKUP_DATABASE_URL" ]; then
+            echo "Missing secret BACKUP_DATABASE_URL"
+            echo "Add it in GitHub > Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Dump and compress database
+        env:
+          BACKUP_DATABASE_URL: ${{ secrets.BACKUP_DATABASE_URL }}
+        run: |
+          TS="$(date -u +%Y%m%d-%H%M%S)"
+          DUMP_FILE="db-backup-${TS}.sql.gz"
+          SHA_FILE="${DUMP_FILE}.sha256"
+          pg_dump "$BACKUP_DATABASE_URL" --no-owner --no-privileges --format=plain | gzip -9 > "$DUMP_FILE"
+          sha256sum "$DUMP_FILE" > "$SHA_FILE"
+          echo "DUMP_FILE=$DUMP_FILE" >> "$GITHUB_ENV"
+          echo "SHA_FILE=$SHA_FILE" >> "$GITHUB_ENV"
+          echo "TAG=backup-${TS}" >> "$GITHUB_ENV"
+
+      - name: Create GitHub release with backup files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$TAG" "$DUMP_FILE" "$SHA_FILE" \
+            --title "DB backup $TAG" \
+            --notes "Automated weekly PostgreSQL backup."
