@@ -3,14 +3,23 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:unit": "vitest run tests/unit"
+    "test:unit": "vitest run tests/unit",
+    "cj:fetch-top": "tsx scripts/fetch-cj-top-products.ts"
   },
   "devDependencies": {
+    "@types/node": "^24.9.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
     "vite": "^7.1.10",
     "vitest": "^3.2.4"
   },
@@ -18,7 +27,12 @@
     "node": "22.x"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.105.0",
-    "stripe": "^22.1.0"
+    "next": "^16.0.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "stripe": "^22.1.0",
+    "zustand": "^5.0.8"
   }
 }

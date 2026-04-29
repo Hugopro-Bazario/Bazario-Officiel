@@ -33,8 +33,11 @@ function getBaseUrl() {
 }
 
 function getSupabaseAdmin() {
-  const url = cleanEnv(process.env.SUPABASE_URL);
-  const serviceRoleKey = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
+  const url = cleanEnv(process.env.BAZARIO_SUPABASE_URL) || cleanEnv(process.env.SUPABASE_URL);
+  const serviceRoleKey =
+    cleanEnv(process.env.BAZARIO_SUPABASE_SERVICE_ROLE_KEY) ||
+    cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY) ||
+    cleanEnv(process.env.SUPABASE_SECRET_KEY);
 
   if (!url || !serviceRoleKey) return null;
   return createClient(url, serviceRoleKey, {
