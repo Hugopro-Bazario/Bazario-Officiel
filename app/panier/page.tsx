@@ -1,17 +1,66 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useCartStore } from "@/lib/cart-store";
 import { formatPrice } from "@/lib/format";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 
 export default function CartPage() {
+  const searchParams = useSearchParams();
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const { push } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const hasShownCancelledToast = useRef(false);
   const subtotal = useCartStore((state) => state.getTotal());
   const tva = subtotal * 0.2;
   const total = subtotal + tva;
+
+  useEffect(() => {
+    const isCancelled = searchParams.get("cancelled") === "true";
+    if (isCancelled && !hasShownCancelledToast.current) {
+      push("Paiement annule, votre panier est conserve.");
+      hasShownCancelledToast.current = true;
+    }
+  }, [push, searchParams]);
+
+  async function handleCheckout() {
+    if (items.length === 0 || isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/checkout/create-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            product_id: item.product_id,
+            quantity: item.quantity
+          }))
+        })
+      });
+
+      const data = (await response.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (!response.ok) {
+        push(data.error || "Impossible de lancer le paiement.");
+        return;
+      }
+      if (!data.url) {
+        push("URL de paiement introuvable.");
+        return;
+      }
+
+      window.location.href = data.url;
+    } catch {
+      push("Erreur reseau. Merci de reessayer.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -49,8 +98,8 @@ export default function CartPage() {
         <p className="text-sm">Total HT: {formatPrice(subtotal)}</p>
         <p className="text-sm">TVA (20%): {formatPrice(tva)}</p>
         <p className="mt-1 text-lg font-bold">Total TTC: {formatPrice(total)}</p>
-        <Button className="mt-4 w-full" disabled>
-          Checkout disponible bientot
+        <Button className="mt-4 w-full" disabled={items.length === 0 || isLoading} onClick={handleCheckout}>
+          {isLoading ? "Redirection vers Stripe..." : "Passer au paiement"}
         </Button>
       </section>
     </div>
