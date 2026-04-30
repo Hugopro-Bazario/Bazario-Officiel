@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { cjFetch } from "../../../../../lib/cj";
+import { cjFetch } from "@/lib/cj";
 
 const REQUEST_DELAY_MS = 1100;
 

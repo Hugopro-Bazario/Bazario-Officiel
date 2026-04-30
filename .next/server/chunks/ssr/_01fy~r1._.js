@@ -1,3 +1,0 @@
-module.exports=[82248,a=>{"use strict";a.s(["cn",0,function(...a){return a.filter(Boolean).join(" ")}])},63588,a=>{"use strict";var b=a.i(7997),c=a.i(82248);function d({className:a,...e}){return(0,b.jsx)("div",{className:(0,c.cn)("animate-pulse rounded-md bg-zinc-200",a),...e})}a.s(["default",0,function(){return(0,b.jsxs)("div",{className:"space-y-8",children:[(0,b.jsx)(d,{className:"h-64 w-full"}),(0,b.jsx)("div",{className:"grid grid-cols-2 gap-4 md:grid-cols-4",children:Array.from({length:8}).map((a,c)=>(0,b.jsxs)("div",{className:"space-y-2",children:[(0,b.jsx)(d,{className:"h-40 w-full"}),(0,b.jsx)(d,{className:"h-4 w-4/5"}),(0,b.jsx)(d,{className:"h-4 w-1/2"})]},c))})]})}],63588)},45538,a=>{a.n(a.i(63588))}];
-
-//# sourceMappingURL=_01fy~r1._.js.map
