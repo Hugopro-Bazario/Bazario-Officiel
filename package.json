@@ -27,7 +27,7 @@
     "node": "22.x"
   },
   "dependencies": {
-    "@getbrevo/brevo": "^3.0.2",
+    "@getbrevo/brevo": "^3.0.4",
     "@stripe/stripe-js": "^8.1.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.105.0",
