@@ -1,33 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "**" },
-      { protocol: "http", hostname: "**" }
-    ]
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
-  async redirects() {
-    return [
-      { source: "/catalogue.html", destination: "/produits", permanent: true },
-      { source: "/panier.html", destination: "/panier", permanent: true },
-      { source: "/produit-organisateur-voyage.html", destination: "/produits/2048946819123888129", permanent: true },
-      { source: "/politique-de-retours.html", destination: "/politique-de-retour", permanent: true }
-    ];
-  },
+  poweredByHeader: false,
+  compress: true,
   async headers() {
-    return [
+    const securityHeaders = [
+      { key: "X-DNS-Prefetch-Control", value: "on" },
       {
-        source: "/(.*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" }
-        ]
-      }
-    ];
-  }
-};
+        key: "Strict-Transport-Security",
+        value: "max-age=63072000; includeSubDomains; preload",
+      },
+      { key: "X-Frame-Options", value: "SAMEORIGIN" },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+      },
+    ]
+    return [{ source: "/:path*", headers: securityHeaders }]
+  },
+}
 
-export default nextConfig;
+export default nextConfig

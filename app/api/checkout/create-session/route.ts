@@ -1,5 +1,6 @@
 import { stripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { Database } from "@/types/database";
 
 const MAX_SESSIONS_PER_HOUR = 10;
 const WINDOW_MS = 60 * 60 * 1000;
@@ -16,8 +17,12 @@ type CheckoutBody = {
   fbc?: string;
   fbp?: string;
   ttclid?: string;
+  ttp?: string;
   tracking_consent?: string;
+  tracking_event_id?: string;
 };
+
+type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
 function getClientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -112,11 +117,12 @@ export async function POST(request: Request) {
   let subtotal = 0;
 
   for (const inputItem of items) {
-    const { data: product, error } = await supabase
+    const { data: productData, error } = await supabase
       .from("products")
-      .select("id,cj_product_id,title,price,stock,images,is_active")
+      .select("*")
       .eq("id", inputItem.product_id)
       .maybeSingle();
+    const product = productData as ProductRow | null;
 
     if (error) {
       return Response.json({ error: "Impossible de verifier le panier." }, { status: 500 });
@@ -159,6 +165,7 @@ export async function POST(request: Request) {
   const total = Number((subtotal + shippingCost + tax).toFixed(2));
   const itemsSummary = JSON.stringify(items).slice(0, 500);
   const origin = readOrigin(request).replace(/\/$/, "");
+  const trackingEventId = String(body.tracking_event_id || "").trim();
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -189,13 +196,15 @@ export async function POST(request: Request) {
         fbc: body.fbc || "",
         fbp: body.fbp || "",
         ttclid: body.ttclid || "",
-        tracking_consent: body.tracking_consent || ""
+        ttp: body.ttp || "",
+        tracking_consent: body.tracking_consent || "",
+        tracking_event_id: trackingEventId
       },
       expires_at: Math.floor(Date.now() / 1000) + 30 * 60
     });
 
     const reference = `BZ-${Date.now()}`;
-    const { error: orderError } = await supabase.from("orders").insert({
+    const { error: orderError } = await (supabase as any).from("orders").insert({
       reference,
       stripe_session_id: session.id,
       customer_email: body.customer_email || null,
@@ -206,6 +215,7 @@ export async function POST(request: Request) {
       total,
       currency: "EUR",
       status: "pending",
+      tracking_event_id: trackingEventId || null,
       notes: "Checkout session created via API route."
     });
 

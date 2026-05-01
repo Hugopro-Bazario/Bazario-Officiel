@@ -1,6 +1,7 @@
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
+import type { Database } from "@/types/database";
 
 function cleanEnv(value: string | undefined): string {
   return (value || "").trim().replace(/^"(.*)"$/, "$1");
@@ -18,6 +19,11 @@ function parseTemplateId(value: string | undefined): number | null {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
+type RetryOrder = Pick<
+  Database["public"]["Tables"]["orders"]["Row"],
+  "id" | "reference" | "customer_name" | "customer_email" | "cj_fulfillment_attempts" | "items"
+>;
+
 export async function GET(request: Request) {
   const expectedSecret = cleanEnv(process.env.CRON_SECRET);
   const receivedSecret = getBearerToken(request.headers.get("authorization"));
@@ -32,7 +38,7 @@ export async function GET(request: Request) {
 
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  const { data: orders, error: selectError } = await supabase
+  const { data: ordersData, error: selectError } = await supabase
     .from("orders")
     .select("id,reference,customer_name,customer_email,cj_fulfillment_attempts,items")
     .eq("status", "fulfillment_pending")
@@ -54,7 +60,9 @@ export async function GET(request: Request) {
     errors: [] as string[]
   };
 
-  for (const order of orders || []) {
+  const orders = (ordersData || []) as RetryOrder[];
+
+  for (const order of orders) {
     summary.processed += 1;
 
     try {
@@ -67,7 +75,7 @@ export async function GET(request: Request) {
       if (result.status === "fulfillment_pending") {
         const nextAttempt = (order.cj_fulfillment_attempts || 0) + 1;
         if (nextAttempt >= 5) {
-          await supabase
+          await (supabase as any)
             .from("orders")
             .update({
               status: "fulfillment_failed",

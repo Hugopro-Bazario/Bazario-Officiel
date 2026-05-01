@@ -4,6 +4,7 @@ import { stripe } from "@/lib/stripe/server";
 import { formatPrice } from "@/lib/format";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { ClearCartOnSuccess } from "@/components/checkout/ClearCartOnSuccess";
+import { PurchaseEvent } from "@/components/tracking/PurchaseEvent";
 
 export const dynamic = "force-dynamic";
 
@@ -53,17 +54,32 @@ export default async function CheckoutSuccessPage({
         subtotal: (session.amount_subtotal || 0) / 100,
         total: (session.amount_total || 0) / 100,
         tax: (session.total_details?.amount_tax || 0) / 100,
-        shipping_cost: (session.total_details?.amount_shipping || 0) / 100
+        shipping_cost: (session.total_details?.amount_shipping || 0) / 100,
+        tracking_event_id:
+          session.metadata?.tracking_event_id || session.metadata?.event_id || null
       })
       .eq("stripe_session_id", session.id);
   }
 
   const lineItems = session.line_items?.data || [];
   const orderShort = session.id.slice(-8).toUpperCase();
+  const contentIds = lineItems.map((item) => item.description || item.id || "").filter(Boolean);
+  const numItems = lineItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  const purchaseValue = Number(((session.amount_total || 0) / 100).toFixed(2));
+  const trackingEventId = session.metadata?.tracking_event_id || session.metadata?.event_id || null;
 
   return (
     <main className="space-y-6">
       {paymentPaid ? <ClearCartOnSuccess /> : null}
+      {paymentPaid ? (
+        <PurchaseEvent
+          orderId={orderShort}
+          value={purchaseValue}
+          contentIds={contentIds}
+          numItems={numItems}
+          eventIdFromServer={trackingEventId}
+        />
+      ) : null}
       <h1 className="text-3xl font-black">Commande confirmee</h1>
       <p className="text-zinc-700">
         Numero de commande: <span className="font-semibold">{orderShort}</span>

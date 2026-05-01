@@ -1,25 +1,41 @@
-import { HeroSection } from "@/components/home/HeroSection";
-import { FeaturedProductSection } from "@/components/home/FeaturedProductSection";
-import { WhyUsSection } from "@/components/home/WhyUsSection";
-import { ProductCard } from "@/components/products/ProductCard";
-import { getAllProducts, getHeroProduct } from "@/lib/products";
+import { Hero } from "@/components/home/hero"
+import { ValueProps } from "@/components/home/value-props"
+import { CategoriesGrid } from "@/components/home/categories-grid"
+import { FlashSales } from "@/components/home/flash-sales"
+import { LiveDrops } from "@/components/home/live-drops"
+import { Trending } from "@/components/home/trending"
+import { PremiumBanner } from "@/components/home/premium-banner"
+import { BrandMarquee } from "@/components/home/brand-marquee"
+import { PressBar } from "@/components/home/press-bar"
+import { Editorial } from "@/components/home/editorial"
+import { FeaturedSellers } from "@/components/home/featured-sellers"
+import { Testimonials } from "@/components/home/testimonials"
+import { SocialProof } from "@/components/home/social-proof"
+import { Recommended } from "@/components/home/recommended"
+import { Newsletter } from "@/components/home/newsletter"
+import { RecentlyViewedStrip } from "@/components/product/recently-viewed"
+import { ForYou } from "@/components/home/for-you"
 
-export default async function HomePage() {
-  const [hero, products] = await Promise.all([getHeroProduct(), getAllProducts({ limit: 12 })]);
-
+export default function HomePage() {
   return (
-    <div className="space-y-12">
-      <HeroSection hero={hero} />
-      <FeaturedProductSection hero={hero} />
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold">Nos produits</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
-      <WhyUsSection />
-    </div>
-  );
+    <>
+      <Hero />
+      <ValueProps />
+      <CategoriesGrid />
+      <FlashSales />
+      <LiveDrops />
+      <Trending />
+      <ForYou />
+      <RecentlyViewedStrip />
+      <PressBar />
+      <PremiumBanner />
+      <BrandMarquee />
+      <Editorial />
+      <FeaturedSellers />
+      <Testimonials />
+      <SocialProof />
+      <Recommended />
+      <Newsletter />
+    </>
+  )
 }

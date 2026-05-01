@@ -1,74 +1,144 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { AppProviders } from "@/components/providers/AppProviders";
+import type { Metadata, Viewport } from "next"
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
+import { Suspense } from "react"
+import "./globals.css"
+import { SiteChrome } from "@/components/layout/site-chrome"
+import { CartProvider } from "@/lib/cart-store"
+import { WishlistProvider } from "@/lib/wishlist-store"
+import { RecentlyViewedProvider } from "@/lib/recently-viewed-store"
+import { CookieConsent } from "@/components/legal/cookie-consent"
+import { SiteJsonLd } from "@/components/seo/site-json-ld"
+import { CurrencyProvider } from "@/lib/currency-context"
+import { SupportWidget } from "@/components/support/support-widget"
+import { LiveActivity } from "@/components/social-proof/live-activity"
+import { NewsletterPopup } from "@/components/marketing/newsletter-popup"
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
+
+const display = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
+
+const siteUrl = "https://www.bazario-official.com"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.bazario-official.com"),
-  title: "Bazario | Marketplace dropshipping",
-  description: "Catalogue de produits utiles en dropshipping mono-vendeur.",
-  alternates: { canonical: "/" }
-};
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Bazario — Tout, mieux, partout.",
+    template: "%s · Bazario",
+  },
+  description:
+    "Bazario est la marketplace mondiale qui connecte acheteurs et vendeurs de confiance : mode, tech, maison, beauté et bien plus, livrés partout.",
+  keywords: ["marketplace", "e-commerce", "shopping", "Bazario", "vendeurs vérifiés", "livraison gratuite"],
+  authors: [{ name: "Bazario" }],
+  creator: "Bazario",
+  publisher: "Bazario",
+  applicationName: "Bazario",
+  referrer: "origin-when-cross-origin",
+  formatDetection: { telephone: false, email: false, address: false },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Bazario — Tout, mieux, partout.",
+    description: "La marketplace mondiale qui connecte acheteurs et vendeurs de confiance.",
+    url: siteUrl,
+    siteName: "Bazario",
+    type: "website",
+    locale: "fr_FR",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bazario — Marketplace mondiale",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bazario — Tout, mieux, partout.",
+    description: "La marketplace mondiale qui connecte acheteurs et vendeurs de confiance.",
+    images: ["/og-image.jpg"],
+  },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/icon-512.jpg",
+    apple: "/apple-icon.jpg",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Bazario",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+}
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-  const tiktokPixelId = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAF9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0E1A" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="fr">
-      <body>
-        {metaPixelId ? (
-          <>
-            <Script id="meta-pixel" strategy="afterInteractive">
-              {`!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${metaPixelId}');
-fbq('track', 'PageView');`}
-            </Script>
-            <noscript>
-              <img
-                alt=""
-                height="1"
-                width="1"
-                style={{ display: "none" }}
-                src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
-              />
-            </noscript>
-          </>
-        ) : null}
-
-        {tiktokPixelId ? (
-          <Script id="tiktok-pixel" strategy="afterInteractive">
-            {`!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;
-  var ttq=w[t]=w[t]||[];
-  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
-  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-  ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
-  ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js";
-    ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=r;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
-    ttq._o=ttq._o||{};ttq._o[e]=n||{};
-    var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=r+"?sdkid="+e+"&lib="+t;
-    var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-  ttq.load('${tiktokPixelId}');
-  ttq.page();
-}(window, document, "ttq");`}
-          </Script>
-        ) : null}
-        <AppProviders>
-          <Header />
-          <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-8">{children}</main>
-          <Footer />
-        </AppProviders>
+    <html
+      lang="fr"
+      className={`${inter.variable} ${display.variable} ${mono.variable} bg-background`}
+    >
+      <body className="min-h-screen font-sans antialiased">
+        <a
+          href="#main-content"
+          className="sr-only fixed left-2 top-2 z-[100] rounded-md bg-foreground px-3 py-2 text-sm font-medium text-background focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-ring"
+        >
+          Aller au contenu principal
+        </a>
+        <CurrencyProvider>
+          <RecentlyViewedProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <Suspense fallback={null}>
+                  <SiteChrome>{children}</SiteChrome>
+                </Suspense>
+              </CartProvider>
+            </WishlistProvider>
+          </RecentlyViewedProvider>
+        </CurrencyProvider>
+        <CookieConsent />
+        <SupportWidget />
+        <LiveActivity />
+        <NewsletterPopup />
+        <SiteJsonLd />
       </body>
     </html>
-  );
+  )
 }

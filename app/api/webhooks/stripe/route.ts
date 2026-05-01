@@ -5,6 +5,8 @@ import { stripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
+import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
+import { sendTikTokPurchaseServerEvent } from "@/lib/tracking/tiktok-events";
 
 function cleanEnv(value: string | undefined): string {
   return (value || "").trim().replace(/^"(.*)"$/, "$1");
@@ -15,25 +17,34 @@ function parseTemplateId(value: string | undefined): number | null {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
-function parseOrderItems(items: unknown): Array<{ title: string; quantity: number; price: number }> {
+function parseOrderItems(items: unknown): Array<{ product_id: string; title: string; quantity: number; price: number }> {
   if (!Array.isArray(items)) return [];
   return items
     .map((item) => (item && typeof item === "object" ? (item as Record<string, unknown>) : null))
     .filter((item): item is Record<string, unknown> => Boolean(item))
     .map((item) => ({
+      product_id: String(item.product_id || ""),
       title: String(item.title || "Produit"),
       quantity: Number(item.quantity || 1),
       price: Number(item.unit_price || 0)
-    }));
+    }))
+    .filter((item) => item.product_id.length > 0);
 }
 
-async function handleCheckoutSessionCompleted(event: Stripe.Event) {
+function createServerEventId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `evt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeaders: Headers) {
   const session = event.data.object as Stripe.Checkout.Session;
   const supabase = createSupabaseAdminClient();
 
   const { data: existingOrder, error: selectError } = await supabase
     .from("orders")
-    .select("id,reference,status,cj_order_id,customer_email,customer_name,shipping_address,items,total")
+    .select("id,reference,status,cj_order_id,customer_email,customer_name,customer_phone,shipping_address,items,total,tracking_event_id")
     .eq("stripe_session_id", session.id)
     .maybeSingle();
 
@@ -66,6 +77,11 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
   const shippingAddress = session.shipping_details?.address || null;
   const paymentIntentId =
     typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id || null;
+  const trackingEventId =
+    existingOrder.tracking_event_id ||
+    session.metadata?.tracking_event_id ||
+    session.metadata?.event_id ||
+    createServerEventId();
 
   const { error: updateError } = await supabase
     .from("orders")
@@ -79,7 +95,8 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
       subtotal: (session.amount_subtotal || 0) / 100,
       total: (session.amount_total || 0) / 100,
       tax: (session.total_details?.amount_tax || 0) / 100,
-      shipping_cost: (session.total_details?.amount_shipping || 0) / 100
+      shipping_cost: (session.total_details?.amount_shipping || 0) / 100,
+      tracking_event_id: trackingEventId
     })
     .eq("id", existingOrder.id);
 
@@ -89,6 +106,52 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
 
   // Fulfillment CJ + email Brevo seront branchés à l'étape 2/4.
   const fulfillment = await createCjOrderForPaidOrder(existingOrder.id);
+  const trackingConsent = (session.metadata?.tracking_consent || "").toLowerCase();
+  const consentGranted = trackingConsent === "granted";
+  const parsedItems = parseOrderItems(existingOrder.items);
+
+  if (consentGranted) {
+    const eventSourceUrl = `${cleanEnv(process.env.APP_URL) || "https://www.bazario-official.com"}/commande/success`;
+    const contentIds = parsedItems.map((item) => item.product_id);
+    const numItems = parsedItems.reduce((sum, item) => sum + item.quantity, 0);
+
+    await sendMetaPurchaseServerEvent({
+      eventId: trackingEventId,
+      eventSourceUrl,
+      value: Number(existingOrder.total || 0),
+      currency: "EUR",
+      contentIds,
+      numItems,
+      customerEmail: customerEmail || existingOrder.customer_email,
+      customerPhone: customerPhone || existingOrder.customer_phone,
+      customerName: customerName || existingOrder.customer_name,
+      shippingAddress: {
+        city: typeof shippingAddress?.city === "string" ? shippingAddress.city : null,
+        country: typeof shippingAddress?.country === "string" ? shippingAddress.country : null,
+        postal_code: typeof shippingAddress?.postal_code === "string" ? shippingAddress.postal_code : null
+      },
+      fbc: session.metadata?.fbc || "",
+      fbp: session.metadata?.fbp || "",
+      requestHeaders
+    });
+
+    await sendTikTokPurchaseServerEvent({
+      eventId: trackingEventId,
+      value: Number(existingOrder.total || 0),
+      currency: "EUR",
+      contents: parsedItems.map((item) => ({
+        content_id: item.product_id,
+        content_name: item.title,
+        quantity: item.quantity,
+        price: item.price
+      })),
+      customerEmail: customerEmail || existingOrder.customer_email,
+      customerPhone: customerPhone || existingOrder.customer_phone,
+      ttp: session.metadata?.ttp || "",
+      ttclid: session.metadata?.ttclid || "",
+      requestHeaders
+    });
+  }
 
   const orderConfirmationTemplate = parseTemplateId(process.env.BREVO_TEMPLATE_ORDER_CONFIRMATION);
   const fulfillmentAlertTemplate = parseTemplateId(process.env.BREVO_TEMPLATE_FULFILLMENT_ALERT);
@@ -105,7 +168,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
       params: {
         customer_name: existingOrder.customer_name || "Client",
         order_id: existingOrder.reference,
-        items: parseOrderItems(existingOrder.items),
+        items: parsedItems,
         total: existingOrder.total || 0,
         shipping_address: existingOrder.shipping_address,
         estimated_delivery: "5-10 jours"
@@ -135,7 +198,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
       params: {
         customer_name: existingOrder.customer_name || "Client",
         order_id: existingOrder.reference,
-        items_unavailable: parseOrderItems(existingOrder.items).map((entry) => entry.title).join(", "),
+        items_unavailable: parsedItems.map((entry) => entry.title).join(", "),
         refund_info: "Notre equipe support vous contactera pour finaliser un remboursement."
       }
     });
@@ -148,7 +211,9 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
       order_id: existingOrder.id,
       action: "paid_marked",
       fulfillment_status: fulfillment.status,
-      fulfillment_success: fulfillment.success
+      fulfillment_success: fulfillment.success,
+      tracking_consent: trackingConsent || "missing",
+      tracking_event_id: trackingEventId
     })
   );
 }
@@ -190,7 +255,8 @@ async function handleChargeRefunded(event: Stripe.Event) {
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-  const signature = (await headers()).get("stripe-signature");
+  const reqHeaders = await headers();
+  const signature = reqHeaders.get("stripe-signature");
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
   if (!signature || !webhookSecret) {
@@ -208,7 +274,7 @@ export async function POST(req: NextRequest) {
   try {
     switch (event.type) {
       case "checkout.session.completed":
-        await handleCheckoutSessionCompleted(event);
+        await handleCheckoutSessionCompleted(event, req.headers);
         return Response.json({ received: true, processed: true });
       case "payment_intent.payment_failed":
         await handlePaymentIntentFailed(event);

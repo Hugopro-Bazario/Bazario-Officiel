@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ProductGallery } from "@/components/products/ProductGallery";
 import { AddToCartButton } from "@/components/products/AddToCartButton";
 import { ProductCard } from "@/components/products/ProductCard";
+import { ViewContentEvent } from "@/components/tracking/ViewContentEvent";
 import { formatPrice } from "@/lib/format";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
 
@@ -57,6 +58,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <article className="space-y-8">
+      <ViewContentEvent productId={product.id} title={product.title} price={product.price} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="grid gap-8 md:grid-cols-2">
         <ProductGallery title={product.title} images={product.images} />

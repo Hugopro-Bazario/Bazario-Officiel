@@ -1,10 +1,15 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+type TableDefinition<Row> = {
+  Row: Row;
+  Insert: Partial<Row>;
+  Update: Partial<Row>;
+  Relationships: [];
+};
 
 export interface Database {
   public: {
     Tables: {
-      orders: {
-        Row: {
+      orders: TableDefinition<{
           id: string;
           reference: string;
           stripe_session_id: string | null;
@@ -28,10 +33,8 @@ export interface Database {
           notes: string | null;
           created_at: string;
           updated_at: string;
-        };
-      };
-      products: {
-        Row: {
+        }>;
+      products: TableDefinition<{
           id: string;
           cj_product_id: string;
           title: string;
@@ -48,8 +51,7 @@ export interface Database {
           cj_data: Json | null;
           created_at: string;
           updated_at: string;
-        };
-      };
+        }>;
     };
   };
 }

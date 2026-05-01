@@ -3,8 +3,12 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useConsentStore } from "@/lib/consent";
 import { useCartStore } from "@/lib/cart-store";
 import { formatPrice } from "@/lib/format";
+import { createEventId, getTrackingPayloadFromBrowser, setCheckoutEventId } from "@/lib/tracking/client";
+import { trackMetaEvent } from "@/lib/tracking/meta";
+import { trackTikTokEvent } from "@/lib/tracking/tiktok";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 
@@ -13,6 +17,8 @@ export default function CartPage() {
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const consent = useConsentStore((state) => state.consent);
+  const hasConsented = useConsentStore((state) => state.hasConsented);
   const { push } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const hasShownCancelledToast = useRef(false);
@@ -33,6 +39,37 @@ export default function CartPage() {
     setIsLoading(true);
 
     try {
+      const eventId = createEventId();
+      setCheckoutEventId(eventId);
+      const trackingPayload = getTrackingPayloadFromBrowser();
+      const consentGranted = hasConsented() && consent.marketing;
+
+      trackMetaEvent(
+        "InitiateCheckout",
+        {
+          content_ids: items.map((item) => item.product_id),
+          content_type: "product",
+          value: total,
+          currency: "EUR",
+          num_items: items.reduce((sum, item) => sum + item.quantity, 0)
+        },
+        { eventId }
+      );
+      trackTikTokEvent(
+        "InitiateCheckout",
+        {
+          contents: items.map((item) => ({
+            content_id: item.product_id,
+            content_name: item.snapshot.title,
+            quantity: item.quantity,
+            price: item.snapshot.price
+          })),
+          value: total,
+          currency: "EUR"
+        },
+        { eventId }
+      );
+
       const response = await fetch("/api/checkout/create-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +77,13 @@ export default function CartPage() {
           items: items.map((item) => ({
             product_id: item.product_id,
             quantity: item.quantity
-          }))
+          })),
+          fbc: trackingPayload.fbc,
+          fbp: trackingPayload.fbp,
+          ttclid: trackingPayload.ttclid,
+          ttp: trackingPayload.ttp,
+          tracking_consent: consentGranted ? "granted" : "denied",
+          tracking_event_id: eventId
         })
       });
 
