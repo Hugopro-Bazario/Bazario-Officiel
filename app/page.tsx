@@ -15,6 +15,7 @@ import { Recommended } from "@/components/home/recommended"
 import { Newsletter } from "@/components/home/newsletter"
 import { RecentlyViewedStrip } from "@/components/product/recently-viewed"
 import { ForYou } from "@/components/home/for-you"
+import { DropshipRail } from "@/components/home/dropship-rail"
 
 export default function HomePage() {
   return (
@@ -25,6 +26,7 @@ export default function HomePage() {
       <FlashSales />
       <LiveDrops />
       <Trending />
+      <DropshipRail />
       <ForYou />
       <RecentlyViewedStrip />
       <PressBar />
