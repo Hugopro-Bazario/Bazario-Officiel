@@ -25,11 +25,21 @@ const PROPS = [
 
 export function ValueProps() {
   return (
-    <section className="border-y bg-secondary/30">
-      <div className="container grid grid-cols-2 gap-6 py-8 md:grid-cols-4 md:gap-4 md:py-10">
+    <section className="relative isolate overflow-hidden border-y bg-aurora-soft">
+      <div className="container relative z-10 grid grid-cols-2 gap-3 py-10 md:grid-cols-4 md:gap-4">
         {PROPS.map((p) => (
-          <div key={p.title} className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <div
+            key={p.title}
+            className="holo-border group relative flex items-start gap-3 rounded-2xl bg-card/70 p-4 backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            <span
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-primary transition-transform group-hover:scale-105"
+              style={{
+                background:
+                  "linear-gradient(135deg, hsl(var(--primary) / 0.12), hsl(var(--neon) / 0.18))",
+                boxShadow: "inset 0 0 0 1px hsl(var(--primary) / 0.15)",
+              }}
+            >
               <p.icon className="h-5 w-5" />
             </span>
             <div>
