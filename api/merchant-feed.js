@@ -19,7 +19,7 @@ function buildMerchantFeed(source = products) {
     .filter((product) => product.active !== false)
     .map((product) => {
       const link = product.url ? `${baseUrl}/${product.url}` : `${baseUrl}/catalogue.html#${product.id}`;
-      const imageLink = product.image ? `${baseUrl}/${product.image}` : `${baseUrl}/assets/organisateur-voyage.svg`;
+      const imageLink = product.image ? `${baseUrl}/${product.image}` : `${baseUrl}/assets/produit-digital.svg`;
 
       return `
         <item>

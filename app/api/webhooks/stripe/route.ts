@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import type Stripe from "stripe";
 import { stripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { Json } from "@/types/database";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
 import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
@@ -74,7 +75,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
   const customerName = session.customer_details?.name || null;
   const customerEmail = session.customer_details?.email || session.customer_email || null;
   const customerPhone = session.customer_details?.phone || null;
-  const shippingAddress = session.shipping_details?.address || null;
+  const shippingAddress = session.collected_information?.shipping_details?.address ?? null;
   const paymentIntentId =
     typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id || null;
   const trackingEventId =
@@ -91,7 +92,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
       customer_email: customerEmail,
       customer_name: customerName,
       customer_phone: customerPhone,
-      shipping_address: shippingAddress,
+      shipping_address: shippingAddress as Json,
       subtotal: (session.amount_subtotal || 0) / 100,
       total: (session.amount_total || 0) / 100,
       tax: (session.total_details?.amount_tax || 0) / 100,

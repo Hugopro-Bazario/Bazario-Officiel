@@ -12,7 +12,7 @@ describe("checkoutLogic > normalizeCheckoutPayload", () => {
       fullName: "  Hugo Pro  ",
       email: "  hugo@mail.com ",
       quantity: "2",
-      offerId: "organisateur-voyage"
+      offerId: "pack-prompts-ia"
     });
 
     expect(data.fullName).toBe("Hugo Pro");
@@ -23,12 +23,12 @@ describe("checkoutLogic > normalizeCheckoutPayload", () => {
 
 describe("checkoutLogic > calculateOrderTotal", () => {
   it("calculates total from offer and quantity", () => {
-    expect(calculateOrderTotal("lampe-led-nomade", 2)).toBe(65.8);
+    expect(calculateOrderTotal("pack-assets-ia", 2)).toBe(59.8);
   });
 
   it("returns 0 for invalid input", () => {
     expect(calculateOrderTotal("unknown", 2)).toBe(0);
-    expect(calculateOrderTotal("organisateur-voyage", 0)).toBe(0);
+    expect(calculateOrderTotal("pack-prompts-ia", 0)).toBe(0);
   });
 });
 
@@ -41,7 +41,7 @@ describe("checkoutLogic > validateCheckoutPayload", () => {
       city: "Paris",
       country: "France",
       address: "10 rue Victor Hugo",
-      offerId: "support-telephone",
+      offerId: "template-notion-business",
       quantity: 1,
       note: "Livraison rapide"
     });
@@ -68,9 +68,12 @@ describe("checkoutLogic > validateCheckoutPayload", () => {
 
   it("keeps offer ids aligned with configured offers", () => {
     expect(Object.keys(AVAILABLE_OFFERS)).toEqual([
-      "organisateur-voyage",
-      "support-telephone",
-      "lampe-led-nomade"
+      "pack-prompts-ia",
+      "template-notion-business",
+      "ebook-monetiser-ia",
+      "pack-assets-ia",
+      "kit-automatisation-ia",
+      "megapack-createur"
     ]);
   });
 });

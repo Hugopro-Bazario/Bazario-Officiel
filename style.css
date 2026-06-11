@@ -3,22 +3,30 @@
 }
 
 :root {
-  --bg: #f8fafc;
-  --text: #0f172a;
-  --muted: #475569;
-  --card: #ffffff;
-  --primary: #1d4ed8;
-  --primary-dark: #1e40af;
-  --border: #e2e8f0;
-  --soft: #eff6ff;
+  --bg: #050816;
+  --bg-2: #0b1026;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --card: rgba(15, 23, 42, 0.72);
+  --primary: #22d3ee;
+  --primary-dark: #06b6d4;
+  --violet: #a855f7;
+  --border: rgba(148, 163, 184, 0.18);
+  --soft: rgba(34, 211, 238, 0.08);
+  --glow: 0 0 24px rgba(34, 211, 238, 0.18);
+  --neon-gradient: linear-gradient(90deg, #22d3ee, #a855f7);
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 85, 247, 0.16), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(34, 211, 238, 0.1), transparent),
+    var(--bg);
   color: var(--text);
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.6;
   margin: 0;
+  min-height: 100vh;
 }
 
 a {
@@ -27,17 +35,21 @@ a {
 
 .container {
   margin: 0 auto;
-  width: min(980px, calc(100% - 2rem));
+  width: min(1080px, calc(100% - 2rem));
 }
 
 header,
 footer {
-  background: #fff;
+  background: rgba(5, 8, 22, 0.85);
+  backdrop-filter: blur(12px);
   border-color: var(--border);
 }
 
 header {
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 footer {
@@ -55,9 +67,14 @@ footer {
 }
 
 .brand {
+  background: var(--neon-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .nav a:not(.brand),
@@ -65,6 +82,12 @@ footer a {
   color: var(--muted);
   margin-left: 1rem;
   text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav a:not(.brand):hover,
+footer a:hover {
+  color: var(--primary);
 }
 
 main {
@@ -79,7 +102,7 @@ main {
   color: var(--primary);
   font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   margin: 0 0 0.45rem;
   text-transform: uppercase;
 }
@@ -124,8 +147,18 @@ p {
   padding: 1rem;
 }
 
+.card {
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: var(--glow);
+}
+
 .panel {
   background: var(--soft);
+  border-color: rgba(34, 211, 238, 0.25);
 }
 
 ul,
@@ -138,45 +171,77 @@ li + li {
 }
 
 .button {
-  background: var(--primary);
+  background: var(--neon-gradient);
+  border: 0;
   border-radius: 0.7rem;
-  color: #fff;
+  color: #050816;
   display: inline-block;
   font-weight: 700;
   padding: 0.75rem 1rem;
   text-decoration: none;
+  transition: box-shadow 0.25s, filter 0.25s;
 }
 
 .button:hover {
-  background: var(--primary-dark);
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.4);
+  filter: brightness(1.08);
 }
 
-.button-secondary {
-  background: #fff;
+.button-secondary,
+.button.secondary {
+  background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
 }
 
-.button-secondary:hover {
+.button-secondary:hover,
+.button.secondary:hover {
   background: var(--soft);
+  border-color: var(--primary);
+  box-shadow: none;
 }
 
-.toolbar {
+.toolbar,
+.catalog-tools {
   align-items: end;
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: 1.3fr repeat(3, minmax(140px, 1fr));
+  grid-template-columns: 1.3fr repeat(2, minmax(140px, 1fr));
   margin: 1.5rem 0;
 }
 
 .toolbar input,
-.toolbar select {
+.toolbar select,
+.catalog-tools input,
+.catalog-tools select {
   width: 100%;
+}
+
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.trust-strip span {
+  background: var(--soft);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 999px;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
 }
 
 .product-card {
   display: grid;
   gap: 0.75rem;
+}
+
+.product-card h2 {
+  font-size: 1.15rem;
+  margin: 0;
 }
 
 .product-card footer {
@@ -189,6 +254,12 @@ li + li {
   padding: 0;
 }
 
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .badge-row {
   display: flex;
   flex-wrap: wrap;
@@ -199,8 +270,9 @@ li + li {
 .badge-row span,
 .pill {
   background: var(--soft);
+  border: 1px solid rgba(34, 211, 238, 0.3);
   border-radius: 999px;
-  color: var(--primary-dark);
+  color: var(--primary);
   display: inline-block;
   font-size: 0.85rem;
   font-weight: 700;
@@ -208,9 +280,9 @@ li + li {
 }
 
 .cart-counter {
-  background: #0f172a;
+  background: var(--neon-gradient);
   border-radius: 999px;
-  color: #fff !important;
+  color: #050816 !important;
   padding: 0.35rem 0.7rem;
 }
 
@@ -243,7 +315,7 @@ li + li {
 
 .sticky-summary {
   position: sticky;
-  top: 1rem;
+  top: 5rem;
 }
 
 .product-detail {
@@ -254,9 +326,10 @@ li + li {
 
 .product-media {
   align-items: center;
-  background: #dbeafe;
-  border: 1px solid var(--border);
+  background: var(--bg-2);
+  border: 1px solid rgba(34, 211, 238, 0.3);
   border-radius: 1.2rem;
+  box-shadow: var(--glow);
   display: flex;
   justify-content: center;
   min-height: 320px;
@@ -269,12 +342,16 @@ li + li {
 }
 
 .price-line {
-  color: var(--primary);
+  background: var(--neon-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-size: 1.7rem;
   font-weight: 800;
 }
 
 .price-line span {
+  -webkit-text-fill-color: var(--muted);
   color: var(--muted);
   font-size: 1rem;
   margin-left: 0.5rem;
@@ -298,19 +375,36 @@ label {
 
 input,
 textarea,
+select,
 button {
+  background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: 0.65rem;
+  color: var(--text);
   font: inherit;
   padding: 0.75rem;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+  outline: none;
+}
+
 button {
-  background: var(--primary);
+  background: var(--neon-gradient);
   border: 0;
-  color: #fff;
+  color: #050816;
   cursor: pointer;
   font-weight: 700;
+  transition: box-shadow 0.25s, filter 0.25s;
+}
+
+button:hover {
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
+  filter: brightness(1.08);
 }
 
 @media (max-width: 720px) {
@@ -331,7 +425,8 @@ button {
   }
 
   .commerce-layout,
-  .toolbar {
+  .toolbar,
+  .catalog-tools {
     grid-template-columns: 1fr;
   }
 

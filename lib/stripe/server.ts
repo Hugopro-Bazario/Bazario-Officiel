@@ -1,13 +1,24 @@
 import Stripe from "stripe";
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+let client: Stripe | null = null;
 
-if (!stripeSecretKey) {
-  throw new Error("Missing STRIPE_SECRET_KEY.");
+function getStripe(): Stripe {
+  if (!client) {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecretKey) {
+      throw new Error("Missing STRIPE_SECRET_KEY.");
+    }
+    client = new Stripe(stripeSecretKey);
+  }
+  return client;
 }
 
-const apiVersion: Stripe.LatestApiVersion = "2025-03-31.basil";
-
-export const stripe = new Stripe(stripeSecretKey, {
-  apiVersion
+// Lazy proxy so importing this module never requires the secret at build time;
+// the key is only read on the first real Stripe call.
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop) {
+    const instance = getStripe();
+    const value = instance[prop as keyof Stripe];
+    return typeof value === "function" ? (value as (...args: unknown[]) => unknown).bind(instance) : value;
+  }
 });

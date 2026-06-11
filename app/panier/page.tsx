@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useConsentStore } from "@/lib/consent";
-import { useCartStore } from "@/lib/cart-store";
+import { useCartStore } from "@/lib/cart-store-zustand";
 import { formatPrice } from "@/lib/format";
 import { createEventId, getTrackingPayloadFromBrowser, setCheckoutEventId } from "@/lib/tracking/client";
 import { trackMetaEvent } from "@/lib/tracking/meta";

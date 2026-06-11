@@ -5,36 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Bazario Officiel rassemble une sélection de produits utiles, tendance et accessibles avec paiement sécurisé, retours 14 jours et support client francophone."
+      content="Bazario est la marketplace futuriste des produits digitaux : prompts IA, templates, ebooks, assets créatifs et kits d'automatisation, livrés instantanément par email."
     />
     <link rel="canonical" href="https://www.bazario-official.com/" />
-    <meta property="og:title" content="Bazario Officiel | Tout, mieux, partout" />
+    <meta property="og:title" content="Bazario | Marketplace de produits digitaux & IA" />
     <meta
       property="og:description"
-      content="Découvrez Bazario : des offres claires, une livraison suivie et un parcours d'achat simple pour le marché francophone."
+      content="Prompts IA, templates Notion, ebooks et kits d'automatisation : achetez, téléchargez et revendez des produits digitaux avec livraison instantanée."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.bazario-official.com/" />
-    <title>Bazario Officiel | Tout, mieux, partout</title>
+    <title>Bazario | Marketplace futuriste de produits digitaux & IA</title>
     <style>
       * {
         box-sizing: border-box;
       }
       :root {
-        --bg: #f8fafc;
-        --text: #0f172a;
-        --muted: #475569;
-        --card: #ffffff;
-        --primary: #1d4ed8;
-        --primary-dark: #1e40af;
-        --accent: #f97316;
-        --border: #e2e8f0;
-        --soft: #eff6ff;
+        --bg: #050816;
+        --bg-2: #0b1026;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --card: rgba(15, 23, 42, 0.72);
+        --primary: #22d3ee;
+        --primary-dark: #06b6d4;
+        --violet: #a855f7;
+        --border: rgba(148, 163, 184, 0.18);
+        --soft: rgba(34, 211, 238, 0.08);
+        --glow: 0 0 24px rgba(34, 211, 238, 0.18);
+        --neon-gradient: linear-gradient(90deg, #22d3ee, #a855f7);
       }
       body {
         margin: 0;
         font-family: "Segoe UI", Arial, sans-serif;
-        background: var(--bg);
+        background:
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 85, 247, 0.18), transparent),
+          radial-gradient(ellipse 60% 40% at 90% 20%, rgba(34, 211, 238, 0.12), transparent),
+          var(--bg);
         color: var(--text);
       }
       a {
@@ -50,15 +56,16 @@
         top: -4rem;
       }
       .skip-link:focus {
-        background: #fff;
-        border: 1px solid var(--border);
+        background: var(--bg-2);
+        border: 1px solid var(--primary);
         border-radius: 0.5rem;
         padding: 0.5rem 0.75rem;
         top: 1rem;
         z-index: 10;
       }
       header {
-        background: rgba(255, 255, 255, 0.94);
+        background: rgba(5, 8, 22, 0.85);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
@@ -71,8 +78,14 @@
         padding: 1rem 0;
       }
       .brand {
+        background: var(--neon-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         font-weight: 800;
-        letter-spacing: 0.03em;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-transform: uppercase;
       }
       .menu {
         align-items: center;
@@ -83,9 +96,10 @@
       }
       .menu a {
         text-decoration: none;
+        transition: color 0.2s;
       }
       .menu a:hover {
-        color: var(--text);
+        color: var(--primary);
       }
       .hero {
         display: grid;
@@ -94,20 +108,27 @@
         padding: 4.5rem 0 3rem;
       }
       .badge {
-        background: #dbeafe;
+        background: var(--soft);
+        border: 1px solid rgba(34, 211, 238, 0.35);
         border-radius: 999px;
-        color: #1e3a8a;
+        color: var(--primary);
         display: inline-block;
         font-size: 0.8rem;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         margin-bottom: 1rem;
-        padding: 0.35rem 0.6rem;
+        padding: 0.35rem 0.7rem;
         text-transform: uppercase;
       }
       h1 {
         font-size: clamp(2.2rem, 5vw, 4rem);
         line-height: 1.05;
         margin: 0;
+      }
+      .gradient-text {
+        background: var(--neon-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
       .lead {
         color: var(--muted);
@@ -128,32 +149,40 @@
         font-weight: 700;
         padding: 0.8rem 1.05rem;
         text-decoration: none;
+        transition: box-shadow 0.25s, filter 0.25s;
       }
       .btn-primary {
-        background: var(--primary);
-        color: #fff;
+        background: var(--neon-gradient);
+        color: #050816;
       }
       .btn-primary:hover {
-        background: var(--primary-dark);
+        box-shadow: 0 0 28px rgba(34, 211, 238, 0.45);
+        filter: brightness(1.08);
       }
       .btn-secondary {
-        background: #fff;
+        background: transparent;
         border: 1px solid var(--border);
         color: var(--text);
       }
+      .btn-secondary:hover {
+        border-color: var(--primary);
+        box-shadow: var(--glow);
+      }
       .hero-panel {
-        background: linear-gradient(135deg, #1d4ed8, #0f172a);
+        background: linear-gradient(145deg, rgba(34, 211, 238, 0.12), rgba(168, 85, 247, 0.14)), var(--bg-2);
+        border: 1px solid rgba(34, 211, 238, 0.3);
         border-radius: 1.4rem;
+        box-shadow: var(--glow);
         color: #fff;
         padding: 1.5rem;
       }
       .hero-panel strong {
         display: block;
-        font-size: 2.4rem;
-        line-height: 1;
+        font-size: 2.2rem;
+        line-height: 1.1;
       }
       .hero-panel p {
-        color: #dbeafe;
+        color: var(--muted);
         line-height: 1.6;
       }
       .metric-grid,
@@ -168,9 +197,19 @@
         margin-top: 1.5rem;
       }
       .metric {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(5, 8, 22, 0.55);
+        border: 1px solid var(--border);
         border-radius: 1rem;
         padding: 1rem;
+      }
+      .metric strong {
+        color: var(--primary);
+        font-size: 1.4rem !important;
+      }
+      .metric span {
+        color: var(--muted);
+        display: block;
+        font-size: 0.85rem;
       }
       section {
         padding: 2.2rem 0;
@@ -179,7 +218,7 @@
         color: var(--primary);
         font-size: 0.8rem;
         font-weight: 800;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.12em;
         margin: 0 0 0.45rem;
         text-transform: uppercase;
       }
@@ -194,7 +233,7 @@
         max-width: 780px;
       }
       .trust-bar {
-        background: #fff;
+        background: var(--card);
         border: 1px solid var(--border);
         border-radius: 1rem;
         display: grid;
@@ -203,7 +242,8 @@
         padding: 1rem;
       }
       .trust-item {
-        border-left: 3px solid var(--primary);
+        border-left: 3px solid;
+        border-image: linear-gradient(180deg, #22d3ee, #a855f7) 1;
         padding-left: 0.8rem;
       }
       .trust-item strong {
@@ -228,6 +268,16 @@
         border-radius: 1rem;
         padding: 1rem;
       }
+      .card,
+      .product-card {
+        transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      }
+      .card:hover,
+      .product-card:hover {
+        border-color: rgba(34, 211, 238, 0.45);
+        box-shadow: var(--glow);
+        transform: translateY(-3px);
+      }
       .card h3,
       .product-card h3 {
         font-size: 1.05rem;
@@ -245,34 +295,48 @@
         text-decoration: none;
       }
       .category-card {
-        background: linear-gradient(180deg, #fff, var(--soft));
+        background: linear-gradient(180deg, var(--card), rgba(34, 211, 238, 0.07));
         min-height: 150px;
       }
+      .category-card .icon {
+        font-size: 1.6rem;
+      }
       .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         margin-top: 1.25rem;
       }
       .price {
-        color: var(--primary);
+        background: var(--neon-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
         display: block;
         font-size: 1.25rem;
         font-weight: 800;
         margin-top: 0.7rem;
       }
       .old-price {
+        -webkit-text-fill-color: var(--muted);
         color: var(--muted);
         font-size: 0.9rem;
         margin-left: 0.4rem;
         text-decoration: line-through;
       }
-      .rating {
-        color: #92400e;
-        font-size: 0.9rem;
+      .delivery-tag {
+        background: rgba(168, 85, 247, 0.12);
+        border: 1px solid rgba(168, 85, 247, 0.35);
+        border-radius: 999px;
+        color: #c4b5fd;
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 700;
         margin-top: 0.7rem;
+        padding: 0.25rem 0.6rem;
       }
       .newsletter {
         align-items: center;
-        background: #0f172a;
+        background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.12)), var(--bg-2);
+        border: 1px solid rgba(34, 211, 238, 0.3);
         color: #fff;
         display: grid;
         gap: 1rem;
@@ -280,7 +344,7 @@
         margin-top: 1.25rem;
       }
       .newsletter p {
-        color: #cbd5e1;
+        color: var(--muted);
         margin: 0.35rem 0 0;
       }
       .newsletter form {
@@ -288,26 +352,29 @@
         gap: 0.5rem;
       }
       .newsletter input {
-        border: 0;
+        background: var(--bg);
+        border: 1px solid var(--border);
         border-radius: 0.65rem;
+        color: var(--text);
         font: inherit;
         min-width: 240px;
         padding: 0.75rem;
       }
       .newsletter button {
-        background: var(--accent);
+        background: var(--neon-gradient);
         border: 0;
         border-radius: 0.65rem;
-        color: #fff;
+        color: #050816;
         cursor: pointer;
         font-weight: 800;
         padding: 0.75rem 1rem;
       }
       .cta {
         background: var(--soft);
+        border-color: rgba(34, 211, 238, 0.25);
       }
       footer {
-        background: #fff;
+        background: rgba(5, 8, 22, 0.85);
         border-top: 1px solid var(--border);
         color: var(--muted);
         font-size: 0.92rem;
@@ -321,6 +388,10 @@
         display: block;
         margin-top: 0.45rem;
         text-decoration: none;
+        transition: color 0.2s;
+      }
+      footer a:hover {
+        color: var(--primary);
       }
       @media (max-width: 860px) {
         .hero,
@@ -348,9 +419,9 @@
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Bazario Officiel",
+        "name": "Bazario",
         "url": "https://www.bazario-official.com/",
-        "slogan": "Tout, mieux, partout",
+        "slogan": "Le digital, livré instantanément.",
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "customer support",
@@ -362,7 +433,7 @@
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Bazario Officiel",
+        "name": "Bazario",
         "url": "https://www.bazario-official.com/",
         "inLanguage": "fr-FR"
       }
@@ -372,13 +443,13 @@
     <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header>
       <div class="container nav">
-        <a class="brand" href="index.html">Bazario Officiel</a>
+        <a class="brand" href="index.html">Bazario</a>
         <nav class="menu" aria-label="Navigation principale">
-          <a href="#categories">Catégories</a>
+          <a href="#categories">Univers</a>
           <a href="#best-sellers">Best-sellers</a>
+          <a href="catalogue.html">Catalogue</a>
           <a href="faq.html">FAQ</a>
-          <a href="contact.html">Contact</a>
-          <a href="checkout.html">Commander</a>
+          <a href="panier.html">Panier</a>
         </nav>
       </div>
     </header>
@@ -386,144 +457,152 @@
     <main id="contenu" class="container">
       <section class="hero">
         <div>
-          <span class="badge">Bazario démarre sa sélection francophone</span>
-          <h1>Tout ce que vous voulez, livré comme vous le voulez.</h1>
+          <span class="badge">Marketplace digitale nouvelle génération</span>
+          <h1>Le digital, <span class="gradient-text">livré instantanément.</span></h1>
           <p class="lead">
-            Bazario rassemble des produits utiles, tendance et accessibles dans un parcours simple : offres lisibles,
-            paiement sécurisé, suivi de commande et support humain. La sélection évolue progressivement pour devenir
-            une marketplace francophone fiable.
+            Bazario est la marketplace francophone des produits digitaux et de l'IA : prompts professionnels, templates,
+            ebooks, assets créatifs et kits d'automatisation. Payez, téléchargez, utilisez — en moins de 60 secondes,
+            sans stock ni livraison physique.
           </p>
           <div class="actions">
-            <a class="btn btn-primary" href="#best-sellers">Voir les offres</a>
-            <a class="btn btn-secondary" href="checkout.html">Tester le checkout</a>
+            <a class="btn btn-primary" href="#best-sellers">Explorer les produits</a>
+            <a class="btn btn-secondary" href="produit-pack-prompts-ia.html">Voir le best-seller</a>
           </div>
         </div>
         <aside class="hero-panel" aria-label="Promesse Bazario">
-          <strong>Tout, mieux, partout.</strong>
+          <strong class="gradient-text">100% digital. 0% attente.</strong>
           <p>
-            Une base e-commerce rapide et indexable, avec les pages de confiance essentielles avant l'ajout massif du
-            catalogue.
+            Chaque produit est livré automatiquement par email après paiement sécurisé Stripe. Licence claire,
+            mises à jour incluses, support humain.
           </p>
           <div class="metric-grid">
-            <div class="metric"><strong>14j</strong><span>Retours</span></div>
+            <div class="metric"><strong>&lt;60s</strong><span>Livraison</span></div>
+            <div class="metric"><strong>14j</strong><span>Satisfait ou remboursé</span></div>
             <div class="metric"><strong>7j/7</strong><span>Support</span></div>
-            <div class="metric"><strong>FR</strong><span>Marché cible</span></div>
           </div>
         </aside>
       </section>
 
       <section aria-label="Garanties Bazario">
         <div class="trust-bar">
-          <div class="trust-item"><strong>Paiement sécurisé</strong><span>Préparation Stripe checkout.</span></div>
-          <div class="trust-item"><strong>Retours 14 jours</strong><span>Procédure claire et conforme UE.</span></div>
-          <div class="trust-item"><strong>Livraison suivie</strong><span>Délais annoncés avec transparence.</span></div>
-          <div class="trust-item"><strong>Support francophone</strong><span>Réponse annoncée sous 24 à 48h ouvrées.</span></div>
+          <div class="trust-item"><strong>Paiement sécurisé</strong><span>Checkout Stripe chiffré.</span></div>
+          <div class="trust-item"><strong>Livraison instantanée</strong><span>Lien de téléchargement immédiat par email.</span></div>
+          <div class="trust-item"><strong>Licence commerciale</strong><span>Utilisez et revendez selon la licence incluse.</span></div>
+          <div class="trust-item"><strong>Support francophone</strong><span>Réponse sous 24 à 48h ouvrées.</span></div>
         </div>
       </section>
 
       <section id="categories">
-        <p class="section-kicker">Catalogue</p>
-        <h2 class="section-title">Catégories prioritaires</h2>
+        <p class="section-kicker">Univers</p>
+        <h2 class="section-title">Quatre univers, un seul objectif : créer plus vite</h2>
         <p class="section-text">
-          Les catégories sont posées pour préparer les futures pages SEO dédiées. Chaque univers devra recevoir ses
-          produits, son contenu éditorial et ses filtres dès que la source catalogue sera branchée.
+          Des outils digitaux concrets pour les créateurs, freelances et entrepreneurs qui veulent exploiter l'IA
+          sans perdre des semaines à tout construire eux-mêmes.
         </p>
         <div class="cards">
           <article class="card category-card">
-            <h3>Mode & Lifestyle</h3>
-            <p>Accessoires, essentiels du quotidien et articles tendance pour une sélection grand public.</p>
+            <div class="icon">⚡</div>
+            <h3>Prompts & IA</h3>
+            <p>Bibliothèques de prompts pro et agents IA configurés pour ChatGPT, Claude et Midjourney.</p>
           </article>
           <article class="card category-card">
-            <h3>Maison pratique</h3>
-            <p>Objets utiles, rangement, confort et petites solutions pour améliorer la maison.</p>
+            <div class="icon">🧩</div>
+            <h3>Templates & Productivité</h3>
+            <p>Systèmes Notion, tableaux de bord et outils prêts à dupliquer pour piloter votre activité.</p>
           </article>
           <article class="card category-card">
-            <h3>Tech & mobilité</h3>
-            <p>Accessoires connectés, organisation et produits compacts orientés usage réel.</p>
+            <div class="icon">📚</div>
+            <h3>Formations & Guides</h3>
+            <p>Ebooks et guides actionnables pour monétiser l'IA et lancer un business digital rentable.</p>
           </article>
           <article class="card category-card">
-            <h3>Bien-être</h3>
-            <p>Produits légers pour routines personnelles, détente et idées cadeaux accessibles.</p>
+            <div class="icon">🎨</div>
+            <h3>Assets créatifs</h3>
+            <p>Visuels, icônes et mockups haute résolution générés par IA, avec licence commerciale.</p>
           </article>
         </div>
       </section>
 
       <section id="best-sellers">
-        <p class="section-kicker">Conversion</p>
-        <h2 class="section-title">Premiers produits démonstrateurs</h2>
+        <p class="section-kicker">Best-sellers</p>
+        <h2 class="section-title">Les produits digitaux les plus téléchargés</h2>
         <p class="section-text">
-          Ces produits temporaires permettent de tester un parcours e-commerce plus concret avant la synchronisation
-          fournisseur. Ils devront être remplacés par le catalogue réel avant toute campagne payante.
+          Chaque produit est livré automatiquement après paiement : lien de téléchargement par email, accès à vie et
+          mises à jour incluses.
         </p>
         <div class="product-grid">
           <article class="product-card">
-            <a href="produit-organisateur-voyage.html">
-              <h3>Organisateur de voyage compact</h3>
-              <p>Pochette multi-compartiments pour câbles, chargeurs et accessoires de déplacement.</p>
-              <span class="price">24,90 € <span class="old-price">34,90 €</span></span>
-              <div class="rating" aria-label="Note 4,6 sur 5">4,6/5 - 18 avis pilotes</div>
+            <a href="produit-pack-prompts-ia.html">
+              <h3>Pack 500 Prompts IA Pro</h3>
+              <p>500 prompts professionnels pour ChatGPT, Claude et Midjourney, classés par usage métier.</p>
+              <span class="price">19,90 € <span class="old-price">39,90 €</span></span>
+              <span class="delivery-tag">⚡ Livraison instantanée</span>
             </a>
           </article>
           <article class="product-card">
-            <h3>Support téléphone pliable</h3>
-            <p>Support léger pour bureau, cuisine ou table de nuit, utile en vidéo et lecture.</p>
-            <span class="price">19,90 € <span class="old-price">29,90 €</span></span>
-            <div class="rating" aria-label="Note 4,5 sur 5">4,5/5 - 12 avis pilotes</div>
+            <a href="catalogue.html#kit-automatisation-ia">
+              <h3>Kit Automatisation IA</h3>
+              <p>25 workflows Make, Zapier et n8n plus agents IA prêts à importer pour automatiser votre business.</p>
+              <span class="price">49,90 € <span class="old-price">99,90 €</span></span>
+              <span class="delivery-tag">⚡ Livraison instantanée</span>
+            </a>
           </article>
           <article class="product-card">
-            <h3>Lampe LED nomade</h3>
-            <p>Petite lampe rechargeable pour lecture, bureau d'appoint ou ambiance douce.</p>
-            <span class="price">32,90 € <span class="old-price">44,90 €</span></span>
-            <div class="rating" aria-label="Note 4,7 sur 5">4,7/5 - 9 avis pilotes</div>
+            <a href="catalogue.html#megapack-createur">
+              <h3>Megapack Créateur Digital</h3>
+              <p>Tous les produits Bazario réunis dans un bundle unique avec plus de 50 % de remise.</p>
+              <span class="price">79,90 € <span class="old-price">159,90 €</span></span>
+              <span class="delivery-tag">⚡ Livraison instantanée</span>
+            </a>
           </article>
         </div>
         <div class="actions">
-          <a class="btn btn-secondary" href="catalogue.html">Voir le catalogue</a>
+          <a class="btn btn-primary" href="catalogue.html">Voir tout le catalogue</a>
         </div>
       </section>
 
       <section>
         <p class="section-kicker">Pourquoi Bazario</p>
-        <h2 class="section-title">Des fondations avant la publicité</h2>
+        <h2 class="section-title">Un modèle pensé pour le digital</h2>
         <div class="cards">
           <article class="card">
-            <h3>Indexable sans JavaScript</h3>
-            <p>La home, le checkout et les pages de confiance existent en HTML statique pour préserver le SEO de base.</p>
+            <h3>Marge maximale, zéro logistique</h3>
+            <p>Pas de stock, pas de transporteur, pas de douane : le produit est un fichier, la livraison est un email.</p>
           </article>
           <article class="card">
-            <h3>Promesse transparente</h3>
-            <p>Délais, retours et contact sont expliqués avant d'envoyer du trafic payant vers le site.</p>
+            <h3>Achetez, utilisez, revendez</h3>
+            <p>Les licences commerciales incluses vous permettent d'exploiter les assets dans vos propres projets clients.</p>
           </article>
           <article class="card">
-            <h3>Prêt pour l'itération</h3>
-            <p>Le dépôt contient maintenant un plan produit, SEO et social pour guider les prochains commits.</p>
+            <h3>Mises à jour à vie</h3>
+            <p>Chaque pack évolue avec les modèles IA : vous recevez les nouvelles versions sans payer de nouveau.</p>
           </article>
         </div>
       </section>
 
       <section>
         <p class="section-kicker">Preuve sociale</p>
-        <h2 class="section-title">Avis pilotes à remplacer par des avis vérifiés</h2>
+        <h2 class="section-title">Ils créent déjà avec Bazario</h2>
         <div class="cards">
           <article class="card">
-            <h3>Claire M.</h3>
-            <p>"Le parcours est clair et je comprends tout de suite comment commander et obtenir de l'aide."</p>
+            <h3>Claire M. — Freelance marketing</h3>
+            <p>"Le pack de prompts m'a fait gagner des heures sur mes briefs clients dès la première semaine."</p>
           </article>
           <article class="card">
-            <h3>Yanis B.</h3>
-            <p>"Les informations de livraison et de retour sont visibles, c'est rassurant avant de payer."</p>
+            <h3>Yanis B. — Créateur de contenu</h3>
+            <p>"Payé, téléchargé, utilisé en cinq minutes. Le template Notion structure tout mon business."</p>
           </article>
           <article class="card">
-            <h3>Sofia R.</h3>
-            <p>"La page mobile va droit au but : promesse, offres, garanties et contact."</p>
+            <h3>Sofia R. — Fondatrice e-commerce</h3>
+            <p>"Les workflows d'automatisation tournent en production : prospection et support quasi automatiques."</p>
           </article>
         </div>
       </section>
 
       <section class="newsletter" aria-label="Inscription newsletter">
         <div>
-          <h2 class="section-title">Recevoir les offres de lancement</h2>
-          <p>Inscrivez-vous pour recevoir les nouveautés Bazario et une future offre de bienvenue.</p>
+          <h2 class="section-title">Recevez les nouveaux drops digitaux</h2>
+          <p>Nouveaux packs, mises à jour IA et offres de lancement, directement dans votre boîte mail.</p>
         </div>
         <form action="contact.html" method="get">
           <label class="skip-link" for="newsletter-email">Email</label>
@@ -533,32 +612,35 @@
       </section>
 
       <section class="cta">
-        <h2 class="section-title">Prochaine étape technique</h2>
+        <h2 class="section-title">Prêt à passer au digital ?</h2>
         <p class="section-text">
-          Brancher une vraie source catalogue, enrichir les fiches produits démonstrateurs et connecter le checkout au
-          panier produit avant d'envoyer du trafic.
+          Choisissez un pack, payez en toute sécurité et recevez votre lien de téléchargement en moins d'une minute.
+          Satisfait ou remboursé pendant 14 jours.
         </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="catalogue.html">Commencer maintenant</a>
+        </div>
       </section>
     </main>
 
     <footer>
       <div class="container footer-grid">
         <div>
-          <strong>Bazario Officiel</strong>
-          <p>Tout, mieux, partout. Site e-commerce francophone en construction active.</p>
+          <strong>Bazario</strong>
+          <p>La marketplace futuriste des produits digitaux et de l'IA. Livraison instantanée, licence claire.</p>
         </div>
         <div>
           <strong>Aide</strong>
           <a href="faq.html">FAQ</a>
-          <a href="delais-de-livraison.html">Délais de livraison</a>
-          <a href="politique-de-retours.html">Politique de retours</a>
+          <a href="delais-de-livraison.html">Livraison instantanée</a>
+          <a href="politique-de-retours.html">Remboursements</a>
           <a href="contact.html">Contact</a>
         </div>
         <div>
-          <strong>Entreprise</strong>
+          <strong>Boutique</strong>
           <a href="a-propos.html">À propos</a>
           <a href="catalogue.html">Catalogue</a>
-          <a href="checkout.html">Checkout</a>
+          <a href="panier.html">Panier</a>
           <a href="sitemap.xml">Sitemap</a>
         </div>
         <div>
