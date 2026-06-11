@@ -10,7 +10,7 @@ export default defineConfig({
         catalogue: resolve(__dirname, "catalogue.html"),
         cart: resolve(__dirname, "panier.html"),
         thanks: resolve(__dirname, "merci.html"),
-        productOrganizer: resolve(__dirname, "produit-organisateur-voyage.html"),
+        productPromptsIa: resolve(__dirname, "produit-pack-prompts-ia.html"),
         about: resolve(__dirname, "a-propos.html"),
         faq: resolve(__dirname, "faq.html"),
         returns: resolve(__dirname, "politique-de-retours.html"),

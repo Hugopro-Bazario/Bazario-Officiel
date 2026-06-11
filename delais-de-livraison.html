@@ -5,61 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Délais de livraison Bazario : estimations transparentes, suivi de commande et informations par zone."
+      content="Livraison instantanée Bazario : vos produits digitaux sont envoyés par email en moins d'une minute après paiement confirmé."
     />
     <link rel="canonical" href="https://www.bazario-official.com/delais-de-livraison.html" />
-    <title>Délais de livraison | Bazario Officiel</title>
-    <style>
-      body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #f8fafc; color: #0f172a; }
-      .container { width: min(980px, calc(100% - 2rem)); margin: 0 auto; }
-      header, footer { background: #fff; border-bottom: 1px solid #e2e8f0; }
-      footer { border-bottom: 0; border-top: 1px solid #e2e8f0; color: #475569; padding: 1.5rem 0; }
-      nav { display: flex; justify-content: space-between; padding: 1rem 0; }
-      a { color: #1d4ed8; }
-      main { padding: 2.5rem 0; }
-      h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 1rem; }
-      p, li, td, th { color: #475569; line-height: 1.7; }
-      table { background: #fff; border-collapse: collapse; margin-top: 1rem; width: 100%; }
-      th, td { border: 1px solid #e2e8f0; padding: 0.85rem; text-align: left; }
-      th { color: #0f172a; }
-      section { background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; margin-top: 1rem; padding: 1rem; }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <title>Livraison instantanée | Bazario</title>
   </head>
   <body>
     <header>
-      <nav class="container"><strong>Bazario Officiel</strong><a href="index.html">Accueil</a></nav>
+      <div class="container nav">
+        <a class="brand" href="index.html">Bazario</a>
+        <nav aria-label="Navigation principale">
+          <a href="index.html">Accueil</a>
+          <a href="catalogue.html">Catalogue</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
     </header>
     <main class="container">
-      <h1>Délais de livraison</h1>
-      <p>
-        Bazario affiche des délais honnêtes : ils devront être confirmés produit par produit dès que le catalogue
-        fournisseur sera synchronisé.
-      </p>
-      <table>
-        <thead>
-          <tr><th>Zone</th><th>Délai estimatif</th><th>Statut</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>France métropolitaine</td><td>5 à 12 jours ouvrés</td><td>À confirmer selon produit</td></tr>
-          <tr><td>Belgique, Suisse, Luxembourg</td><td>7 à 15 jours ouvrés</td><td>À confirmer selon produit</td></tr>
-          <tr><td>Outre-mer et autres zones</td><td>Sur estimation avant commande</td><td>Support requis</td></tr>
-        </tbody>
-      </table>
-      <section>
-        <h2>Suivi</h2>
-        <p>
-          Une confirmation de commande est envoyée après validation. Le numéro de suivi sera ajouté dès que
-          l'expédition fournisseur sera branchée.
+      <section class="hero">
+        <p class="kicker">Livraison</p>
+        <h1>Livraison instantanée, par email.</h1>
+        <p class="lead">
+          Tous les produits Bazario sont 100 % digitaux : aucun colis, aucun transporteur, aucun délai postal.
+          Votre lien de téléchargement est envoyé automatiquement dès la confirmation du paiement.
         </p>
       </section>
-      <section>
-        <h2>Transparence dropshipping</h2>
+      <section class="panel">
+        <h2>Comment ça marche</h2>
+        <ol>
+          <li>Vous payez via Stripe Checkout (carte, Apple Pay, Google Pay).</li>
+          <li>Stripe confirme le paiement, généralement en quelques secondes.</li>
+          <li>Un email contenant votre lien de téléchargement est envoyé immédiatement à l'adresse indiquée.</li>
+        </ol>
+        <p class="note">Délai habituel constaté : moins de 60 secondes après confirmation du paiement.</p>
+      </section>
+      <section class="card">
+        <h2>Vous n'avez rien reçu ?</h2>
+        <ul>
+          <li>Vérifiez votre dossier spam ou courrier indésirable.</li>
+          <li>Vérifiez que l'adresse email saisie lors de la commande est correcte.</li>
+          <li>Après 15 minutes sans email, contactez le <a href="contact.html">support</a> avec votre référence de commande : nous renvoyons le lien manuellement.</li>
+        </ul>
+      </section>
+      <section class="card">
+        <h2>Accès et mises à jour</h2>
         <p>
-          Certains produits pourront être expédiés directement par un partenaire. Bazario doit afficher cette
-          information clairement sur chaque fiche produit avant le lancement public.
+          Le lien de téléchargement reste valable à vie. Lorsqu'un produit est mis à jour, la nouvelle version vous
+          est envoyée gratuitement à la même adresse email.
         </p>
       </section>
     </main>
-    <footer><div class="container">© 2026 Bazario Officiel</div></footer>
+    <footer><div class="container">© 2026 Bazario — <a href="politique-de-retours.html">Remboursements</a> <a href="contact.html">Contact</a></div></footer>
   </body>
 </html>

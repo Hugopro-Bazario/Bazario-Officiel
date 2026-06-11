@@ -8,36 +8,39 @@ import {
 
 describe("productCatalog", () => {
   it("exposes active products from the central catalog", () => {
-    expect(getAllProducts().length).toBeGreaterThanOrEqual(3);
+    expect(getAllProducts().length).toBeGreaterThanOrEqual(6);
   });
 
   it("builds checkout offers keyed by product id", () => {
     expect(Object.keys(buildOfferMap())).toEqual([
-      "organisateur-voyage",
-      "support-telephone",
-      "lampe-led-nomade"
+      "pack-prompts-ia",
+      "template-notion-business",
+      "ebook-monetiser-ia",
+      "pack-assets-ia",
+      "kit-automatisation-ia",
+      "megapack-createur"
     ]);
   });
 
   it("finds products by id or slug", () => {
-    expect(getProductBySlug("organisateur-voyage")?.sku).toBe("BZ-DEMO-001");
-    expect(getProductBySlug("produit-organisateur-voyage.html")?.id).toBe("organisateur-voyage");
+    expect(getProductBySlug("pack-prompts-ia")?.sku).toBe("BZ-DIG-001");
+    expect(getProductBySlug("produit-pack-prompts-ia.html")?.id).toBe("pack-prompts-ia");
   });
 
   it("searches products by query with pagination bounds", () => {
-    const result = searchProducts({ q: "lampe", limit: 1, offset: 0 });
+    const result = searchProducts({ q: "ebook", limit: 1, offset: 0 });
 
     expect(result.total).toBe(1);
-    expect(result.items[0].id).toBe("lampe-led-nomade");
+    expect(result.items[0].id).toBe("ebook-monetiser-ia");
     expect(result.limit).toBe(1);
   });
 
   it("filters products by category", () => {
-    const result = searchProducts({ category: "Maison pratique" });
+    const result = searchProducts({ category: "Prompts & IA" });
 
     expect(result.items.map((product) => product.id)).toEqual([
-      "organisateur-voyage",
-      "lampe-led-nomade"
+      "pack-prompts-ia",
+      "kit-automatisation-ia"
     ]);
   });
 });

@@ -5,37 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Tunnel de commande Bazario Officiel avec total visible, informations de livraison, support francophone et préparation Stripe checkout."
+      content="Checkout Bazario : paiement sécurisé Stripe et livraison instantanée de vos produits digitaux par email."
     />
     <link rel="canonical" href="https://www.bazario-official.com/checkout.html" />
-    <meta property="og:title" content="Checkout | Bazario Officiel" />
+    <meta property="og:title" content="Checkout | Bazario" />
     <meta
       property="og:description"
-      content="Testez le parcours de commande Bazario avec résumé clair, garanties visibles et notification serveur."
+      content="Payez en toute sécurité et recevez votre produit digital par email en moins d'une minute."
     />
     <meta property="og:type" content="website" />
-    <title>Checkout | Bazario Officiel</title>
+    <title>Checkout | Bazario</title>
     <style>
       * {
         box-sizing: border-box;
       }
       :root {
-        --bg: #f8fafc;
-        --text: #0f172a;
-        --muted: #475569;
-        --card: #ffffff;
-        --primary: #1d4ed8;
-        --primary-dark: #1e40af;
-        --border: #e2e8f0;
-        --success-bg: #ecfdf5;
-        --success-text: #065f46;
-        --error-bg: #fef2f2;
-        --error-text: #991b1b;
+        --bg: #050816;
+        --bg-2: #0b1026;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --card: rgba(15, 23, 42, 0.72);
+        --primary: #22d3ee;
+        --primary-dark: #06b6d4;
+        --border: rgba(148, 163, 184, 0.18);
+        --neon-gradient: linear-gradient(90deg, #22d3ee, #a855f7);
+        --success-bg: rgba(16, 185, 129, 0.12);
+        --success-text: #6ee7b7;
+        --error-bg: rgba(239, 68, 68, 0.12);
+        --error-text: #fca5a5;
       }
       body {
         margin: 0;
         font-family: "Segoe UI", Arial, sans-serif;
-        background: var(--bg);
+        background:
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 85, 247, 0.16), transparent),
+          var(--bg);
         color: var(--text);
       }
       .container {
@@ -44,7 +48,8 @@
       }
       header {
         border-bottom: 1px solid var(--border);
-        background: #fff;
+        background: rgba(5, 8, 22, 0.85);
+        backdrop-filter: blur(12px);
       }
       .nav {
         display: flex;
@@ -53,14 +58,22 @@
         padding: 1rem 0;
       }
       .brand {
-        font-weight: 700;
-        letter-spacing: 0.03em;
+        background: var(--neon-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+        letter-spacing: 0.04em;
         text-decoration: none;
+        text-transform: uppercase;
       }
       .back {
         color: var(--muted);
         text-decoration: none;
         font-size: 0.95rem;
+      }
+      .back:hover {
+        color: var(--primary);
       }
       main {
         padding: 2.2rem 0 3rem;
@@ -109,7 +122,16 @@
         padding: 0.68rem 0.72rem;
         border-radius: 0.6rem;
         border: 1px solid var(--border);
+        background: var(--bg-2);
+        color: var(--text);
         font: inherit;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+        outline: none;
       }
       .row {
         display: grid;
@@ -118,15 +140,17 @@
       }
       .submit {
         border: 0;
-        background: var(--primary);
-        color: #fff;
+        background: var(--neon-gradient);
+        color: #050816;
         border-radius: 0.6rem;
         padding: 0.75rem 0.95rem;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 700;
+        transition: box-shadow 0.25s, filter 0.25s;
       }
       .submit:hover {
-        background: var(--primary-dark);
+        box-shadow: 0 0 24px rgba(34, 211, 238, 0.4);
+        filter: brightness(1.08);
       }
       .summary p {
         margin: 0.45rem 0;
@@ -183,27 +207,48 @@
       {
         "@context": "https://schema.org",
         "@type": "OfferCatalog",
-        "name": "Offres test Bazario",
+        "name": "Produits digitaux Bazario",
         "url": "https://www.bazario-official.com/checkout.html",
         "itemListElement": [
           {
             "@type": "Offer",
-            "name": "Organisateur de voyage compact",
-            "price": "24.90",
-            "priceCurrency": "EUR",
-            "availability": "https://schema.org/InStock"
-          },
-          {
-            "@type": "Offer",
-            "name": "Support téléphone pliable",
+            "name": "Pack 500 Prompts IA Pro",
             "price": "19.90",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
           },
           {
             "@type": "Offer",
-            "name": "Lampe LED nomade",
-            "price": "32.90",
+            "name": "Template Notion Business OS",
+            "price": "24.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Ebook Monétiser l'IA en 2026",
+            "price": "14.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pack 200 Assets Graphiques IA",
+            "price": "29.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Kit Automatisation IA",
+            "price": "49.90",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Megapack Créateur Digital",
+            "price": "79.90",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
           }
@@ -214,16 +259,16 @@
   <body>
     <header>
       <div class="container nav">
-        <a class="brand" href="index.html">Bazario Officiel</a>
-        <a class="back" href="index.html">Retour à l'accueil</a>
+        <a class="brand" href="index.html">Bazario</a>
+        <a class="back" href="catalogue.html">Retour au catalogue</a>
       </div>
     </header>
     <main class="container">
       <section class="intro">
-        <h1>Tunnel de commande</h1>
+        <h1>Finaliser ma commande</h1>
         <p>
-          Completez ce formulaire pour créer une commande. La demande est traitée par l'API du projet, avec notification
-          Brevo et vérification de connectivité CJDropshipping.
+          Produit 100 % digital : après paiement sécurisé, votre lien de téléchargement est envoyé à l'adresse email
+          indiquée ci-dessous, en moins d'une minute.
         </p>
       </section>
 
@@ -237,7 +282,7 @@
             </div>
             <div class="row">
               <div class="field">
-                <label for="email">Email</label>
+                <label for="email">Email de livraison (lien de téléchargement)</label>
                 <input id="email" name="email" type="email" required />
               </div>
               <div class="field">
@@ -247,29 +292,32 @@
             </div>
             <div class="row">
               <div class="field">
-                <label for="city">Ville</label>
+                <label for="city">Ville (facturation)</label>
                 <input id="city" name="city" type="text" required />
               </div>
               <div class="field">
-                <label for="country">Pays</label>
+                <label for="country">Pays (facturation)</label>
                 <input id="country" name="country" type="text" value="France" required />
               </div>
             </div>
             <div class="field">
-              <label for="address">Adresse de livraison</label>
+              <label for="address">Adresse de facturation</label>
               <input id="address" name="address" type="text" required />
             </div>
             <div class="row">
               <div class="field">
-                <label for="offerId">Offre</label>
+                <label for="offerId">Produit digital</label>
                 <select id="offerId" name="offerId" required>
-                  <option value="organisateur-voyage">Organisateur de voyage compact — 24,90 €</option>
-                  <option value="support-telephone">Support téléphone pliable — 19,90 €</option>
-                  <option value="lampe-led-nomade">Lampe LED nomade — 32,90 €</option>
+                  <option value="pack-prompts-ia">Pack 500 Prompts IA Pro — 19,90 €</option>
+                  <option value="template-notion-business">Template Notion Business OS — 24,90 €</option>
+                  <option value="ebook-monetiser-ia">Ebook Monétiser l'IA en 2026 — 14,90 €</option>
+                  <option value="pack-assets-ia">Pack 200 Assets Graphiques IA — 29,90 €</option>
+                  <option value="kit-automatisation-ia">Kit Automatisation IA — 49,90 €</option>
+                  <option value="megapack-createur">Megapack Créateur Digital — 79,90 €</option>
                 </select>
               </div>
               <div class="field">
-                <label for="quantity">Quantité</label>
+                <label for="quantity">Quantité (licences)</label>
                 <input id="quantity" name="quantity" type="number" min="1" max="20" value="1" required />
               </div>
             </div>
@@ -277,28 +325,29 @@
               <label for="note">Note (optionnel)</label>
               <textarea id="note" name="note" rows="3" maxlength="500"></textarea>
             </div>
-            <button class="submit" id="submit-btn" type="submit">Confirmer la commande</button>
+            <button class="submit" id="submit-btn" type="submit">Payer et télécharger</button>
             <div id="status" class="status"></div>
             <p class="fine-print">
               En confirmant, vous acceptez les <a href="cgv.html">CGV</a> et la
-              <a href="politique-de-confidentialite.html">politique de confidentialité</a>. Cette version reste un
-              tunnel de test avant intégration Stripe complète.
+              <a href="politique-de-confidentialite.html">politique de confidentialité</a>. Pour les contenus digitaux,
+              le téléchargement immédiat vaut renonciation au délai de rétractation, mais Bazario applique une garantie
+              satisfait ou remboursé de 14 jours.
             </p>
           </form>
         </article>
 
         <aside class="card summary">
           <h2>Résumé</h2>
-          <p><strong>Pipeline :</strong> Frontend → `/api/order` → Brevo/CJ check.</p>
-          <p><strong>Paiement :</strong> simulation de commande (pré-intégration Stripe checkout).</p>
-          <p id="estimated-total"><strong>Total estimé :</strong> 24,90 €</p>
-          <p><strong>Sécurité :</strong> les clés API restent côté serveur.</p>
+          <p><strong>Livraison :</strong> instantanée, par email, dès confirmation du paiement.</p>
+          <p><strong>Paiement :</strong> Stripe Checkout sécurisé (cartes, Apple Pay, Google Pay).</p>
+          <p id="estimated-total"><strong>Total estimé :</strong> 19,90 €</p>
+          <p><strong>Sécurité :</strong> aucune donnée bancaire ne transite par Bazario.</p>
           <div class="trust-list">
-            <strong>Garanties visibles</strong>
+            <strong>Inclus avec chaque achat</strong>
             <ul>
-              <li>Retours possibles sous 14 jours selon la politique Bazario.</li>
-              <li>Support client francophone via la page contact.</li>
-              <li>Délais de livraison à confirmer produit par produit.</li>
+              <li>Lien de téléchargement à vie et mises à jour incluses.</li>
+              <li>Licence commerciale pour vos propres projets.</li>
+              <li>Garantie satisfait ou remboursé 14 jours.</li>
             </ul>
           </div>
         </aside>
@@ -307,9 +356,12 @@
 
     <script>
       const OFFER_PRICES = {
-        "organisateur-voyage": 24.9,
-        "support-telephone": 19.9,
-        "lampe-led-nomade": 32.9
+        "pack-prompts-ia": 19.9,
+        "template-notion-business": 24.9,
+        "ebook-monetiser-ia": 14.9,
+        "pack-assets-ia": 29.9,
+        "kit-automatisation-ia": 49.9,
+        "megapack-createur": 79.9
       };
 
       const form = document.getElementById("checkout-form");

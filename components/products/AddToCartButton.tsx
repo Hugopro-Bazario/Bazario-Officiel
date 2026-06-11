@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
-import { useCartStore } from "@/lib/cart-store";
+import { useCartStore } from "@/lib/cart-store-zustand";
 import { createEventId } from "@/lib/tracking/client";
 import { trackMetaEvent } from "@/lib/tracking/meta";
 import { trackTikTokEvent } from "@/lib/tracking/tiktok";

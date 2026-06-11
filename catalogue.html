@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Catalogue Bazario Officiel avec recherche rapide, filtres, tri, panier local et produits demonstrateurs."
+      content="Catalogue Bazario : prompts IA, templates Notion, ebooks, assets créatifs et kits d'automatisation. Recherche rapide, panier et livraison instantanée par email."
     />
     <link rel="canonical" href="https://www.bazario-official.com/catalogue.html" />
     <link rel="stylesheet" href="style.css" />
-    <title>Catalogue | Bazario Officiel</title>
+    <title>Catalogue produits digitaux | Bazario</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -19,20 +19,38 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "url": "https://www.bazario-official.com/produit-organisateur-voyage.html",
-            "name": "Organisateur de voyage compact"
+            "url": "https://www.bazario-official.com/produit-pack-prompts-ia.html",
+            "name": "Pack 500 Prompts IA Pro"
           },
           {
             "@type": "ListItem",
             "position": 2,
-            "url": "https://www.bazario-official.com/catalogue.html#support-telephone",
-            "name": "Support telephone pliable"
+            "url": "https://www.bazario-official.com/catalogue.html#template-notion-business",
+            "name": "Template Notion Business OS"
           },
           {
             "@type": "ListItem",
             "position": 3,
-            "url": "https://www.bazario-official.com/catalogue.html#lampe-led-nomade",
-            "name": "Lampe LED nomade"
+            "url": "https://www.bazario-official.com/catalogue.html#ebook-monetiser-ia",
+            "name": "Ebook Monetiser l'IA en 2026"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://www.bazario-official.com/catalogue.html#pack-assets-ia",
+            "name": "Pack 200 Assets Graphiques IA"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://www.bazario-official.com/catalogue.html#kit-automatisation-ia",
+            "name": "Kit Automatisation IA"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://www.bazario-official.com/catalogue.html#megapack-createur",
+            "name": "Megapack Createur Digital"
           }
         ]
       }
@@ -41,7 +59,7 @@
   <body>
     <header>
       <div class="container nav">
-        <a class="brand" href="index.html">Bazario Officiel</a>
+        <a class="brand" href="index.html">Bazario</a>
         <nav aria-label="Navigation principale">
           <a href="index.html">Accueil</a>
           <a href="catalogue.html">Catalogue</a>
@@ -53,45 +71,44 @@
     <main class="container">
       <section class="hero catalog-hero">
         <div>
-          <p class="kicker">Catalogue pilote</p>
-          <h1>Recherche rapide, choix clair, achat simple.</h1>
+          <p class="kicker">Catalogue digital</p>
+          <h1>Trouvez, payez, téléchargez.</h1>
           <p class="lead">
-            Cette page pose le comportement attendu d'un grand site e-commerce : trouver vite, filtrer, comparer, ajouter
-            au panier et passer au checkout sans friction.
+            Tous les produits Bazario sont 100 % digitaux : après paiement sécurisé, vous recevez votre lien de
+            téléchargement par email en moins d'une minute. Licence et mises à jour incluses.
           </p>
-        </div>
-        <div class="panel">
-          <strong>Objectif traction</strong>
-          <p>Remplacer ces produits demonstrateurs par des references fournisseur validees avant publicite.</p>
         </div>
       </section>
 
       <section class="trust-strip" aria-label="Avantages Bazario">
-        <span>Livraison suivie</span>
-        <span>Retours 14 jours</span>
-        <span>Paiement securise a brancher Stripe</span>
-        <span>Support francophone</span>
+        <span>⚡ Livraison instantanée</span>
+        <span>🔒 Paiement sécurisé Stripe</span>
+        <span>♾️ Mises à jour à vie</span>
+        <span>💬 Support francophone</span>
       </section>
 
       <section class="catalog-tools" aria-label="Recherche et filtres">
         <label>
           Rechercher
-          <input id="search-input" type="search" placeholder="Produit, categorie, usage..." autocomplete="off" />
+          <input id="search-input" type="search" placeholder="Prompts, template, ebook, assets..." autocomplete="off" />
         </label>
         <label>
-          Categorie
+          Univers
           <select id="category-filter">
-            <option value="">Toutes</option>
-            <option value="Maison pratique">Maison pratique</option>
-            <option value="Tech & mobilite">Tech & mobilite</option>
+            <option value="">Tous</option>
+            <option value="Prompts & IA">Prompts & IA</option>
+            <option value="Templates & Productivité">Templates & Productivité</option>
+            <option value="Formations & Guides">Formations & Guides</option>
+            <option value="Assets créatifs">Assets créatifs</option>
+            <option value="Bundles">Bundles</option>
           </select>
         </label>
         <label>
           Trier
           <select id="sort-select">
-            <option value="score-desc">Recommande</option>
+            <option value="score-desc">Recommandé</option>
             <option value="price-asc">Prix croissant</option>
-            <option value="price-desc">Prix decroissant</option>
+            <option value="price-desc">Prix décroissant</option>
             <option value="name-asc">Nom A-Z</option>
           </select>
         </label>
@@ -99,82 +116,142 @@
 
       <p id="result-count" class="note" aria-live="polite"></p>
 
-      <section id="product-grid" class="grid" aria-label="Produits">
+      <section id="product-grid" class="grid" aria-label="Produits digitaux">
         <article
           class="card product-card"
-          id="organisateur-voyage"
-          data-id="organisateur-voyage"
-          data-name="Organisateur de voyage compact"
-          data-category="Maison pratique"
-          data-price="24.90"
-          data-score="94"
-          data-url="produit-organisateur-voyage.html"
-        >
-          <p class="kicker">Maison pratique</p>
-          <h2>Organisateur de voyage compact</h2>
-          <p>Pochette multi-compartiments pour cables, chargeurs et accessoires.</p>
-          <p><strong>24,90 EUR</strong> <span class="note">au lieu de 34,90 EUR</span></p>
-          <div class="action-row">
-            <a class="button secondary" href="produit-organisateur-voyage.html">Voir</a>
-            <button class="add-cart" type="button">Ajouter</button>
-          </div>
-        </article>
-
-        <article
-          class="card product-card"
-          id="support-telephone"
-          data-id="support-telephone"
-          data-name="Support telephone pliable"
-          data-category="Tech & mobilite"
+          id="pack-prompts-ia"
+          data-id="pack-prompts-ia"
+          data-name="Pack 500 Prompts IA Pro"
+          data-category="Prompts & IA"
           data-price="19.90"
-          data-score="87"
-          data-url="catalogue.html#support-telephone"
+          data-score="96"
+          data-url="produit-pack-prompts-ia.html"
         >
-          <p class="kicker">Tech & mobilite</p>
-          <h2>Support telephone pliable</h2>
-          <p>Support leger pour bureau, cuisine ou table de nuit. Bon produit d'appel.</p>
-          <p><strong>19,90 EUR</strong> <span class="note">au lieu de 29,90 EUR</span></p>
+          <p class="kicker">Prompts & IA</p>
+          <h2>Pack 500 Prompts IA Pro</h2>
+          <p>500 prompts professionnels pour ChatGPT, Claude et Midjourney, classés par usage métier.</p>
+          <p><strong>19,90 €</strong> <span class="note">au lieu de 39,90 €</span></p>
           <div class="action-row">
-            <a class="button secondary" href="checkout.html?offer=support-telephone">Commander</a>
+            <a class="button secondary" href="produit-pack-prompts-ia.html">Voir</a>
             <button class="add-cart" type="button">Ajouter</button>
           </div>
         </article>
 
         <article
           class="card product-card"
-          id="lampe-led-nomade"
-          data-id="lampe-led-nomade"
-          data-name="Lampe LED nomade"
-          data-category="Maison pratique"
-          data-price="32.90"
-          data-score="90"
-          data-url="catalogue.html#lampe-led-nomade"
+          id="template-notion-business"
+          data-id="template-notion-business"
+          data-name="Template Notion Business OS"
+          data-category="Templates & Productivité"
+          data-price="24.90"
+          data-score="92"
+          data-url="catalogue.html#template-notion-business"
         >
-          <p class="kicker">Maison pratique</p>
-          <h2>Lampe LED nomade</h2>
-          <p>Petite lampe rechargeable pour lecture, bureau d'appoint ou ambiance douce.</p>
-          <p><strong>32,90 EUR</strong> <span class="note">au lieu de 44,90 EUR</span></p>
+          <p class="kicker">Templates & Productivité</p>
+          <h2>Template Notion Business OS</h2>
+          <p>Système Notion complet : CRM, finances, contenu et tableaux de bord automatisés.</p>
+          <p><strong>24,90 €</strong> <span class="note">au lieu de 49,90 €</span></p>
           <div class="action-row">
-            <a class="button secondary" href="checkout.html?offer=lampe-led-nomade">Commander</a>
+            <a class="button secondary" href="checkout.html?offer=template-notion-business">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="ebook-monetiser-ia"
+          data-id="ebook-monetiser-ia"
+          data-name="Ebook Monétiser l'IA en 2026"
+          data-category="Formations & Guides"
+          data-price="14.90"
+          data-score="89"
+          data-url="catalogue.html#ebook-monetiser-ia"
+        >
+          <p class="kicker">Formations & Guides</p>
+          <h2>Ebook Monétiser l'IA en 2026</h2>
+          <p>Guide de 120 pages : 12 business models IA concrets avec plans d'action et outils.</p>
+          <p><strong>14,90 €</strong> <span class="note">au lieu de 29,90 €</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=ebook-monetiser-ia">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="pack-assets-ia"
+          data-id="pack-assets-ia"
+          data-name="Pack 200 Assets Graphiques IA"
+          data-category="Assets créatifs"
+          data-price="29.90"
+          data-score="91"
+          data-url="catalogue.html#pack-assets-ia"
+        >
+          <p class="kicker">Assets créatifs</p>
+          <h2>Pack 200 Assets Graphiques IA</h2>
+          <p>200 visuels haute résolution avec licence commerciale : fonds, icônes néon, mockups.</p>
+          <p><strong>29,90 €</strong> <span class="note">au lieu de 59,90 €</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=pack-assets-ia">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="kit-automatisation-ia"
+          data-id="kit-automatisation-ia"
+          data-name="Kit Automatisation IA"
+          data-category="Prompts & IA"
+          data-price="49.90"
+          data-score="94"
+          data-url="catalogue.html#kit-automatisation-ia"
+        >
+          <p class="kicker">Prompts & IA</p>
+          <h2>Kit Automatisation IA</h2>
+          <p>25 workflows Make, Zapier et n8n plus agents IA prêts à importer dans votre business.</p>
+          <p><strong>49,90 €</strong> <span class="note">au lieu de 99,90 €</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=kit-automatisation-ia">Commander</a>
+            <button class="add-cart" type="button">Ajouter</button>
+          </div>
+        </article>
+
+        <article
+          class="card product-card"
+          id="megapack-createur"
+          data-id="megapack-createur"
+          data-name="Megapack Créateur Digital"
+          data-category="Bundles"
+          data-price="79.90"
+          data-score="98"
+          data-url="catalogue.html#megapack-createur"
+        >
+          <p class="kicker">Bundles</p>
+          <h2>Megapack Créateur Digital</h2>
+          <p>Tous les produits Bazario réunis : plus de 50 % de remise sur le prix cumulé.</p>
+          <p><strong>79,90 €</strong> <span class="note">au lieu de 159,90 €</span></p>
+          <div class="action-row">
+            <a class="button secondary" href="checkout.html?offer=megapack-createur">Commander</a>
             <button class="add-cart" type="button">Ajouter</button>
           </div>
         </article>
       </section>
 
       <section class="panel">
-        <h2>Pour devenir meilleur qu'un grand generaliste</h2>
+        <h2>Pourquoi acheter digital sur Bazario ?</h2>
         <ul>
-          <li>Moins de bruit : selection utile, fiches claires, promesses verifiees.</li>
-          <li>Plus de confiance : delais, retours et support visibles avant achat.</li>
-          <li>Plus de vitesse : pages statiques, recherche instantanee, checkout direct.</li>
+          <li>Zéro attente : le lien de téléchargement arrive par email dès le paiement confirmé.</li>
+          <li>Zéro risque : satisfait ou remboursé pendant 14 jours, paiement chiffré Stripe.</li>
+          <li>Zéro limite : licence commerciale incluse pour exploiter les contenus dans vos projets.</li>
         </ul>
       </section>
     </main>
     <footer>
       <div class="container">
         <a href="faq.html">FAQ</a>
-        <a href="politique-de-retours.html">Retours</a>
-        <a href="mentions-legales.html">Mentions legales</a>
+        <a href="politique-de-retours.html">Remboursements</a>
+        <a href="mentions-legales.html">Mentions légales</a>
       </div>
     </footer>
     <script>
@@ -230,7 +307,7 @@
           grid.appendChild(card);
         });
 
-        resultCount.textContent = visible + " produit(s) trouve(s)";
+        resultCount.textContent = visible + " produit(s) trouvé(s)";
       }
 
       document.querySelectorAll(".add-cart").forEach((button) => {
@@ -248,7 +325,7 @@
             });
           }
           writeCart(cart);
-          button.textContent = "Ajoute";
+          button.textContent = "Ajouté ✓";
           setTimeout(() => {
             button.textContent = "Ajouter";
           }, 1200);

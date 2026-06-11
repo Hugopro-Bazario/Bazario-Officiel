@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { stripe } from "@/lib/stripe/server";
 import { formatPrice } from "@/lib/format";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { Json } from "@/types/database";
 import { ClearCartOnSuccess } from "@/components/checkout/ClearCartOnSuccess";
 import { PurchaseEvent } from "@/components/tracking/PurchaseEvent";
 
@@ -29,7 +30,7 @@ export default async function CheckoutSuccessPage({
   }
 
   const session = await stripe.checkout.sessions.retrieve(sessionId, {
-    expand: ["line_items", "line_items.data.price", "customer_details", "shipping_details"]
+    expand: ["line_items", "line_items.data.price"]
   });
 
   const paymentPaid = session.payment_status === "paid";
@@ -39,7 +40,7 @@ export default async function CheckoutSuccessPage({
     const customerName = session.customer_details?.name || null;
     const customerEmail = session.customer_details?.email || session.customer_email || null;
     const customerPhone = session.customer_details?.phone || null;
-    const shippingAddress = session.shipping_details?.address || null;
+    const shippingAddress = session.collected_information?.shipping_details?.address || null;
 
     await supabase
       .from("orders")
@@ -49,7 +50,7 @@ export default async function CheckoutSuccessPage({
         customer_email: customerEmail,
         customer_name: customerName,
         customer_phone: customerPhone,
-        shipping_address: shippingAddress,
+        shipping_address: shippingAddress as Json,
         status: "paid",
         subtotal: (session.amount_subtotal || 0) / 100,
         total: (session.amount_total || 0) / 100,
@@ -61,6 +62,7 @@ export default async function CheckoutSuccessPage({
       .eq("stripe_session_id", session.id);
   }
 
+  const shippingDetails = session.collected_information?.shipping_details || null;
   const lineItems = session.line_items?.data || [];
   const orderShort = session.id.slice(-8).toUpperCase();
   const contentIds = lineItems.map((item) => item.description || item.id || "").filter(Boolean);
@@ -112,16 +114,16 @@ export default async function CheckoutSuccessPage({
         </div>
       </section>
 
-      {session.shipping_details?.address ? (
+      {shippingDetails?.address ? (
         <section className="rounded-xl border border-zinc-200 p-4 text-sm">
           <h2 className="mb-2 text-xl font-semibold">Adresse de livraison</h2>
-          <p>{session.shipping_details.name || "Destinataire"}</p>
-          <p>{session.shipping_details.address.line1}</p>
-          {session.shipping_details.address.line2 ? <p>{session.shipping_details.address.line2}</p> : null}
+          <p>{shippingDetails.name || "Destinataire"}</p>
+          <p>{shippingDetails.address.line1}</p>
+          {shippingDetails.address.line2 ? <p>{shippingDetails.address.line2}</p> : null}
           <p>
-            {session.shipping_details.address.postal_code} {session.shipping_details.address.city}
+            {shippingDetails.address.postal_code} {shippingDetails.address.city}
           </p>
-          <p>{session.shipping_details.address.country}</p>
+          <p>{shippingDetails.address.country}</p>
         </section>
       ) : null}
 

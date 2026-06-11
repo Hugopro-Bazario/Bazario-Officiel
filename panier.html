@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Panier Bazario Officiel : verifiez vos produits, ajustez les quantites et passez au checkout."
+      content="Panier Bazario : vérifiez vos produits digitaux, ajustez les quantités et passez au paiement sécurisé."
     />
     <link rel="canonical" href="https://www.bazario-official.com/panier.html" />
     <link rel="stylesheet" href="style.css" />
-    <title>Panier | Bazario Officiel</title>
+    <title>Panier | Bazario</title>
   </head>
   <body>
     <header>
       <div class="container nav">
-        <a class="brand" href="index.html">Bazario Officiel</a>
+        <a class="brand" href="index.html">Bazario</a>
         <nav aria-label="Navigation principale">
           <a href="catalogue.html">Catalogue</a>
           <a href="checkout.html">Checkout</a>
@@ -25,9 +25,9 @@
     <main class="container">
       <section class="hero">
         <p class="kicker">Panier</p>
-        <h1>Validez votre selection.</h1>
+        <h1>Validez votre sélection digitale.</h1>
         <p class="lead">
-          Cette page garde un panier local simple pour tester le parcours avant Stripe, stock temps reel et compte client.
+          Vos produits digitaux sont livrés instantanément par email après paiement. Pas de frais de port, jamais.
         </p>
       </section>
 
@@ -40,31 +40,34 @@
         </div>
 
         <aside class="card sticky-summary">
-          <h2>Resume</h2>
-          <p id="cart-total" class="price-line">0,00 EUR</p>
+          <h2>Résumé</h2>
+          <p id="cart-total" class="price-line">0,00 €</p>
           <ul>
-            <li>Paiement securise a brancher via Stripe.</li>
-            <li>Retours sous 14 jours.</li>
-            <li>Support francophone.</li>
+            <li>Livraison instantanée par email.</li>
+            <li>Paiement sécurisé Stripe.</li>
+            <li>Satisfait ou remboursé 14 jours.</li>
           </ul>
-          <a id="checkout-link" class="button" href="checkout.html">Passer au checkout</a>
+          <a id="checkout-link" class="button" href="checkout.html">Passer au paiement</a>
           <button id="clear-cart" class="button button-secondary" type="button">Vider le panier</button>
         </aside>
       </section>
     </main>
     <footer>
       <div class="container">
-        <a href="politique-de-retours.html">Retours</a>
-        <a href="delais-de-livraison.html">Livraison</a>
+        <a href="politique-de-retours.html">Remboursements</a>
+        <a href="delais-de-livraison.html">Livraison instantanée</a>
         <a href="contact.html">Contact</a>
       </div>
     </footer>
 
     <script>
       const PRODUCTS = {
-        "organisateur-voyage": { name: "Organisateur de voyage compact", price: 24.9 },
-        "support-telephone": { name: "Support telephone pliable", price: 19.9 },
-        "lampe-led-nomade": { name: "Lampe LED nomade", price: 32.9 }
+        "pack-prompts-ia": { name: "Pack 500 Prompts IA Pro", price: 19.9 },
+        "template-notion-business": { name: "Template Notion Business OS", price: 24.9 },
+        "ebook-monetiser-ia": { name: "Ebook Monétiser l'IA en 2026", price: 14.9 },
+        "pack-assets-ia": { name: "Pack 200 Assets Graphiques IA", price: 29.9 },
+        "kit-automatisation-ia": { name: "Kit Automatisation IA", price: 49.9 },
+        "megapack-createur": { name: "Megapack Créateur Digital", price: 79.9 }
       };
       const CART_KEY = "bazario_cart";
       const cartItems = document.getElementById("cart-items");
@@ -74,7 +77,7 @@
       const clearCart = document.getElementById("clear-cart");
 
       function formatPrice(value) {
-        return value.toFixed(2).replace(".", ",") + " EUR";
+        return value.toFixed(2).replace(".", ",") + " €";
       }
 
       function loadCart() {

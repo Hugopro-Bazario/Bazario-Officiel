@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Produit digital Bazario">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050816" />
+      <stop offset="1" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee" />
+      <stop offset="1" stop-color="#a855f7" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="480" height="360" rx="24" fill="url(#bg)" />
+  <rect width="480" height="360" rx="24" fill="url(#glow)" />
+  <g stroke="#1e293b" stroke-width="1">
+    <path d="M0 90h480M0 180h480M0 270h480M120 0v360M240 0v360M360 0v360" />
+  </g>
+  <g transform="translate(140 90)">
+    <rect width="200" height="180" rx="18" fill="#0f172a" stroke="url(#neon)" stroke-width="2.5" />
+    <path d="M60 60h80M60 90h80M60 120h50" stroke="url(#neon)" stroke-width="8" stroke-linecap="round" />
+    <circle cx="160" cy="30" r="14" fill="none" stroke="#22d3ee" stroke-width="3" />
+    <path d="M160 24v12M154 30h12" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" />
+  </g>
+  <path d="M100 300l40-24 40 24" fill="none" stroke="#a855f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7" />
+  <path d="M300 300l40-24 40 24" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7" />
+</svg>
