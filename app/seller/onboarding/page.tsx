@@ -48,9 +48,9 @@ export default function OnboardingPage() {
       <div className="container mx-auto grid gap-10 px-4 py-10 lg:grid-cols-[280px_1fr]">
         {/* Stepper sidebar */}
         <aside>
-          <h1 className="font-display text-2xl font-bold">Devenir vendeur</h1>
+          <h1 className="font-display text-2xl font-bold">Devenir créateur</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Quelques minutes suffisent pour ouvrir votre boutique.
+            Quelques minutes suffisent pour ouvrir votre studio.
           </p>
 
           <ol className="mt-8 space-y-2">

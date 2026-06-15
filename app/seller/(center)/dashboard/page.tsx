@@ -29,30 +29,30 @@ const KPI = [
 ]
 
 const RECENT_ORDERS = [
-  { id: "BZ-20264112", buyer: "M. Dupont", product: "Casque audio sans fil…", total: 189, status: "Nouvelle" },
-  { id: "BZ-20264110", buyer: "S. Bernard", product: "Sneakers blanches taille 42", total: 129, status: "À expédier" },
-  { id: "BZ-20264108", buyer: "K. Martin", product: "Sérum vitamine C ×2", total: 78, status: "À expédier" },
-  { id: "BZ-20264102", buyer: "L. Chen", product: "Lampe en laiton brossé", total: 219, status: "Expédiée" },
+  { id: "BZ-20266112", buyer: "M. Dupont", product: "Agent IA Orion — licence Solo", total: 149, status: "Livrée" },
+  { id: "BZ-20266110", buyer: "S. Bernard", product: "Pack 2 500 prompts business", total: 29, status: "Livrée" },
+  { id: "BZ-20266108", buyer: "K. Martin", product: "Nebula UI — 450 composants", total: 79, status: "Livrée" },
+  { id: "BZ-20266102", buyer: "L. Chen", product: "Masterclass IA générative", total: 199, status: "Remboursée" },
 ]
 
 const TOP_PRODUCTS = [
-  { title: "Casque audio sans-fil Aurora Pro", sales: 142, revenue: 26838, image: "/product-headphones-1.jpg" },
-  { title: "Sneakers cuir blanc Lumen Classic", sales: 98, revenue: 12642, image: "/product-sneakers-1.jpg" },
-  { title: "Sérum Éclat Vitamine C 15% bio", sales: 73, revenue: 2847, image: "/product-serum-1.jpg" },
+  { title: "Agent IA Orion — assistant commercial", sales: 142, revenue: 21158, image: "/digital/p-orion.svg" },
+  { title: "Nebula UI — 450 composants React", sales: 98, revenue: 7742, image: "/digital/p-nebula-ui.svg" },
+  { title: "Pack 2 500 prompts business 2026", sales: 273, revenue: 7917, image: "/digital/p-promptpack.svg" },
 ]
 
 const COUNTRIES = [
   { name: "France", flag: "🇫🇷", percent: 42, sales: 5240 },
   { name: "Allemagne", flag: "🇩🇪", percent: 18, sales: 2246 },
   { name: "Belgique", flag: "🇧🇪", percent: 11, sales: 1372 },
-  { name: "Espagne", flag: "🇪🇸", percent: 9, sales: 1123 },
-  { name: "Italie", flag: "🇮🇹", percent: 7, sales: 873 },
+  { name: "Canada", flag: "🇨🇦", percent: 9, sales: 1123 },
+  { name: "Suisse", flag: "🇨🇭", percent: 7, sales: 873 },
   { name: "Autres", flag: "🌍", percent: 13, sales: 1626 },
 ]
 
 const NOTIFICATIONS = [
-  { kind: "stock", text: "Stock bas : Sneakers Lumen Classic taille 42 (3 restants)", time: "il y a 2 h" },
-  { kind: "review", text: "Nouvelle note 5 étoiles sur le Casque Aurora Pro", time: "il y a 5 h" },
+  { kind: "review", text: "Nouvelle note 5 étoiles sur l'agent Orion", time: "il y a 2 h" },
+  { kind: "review", text: "Nouvel avis vérifié sur le pack 2 500 prompts", time: "il y a 5 h" },
   { kind: "payout", text: "Virement de 3 240,00 € envoyé sur votre compte", time: "hier" },
 ]
 
@@ -242,11 +242,11 @@ export default function SellerDashboardPage() {
                     <td className="px-5 py-3">
                       <Badge
                         variant={
-                          o.status === "Nouvelle"
-                            ? "accent"
-                            : o.status === "Expédiée"
-                              ? "success"
-                              : "secondary"
+                          o.status === "Livrée"
+                            ? "success"
+                            : o.status === "Remboursée"
+                              ? "secondary"
+                              : "accent"
                         }
                       >
                         {o.status}
