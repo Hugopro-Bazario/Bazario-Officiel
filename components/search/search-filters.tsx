@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { Star, Truck, BadgeCheck } from "lucide-react"
+import { Star, Zap, BadgeCheck } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
@@ -15,12 +15,14 @@ type Filters = {
 }
 
 const ALL_CATEGORIES = [
-  { slug: "mode", name: "Mode" },
-  { slug: "tech", name: "Tech" },
-  { slug: "maison", name: "Maison" },
-  { slug: "beaute", name: "Beauté" },
-  { slug: "sport", name: "Sport" },
-  { slug: "auto", name: "Auto & Moto" },
+  { slug: "agents-ia", name: "Agents IA" },
+  { slug: "prompts", name: "Prompts & GPTs" },
+  { slug: "templates", name: "Templates & UI Kits" },
+  { slug: "formations", name: "Formations" },
+  { slug: "saas", name: "Apps & SaaS" },
+  { slug: "art-ia", name: "Art génératif" },
+  { slug: "audio-ia", name: "Musique & Voix IA" },
+  { slug: "automatisations", name: "Automatisations" },
 ]
 
 export function SearchFilters({
@@ -178,8 +180,8 @@ export function SearchFilters({
             onChange={(e) => onChange({ ...filters, freeShipping: e.target.checked })}
             className="h-4 w-4 rounded border-input accent-primary"
           />
-          <Truck className="h-4 w-4 text-muted-foreground" />
-          Livraison gratuite
+          <Zap className="h-4 w-4 text-muted-foreground" />
+          Livraison instantanée
         </label>
         <label className="flex cursor-pointer items-center gap-2 text-sm">
           <input
@@ -189,7 +191,7 @@ export function SearchFilters({
             className="h-4 w-4 rounded border-input accent-primary"
           />
           <BadgeCheck className="h-4 w-4 text-muted-foreground" />
-          Vendeur vérifié
+          Créateur vérifié
         </label>
       </div>
 

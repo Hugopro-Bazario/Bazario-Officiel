@@ -10,7 +10,7 @@ import {
   Minus,
   Trash2,
   ShieldCheck,
-  Truck,
+  Zap,
   ArrowRight,
   Sparkles,
 } from "lucide-react"
@@ -58,7 +58,6 @@ export function CartDrawer() {
     return Array.from(map.entries())
   }, [items])
 
-  const remainingForFree = Math.max(0, FREE_SHIP_THRESHOLD - subtotal)
   const progress = Math.min(100, (subtotal / FREE_SHIP_THRESHOLD) * 100)
 
   // Recommended cross-sell : 3 products not yet in cart
@@ -114,18 +113,12 @@ export function CartDrawer() {
           </button>
         </div>
 
-        {/* Free shipping bar */}
+        {/* Digital delivery bar */}
         {count > 0 && (
           <div className="border-b border-border bg-secondary/40 px-5 py-3">
-            {remainingForFree > 0 ? (
-              <p className="text-xs text-foreground">
-                Plus que <span className="font-semibold text-primary">{formatPrice(remainingForFree)}</span> pour la livraison offerte
-              </p>
-            ) : (
-              <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
-                <Truck className="size-3.5" /> Livraison gratuite débloquée
-              </p>
-            )}
+            <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
+              <Zap className="size-3.5" /> Livraison instantanée · mises à jour à vie
+            </p>
             <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-background">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all"
@@ -285,16 +278,12 @@ export function CartDrawer() {
               </div>
               <div className="flex items-center justify-between text-muted-foreground">
                 <span>Livraison</span>
-                <span className="tabular-nums">
-                  {remainingForFree > 0 ? formatPrice(4.9) : "Offerte"}
-                </span>
+                <span className="tabular-nums text-accent">Instantanée</span>
               </div>
               <Separator className="my-2" />
               <div className="flex items-center justify-between text-base font-semibold">
                 <span>Total</span>
-                <span className="tabular-nums">
-                  {formatPrice(subtotal + (remainingForFree > 0 ? 4.9 : 0))}
-                </span>
+                <span className="tabular-nums">{formatPrice(subtotal)}</span>
               </div>
             </div>
             <Button asChild className="h-12 w-full gap-2 text-base">
@@ -315,7 +304,7 @@ export function CartDrawer() {
                 <ShieldCheck className="size-3" /> Paiement sécurisé
               </span>
               <span className="inline-flex items-center gap-1">
-                <Truck className="size-3" /> Retours 30 jours
+                <Zap className="size-3" /> Garantie 14 jours
               </span>
             </div>
           </div>
