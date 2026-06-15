@@ -63,9 +63,9 @@ export function ProductTabs({ product }: { product: Product }) {
             <Spec label="Modèle / SKU" value={product.variants[0]?.sku ?? "-"} />
             <Spec label="Catégorie" value={product.categoryPath.join(" › ")} />
             <Spec label="Variantes" value={`${product.variants.length} options`} />
-            <Spec label="Référence" value={product.variants[0]?.label ?? "Standard"} />
-            <Spec label="Poids" value="0,4 kg" />
-            <Spec label="Origine" value={product.shippingFrom} />
+            <Spec label="Licence" value={product.variants[0]?.label ?? "Standard"} />
+            <Spec label="Format" value="Livraison numérique" />
+            <Spec label="Disponibilité" value={product.shippingFrom} />
             <Spec label="Référence Bazario" value={`BZ-${product.id.toUpperCase()}`} />
           </dl>
         )}
@@ -74,26 +74,26 @@ export function ProductTabs({ product }: { product: Product }) {
           <ul className="space-y-4">
             <ShippingRow
               icon={Truck}
-              title="Livraison standard"
-              desc={`Expédiée sous 24 h depuis ${product.shippingFrom}. Arrivée estimée ${product.estimatedDelivery}.`}
-              price="Offerte dès 49 €"
+              title="Livraison numérique instantanée"
+              desc={`${product.estimatedDelivery}. Accès et liens de téléchargement disponibles dans votre espace et envoyés par email.`}
+              price="0 €"
             />
             <ShippingRow
               icon={Package}
-              title="Livraison express"
-              desc="Suivi temps réel · livraison en 24-48 h en France métropolitaine."
-              price="6,90 €"
+              title="Mises à jour à vie"
+              desc="Vos fichiers et accès évoluent à chaque nouvelle version, sans frais supplémentaires."
+              price="Incluses"
             />
             <ShippingRow
               icon={Globe2}
-              title="Livraison internationale"
-              desc="220 pays desservis. Délais et frais calculés à l'étape paiement."
-              price="à partir de 9,90 €"
+              title="Licence d'utilisation"
+              desc="La licence applicable (personnelle, commerciale ou agence) est précisée par chaque variante."
+              price="Voir options"
             />
             <ShippingRow
               icon={RefreshCw}
               title={product.returns}
-              desc="Retours gratuits depuis un point relais. Remboursement sous 5 jours ouvrés."
+              desc="Remboursement sous 14 jours si le produit ne correspond pas à la description. Traité sous 5 jours ouvrés."
               price="0 €"
             />
           </ul>

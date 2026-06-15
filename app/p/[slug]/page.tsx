@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import {
   ChevronRight,
   Star,
-  Truck,
+  Zap,
   Shield,
   RefreshCw,
   BadgeCheck,
@@ -250,15 +250,15 @@ export default async function ProductPage({
               {/* Trust mini-grid */}
               <ul className="grid grid-cols-3 gap-2 text-center text-[11px]">
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <Truck className="mx-auto mb-1 h-4 w-4 text-primary" />
-                  <span className="font-semibold leading-tight">Livraison rapide</span>
+                  <Zap className="mx-auto mb-1 h-4 w-4 text-accent" />
+                  <span className="font-semibold leading-tight">Accès instantané</span>
                 </li>
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <RefreshCw className="mx-auto mb-1 h-4 w-4 text-primary" />
-                  <span className="font-semibold leading-tight">Retours 30 j</span>
+                  <RefreshCw className="mx-auto mb-1 h-4 w-4 text-accent" />
+                  <span className="font-semibold leading-tight">Garantie 14 j</span>
                 </li>
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <Shield className="mx-auto mb-1 h-4 w-4 text-primary" />
+                  <Shield className="mx-auto mb-1 h-4 w-4 text-accent" />
                   <span className="font-semibold leading-tight">Paiement sûr</span>
                 </li>
               </ul>
@@ -267,7 +267,7 @@ export default async function ProductPage({
             {/* Seller card */}
             <div className="mt-4 rounded-2xl border bg-card p-5 shadow-sm">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Vendu et expédié par
+                Créé et publié par
               </p>
               <div className="flex items-center gap-3">
                 <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-secondary">
@@ -320,10 +320,10 @@ export default async function ProductPage({
               <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               <div className="text-xs">
                 <p className="font-semibold text-foreground">
-                  Bazario Premium · 6,99 €/mois
+                  Bazario Nexus+ · 9,99 €/mois
                 </p>
                 <p className="mt-0.5 text-muted-foreground">
-                  Livraison illimitée gratuite, ventes privées et 30 jours de retour étendu.
+                  −20 % sur tout le catalogue, crédits IA mensuels et accès anticipé aux drops.
                 </p>
               </div>
             </Link>

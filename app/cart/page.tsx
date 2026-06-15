@@ -8,14 +8,13 @@ import {
   Plus,
   Trash2,
   ShoppingBag,
-  Truck,
+  Zap,
   ShieldCheck,
   Tag,
   Check,
   ArrowRight,
   Lock,
   Heart,
-  Gift,
 } from "lucide-react"
 import { useCart } from "@/lib/cart-store"
 import { Button } from "@/components/ui/button"
@@ -33,13 +32,10 @@ const STEPS = [
   { id: 4, label: "Confirmation" },
 ]
 
-const FREE_SHIPPING_THRESHOLD = 49
-
 export default function CartPage() {
   const { items, updateQty, remove, clear, subtotal } = useCart()
   const [promo, setPromo] = useState("")
   const [promoApplied, setPromoApplied] = useState(false)
-  const [giftWrap, setGiftWrap] = useState(false)
 
   const itemsBySeller = useMemo(() => {
     const map = new Map<string, typeof items>()
@@ -56,12 +52,10 @@ export default function CartPage() {
   }, [items])
 
   const itemsCount = items.reduce((acc, it) => acc + it.qty, 0)
-  const shipping = items.length > 0 ? (subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 4.99 * itemsBySeller.length) : 0
+  // Produits 100 % numériques : livraison instantanée et gratuite.
+  const shipping = 0
   const promoDiscount = promoApplied ? Math.min(20, subtotal * 0.1) : 0
-  const giftFee = giftWrap ? 4.5 : 0
-  const total = Math.max(0, subtotal + shipping + giftFee - promoDiscount)
-  const freeShippingProgress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100)
-  const remainingForFree = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal)
+  const total = Math.max(0, subtotal + shipping - promoDiscount)
 
   // Recommendations: take first 4 products not already in cart
   const inCartIds = new Set(items.map((it) => it.productSlug))
@@ -149,32 +143,16 @@ export default function CartPage() {
           </Button>
         </div>
 
-        {/* Free shipping progress */}
-        {remainingForFree > 0 ? (
-          <div className="mb-6 rounded-2xl border border-accent/30 bg-accent/5 p-4">
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-sm font-medium">
-                Encore <strong className="text-accent">{formatPrice(remainingForFree)}</strong> pour la livraison offerte sur tout le panier
-              </p>
-              <Truck className="size-5 shrink-0 text-accent" />
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-accent/70 to-accent transition-all duration-500"
-                style={{ width: `${freeShippingProgress}%` }}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="mb-6 flex items-center gap-3 rounded-2xl border border-success/30 bg-success/5 p-4 text-sm">
-            <span className="inline-flex size-8 items-center justify-center rounded-full bg-success text-success-foreground">
-              <Check className="size-4" />
-            </span>
-            <p className="font-medium">
-              Bravo, vous bénéficiez de la <strong className="text-success">livraison offerte</strong> !
-            </p>
-          </div>
-        )}
+        {/* Digital delivery banner */}
+        <div className="mb-6 flex items-center gap-3 rounded-2xl border border-success/30 bg-success/5 p-4 text-sm">
+          <span className="inline-flex size-8 items-center justify-center rounded-full bg-success text-success-foreground">
+            <Check className="size-4" />
+          </span>
+          <p className="font-medium">
+            <strong className="text-success">Livraison instantanée</strong> — vos produits sont disponibles
+            immédiatement après le paiement, avec les mises à jour à vie.
+          </p>
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_400px]">
           {/* Items grouped by seller */}
@@ -199,7 +177,7 @@ export default function CartPage() {
                         )}
                       </div>
                       <p className="text-xs text-muted-foreground">
-                        {seller?.country} · livraison estimée 3-5 jours
+                        {seller?.country} · livraison numérique instantanée
                       </p>
                     </div>
                   </div>
@@ -326,25 +304,6 @@ export default function CartPage() {
                   )}
                 </div>
 
-                {/* Gift wrap */}
-                <label className="flex cursor-pointer items-start gap-3 rounded-lg border bg-secondary/30 p-3">
-                  <input
-                    type="checkbox"
-                    checked={giftWrap}
-                    onChange={(e) => setGiftWrap(e.target.checked)}
-                    className="mt-0.5 size-4 accent-primary"
-                  />
-                  <div className="flex-1">
-                    <p className="flex items-center gap-2 text-sm font-medium">
-                      <Gift className="size-4 text-accent" />
-                      Emballage cadeau Bazario
-                    </p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">
-                      Boîte signature, ruban et carte personnalisée · 4,50 €
-                    </p>
-                  </div>
-                </label>
-
                 <Separator />
 
                 <dl className="space-y-2 text-sm">
@@ -354,20 +313,8 @@ export default function CartPage() {
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-muted-foreground">Livraison</dt>
-                    <dd className="tabular-nums">
-                      {shipping === 0 ? (
-                        <span className="text-success">Offerte</span>
-                      ) : (
-                        formatPrice(shipping)
-                      )}
-                    </dd>
+                    <dd className="tabular-nums text-accent">Instantanée</dd>
                   </div>
-                  {giftWrap && (
-                    <div className="flex justify-between">
-                      <dt className="text-muted-foreground">Emballage cadeau</dt>
-                      <dd className="tabular-nums">{formatPrice(giftFee)}</dd>
-                    </div>
-                  )}
                   {promoApplied && (
                     <div className="flex justify-between text-success">
                       <dt>Code promo</dt>
@@ -398,12 +345,12 @@ export default function CartPage() {
                     Paiement 100 % sécurisé · Stripe & 3D Secure
                   </li>
                   <li className="flex items-center gap-2">
-                    <Truck className="size-3.5 text-success" />
-                    Livraison suivie dans 220 pays
+                    <Zap className="size-3.5 text-success" />
+                    Livraison numérique instantanée
                   </li>
                   <li className="flex items-center gap-2">
                     <ShieldCheck className="size-3.5 text-success" />
-                    Retours gratuits sous 30 jours
+                    Garantie 14 jours satisfait ou remboursé
                   </li>
                 </ul>
               </div>

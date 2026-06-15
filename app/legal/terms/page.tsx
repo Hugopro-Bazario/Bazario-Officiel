@@ -12,8 +12,8 @@ const TOC = [
   { id: "comptes", label: "Comptes utilisateurs" },
   { id: "commandes", label: "Commandes" },
   { id: "prix", label: "Prix et paiement" },
-  { id: "livraison", label: "Livraison" },
-  { id: "retours", label: "Retours et remboursements" },
+  { id: "livraison", label: "Livraison numérique" },
+  { id: "retractation", label: "Droit de rétractation" },
   { id: "garanties", label: "Garanties" },
   { id: "responsabilite", label: "Responsabilité" },
   { id: "litiges", label: "Litiges" },
@@ -29,9 +29,10 @@ export default function TermsPage() {
     >
       <h2 id="objet">1. Objet</h2>
       <p>
-        Bazario édite une place de marché en ligne mettant en relation des vendeurs professionnels indépendants et des
-        clients. Les présentes Conditions Générales de Vente (CGV) ont pour objet de définir les modalités de vente
-        applicables aux produits proposés sur la plateforme.
+        Bazario édite une place de marché en ligne mettant en relation des créateurs indépendants et des clients pour la
+        vente de <strong>produits et services numériques</strong> (agents IA, prompts, modèles/templates, formations,
+        logiciels, fichiers audio et visuels, automatisations). Les présentes Conditions Générales de Vente (CGV) ont
+        pour objet de définir les modalités de vente applicables aux contenus numériques proposés sur la plateforme.
       </p>
 
       <h2 id="comptes">2. Comptes utilisateurs</h2>
@@ -46,7 +47,8 @@ export default function TermsPage() {
       <p>
         Toute commande validée par le client vaut acceptation des présentes CGV ainsi que du prix et de la description
         des produits proposés. Bazario adresse au client une confirmation de commande par e-mail récapitulant les
-        produits commandés, les prix, les frais de livraison et l'adresse de livraison.
+        produits commandés et les prix. Les produits étant numériques, aucune adresse de livraison physique n'est
+        requise : les accès et fichiers sont mis à disposition dans l'espace client et par e-mail.
       </p>
 
       <h2 id="prix">4. Prix et paiement</h2>
@@ -57,27 +59,36 @@ export default function TermsPage() {
         proposé sur la plateforme.
       </p>
 
-      <h2 id="livraison">5. Livraison</h2>
+      <h2 id="livraison">5. Livraison numérique</h2>
       <p>
-        Les produits sont expédiés à l'adresse de livraison renseignée lors de la commande. Les délais indicatifs
-        figurent sur chaque fiche produit. La livraison est gratuite à partir de 49 € d'achat (hors objets volumineux).
-        En cas de retard de livraison supérieur à 7 jours ouvrés, le client peut demander la résolution de la commande
-        et le remboursement intégral.
+        Les produits sont des contenus numériques fournis sans support matériel. La livraison est{" "}
+        <strong>instantanée et gratuite</strong> : dès la validation du paiement, les accès, licences et liens de
+        téléchargement sont disponibles dans l'espace client et envoyés à l'adresse e-mail renseignée. Le client est
+        responsable de la conservation de ses fichiers téléchargés. Les mises à jour annoncées sur la fiche produit sont
+        mises à disposition dans le même espace.
       </p>
 
-      <h2 id="retours">6. Retours et remboursements</h2>
+      <h2 id="retractation">6. Droit de rétractation</h2>
       <p>
-        Conformément à l'article L221-18 du Code de la consommation, le client dispose d'un délai de{" "}
-        <strong>30 jours</strong> à compter de la réception du produit pour exercer son droit de rétractation, sans
-        avoir à justifier de motif. Les produits doivent être renvoyés dans leur emballage d'origine, accompagnés du
-        bordereau de retour. Le remboursement est effectué dans un délai de 14 jours à réception du produit.
+        Conformément à l'article <strong>L221-28 13°</strong> du Code de la consommation, le droit de rétractation ne
+        peut être exercé pour la fourniture d'un contenu numérique non fourni sur un support matériel dont l'exécution a
+        commencé après accord préalable exprès du consommateur et renoncement exprès à son droit de rétractation. En
+        finalisant une commande à livraison immédiate, le client demande l'exécution immédiate et reconnaît{" "}
+        <strong>perdre son droit de rétractation</strong> une fois le téléchargement ou l'accès commencé.
+      </p>
+      <p>
+        Indépendamment de ce cadre légal, Bazario applique une <strong>garantie commerciale « satisfait ou remboursé »
+        de 14 jours</strong> : si un produit ne correspond pas substantiellement à sa description, le client peut en
+        demander le remboursement à <a href="mailto:support@bazario.com">support@bazario.com</a>. Le remboursement est
+        traité sous 14 jours via le moyen de paiement initial.
       </p>
 
-      <h2 id="garanties">7. Garanties</h2>
+      <h2 id="garanties">7. Garanties et licences</h2>
       <p>
-        Les produits vendus sur Bazario bénéficient de la garantie légale de conformité (2 ans) et de la garantie
-        contre les vices cachés. Les produits Premium bénéficient en outre d'une garantie commerciale étendue offerte
-        par les vendeurs partenaires.
+        Les contenus numériques bénéficient de la garantie légale de conformité applicable (articles L224-25-1 et
+        suivants du Code de la consommation), incluant la conformité des mises à jour nécessaires. Chaque produit
+        précise la licence d'utilisation accordée (personnelle, commerciale ou agence) ; le client s'engage à en
+        respecter les termes. La revente ou la redistribution d'un contenu hors des droits accordés est interdite.
       </p>
 
       <h2 id="responsabilite">8. Responsabilité</h2>
