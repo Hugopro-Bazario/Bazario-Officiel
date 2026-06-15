@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Star, Users, Truck, Globe2 } from "lucide-react"
+import { Star, Users, Download, Globe2 } from "lucide-react"
 
 type Stat =
   | { icon: typeof Users; label: string; static: false; base: number; suffix: string; rate: number }
@@ -23,8 +23,8 @@ const STATS: Stat[] = [
     value: "4,82 / 5",
   },
   {
-    icon: Truck,
-    label: "Commandes livrées cette année",
+    icon: Download,
+    label: "Téléchargements cette année",
     static: false,
     base: 18_420_000,
     suffix: "+",
@@ -32,7 +32,7 @@ const STATS: Stat[] = [
   },
   {
     icon: Globe2,
-    label: "Vendeurs vérifiés dans 42 pays",
+    label: "Créateurs vérifiés dans 42 pays",
     static: true,
     value: "12 800+",
   },
@@ -64,14 +64,14 @@ export function SocialProof() {
       <div className="container py-12 md:py-16">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-background/60">
-            La marketplace de confiance
+            La marketplace digitale de confiance
           </p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-balance md:text-4xl">
             La preuve par les chiffres, mise à jour en temps réel.
           </h2>
           <p className="mt-3 text-pretty text-sm leading-relaxed text-background/70 md:text-base">
-            Plus de deux millions de personnes nous font confiance. Une commande sur 1 000 fait l'objet
-            d'un litige : c'est dix fois moins que la moyenne du secteur.
+            Plus de deux millions de créateurs et d'entrepreneurs nous font confiance. Une commande
+            sur 1 000 fait l'objet d'un litige : dix fois moins que la moyenne du secteur.
           </p>
         </div>
         <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-background/10 md:grid-cols-4">
@@ -101,7 +101,7 @@ export function SocialProof() {
           </span>
           <span className="inline-flex items-center gap-2">
             <span className="size-2 rounded-full bg-emerald-400" aria-hidden="true" />
-            Garantie remboursé 30 jours
+            Garantie remboursé 14 jours
           </span>
           <span className="inline-flex items-center gap-2">
             <span className="size-2 rounded-full bg-emerald-400" aria-hidden="true" />

@@ -22,38 +22,38 @@ const now = Date.now()
 const DROPS: Drop[] = [
   {
     id: "d-1",
-    title: "Maroquinerie Atelier Lumen",
-    subtitle: "Sac Tote en cuir tannage végétal",
-    brand: "Atelier Lumen",
-    image: "/drop-leather-bag.jpg",
+    title: "Orion v2 — early access",
+    subtitle: "Agent commercial IA, tarif de lancement à vie",
+    brand: "NeuraForge",
+    image: "/digital/drop-orion.svg",
     endsAt: now + 1000 * 60 * 60 * 6 + 1000 * 60 * 14,
-    pieces: 240,
+    pieces: 500,
     remaining: 87,
-    href: "/p/sac-cuir-tote-tannage-vegetal",
+    href: "/p/agent-orion-assistant-commercial",
     accent: "navy",
   },
   {
     id: "d-2",
-    title: "Édition limitée TechWave",
-    subtitle: "Casque Aurora Pro champagne gold",
-    brand: "TechWave Global",
-    image: "/drop-headphones.jpg",
+    title: "Cyber Vault — édition limitée",
+    subtitle: "500 artworks cyberpunk 4K numérotés",
+    brand: "Aether Audio",
+    image: "/digital/drop-cyber.svg",
     endsAt: now + 1000 * 60 * 60 * 23 + 1000 * 60 * 41,
-    pieces: 500,
+    pieces: 1000,
     remaining: 312,
-    href: "/p/casque-audio-sans-fil-aurora-pro",
+    href: "/p/pack-500-artworks-cyberpunk-4k",
     accent: "rose",
   },
   {
     id: "d-3",
-    title: "Drop Runner X7",
-    subtitle: "Sneakers blanc / orange — édition Bazario",
-    brand: "Studio Kobe",
-    image: "/drop-runner.jpg",
+    title: "Bootcamp — cohorte juillet",
+    subtitle: "Prompt Engineering certifiant, 60 places",
+    brand: "Nova Academy",
+    image: "/digital/drop-bootcamp.svg",
     endsAt: now + 1000 * 60 * 60 * 2 + 1000 * 60 * 33,
-    pieces: 180,
-    remaining: 22,
-    href: "/p/runner-x7-edition-bazario",
+    pieces: 60,
+    remaining: 14,
+    href: "/p/bootcamp-prompt-engineering",
     accent: "orange",
   },
 ]
@@ -93,7 +93,7 @@ export function LiveDrops() {
             <span className="text-muted-foreground"> · stocks limités</span>
           </h2>
           <p className="mt-1 max-w-xl text-sm text-muted-foreground">
-            Des éditions numérotées en quantité limitée, disponibles uniquement chez Bazario pendant 24 h.
+            Licences numérotées, tarifs early-access et cohortes limitées, disponibles uniquement chez Bazario pendant 24 h.
           </p>
         </div>
       </div>
@@ -130,7 +130,7 @@ export function LiveDrops() {
                   <span
                     className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${accent.chip}`}
                   >
-                    Drop · {drop.pieces} pièces
+                    Drop · {drop.pieces} licences
                   </span>
                   <ArrowUpRight className="h-5 w-5 text-background opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>

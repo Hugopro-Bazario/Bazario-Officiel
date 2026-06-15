@@ -36,12 +36,12 @@ const siteUrl = "https://www.bazario-official.com"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Bazario — Tout, mieux, partout.",
+    default: "Bazario — Le marché du futur. Produits digitaux & IA.",
     template: "%s · Bazario",
   },
   description:
-    "Bazario est la marketplace mondiale qui connecte acheteurs et vendeurs de confiance : mode, tech, maison, beauté et bien plus, livrés partout.",
-  keywords: ["marketplace", "e-commerce", "shopping", "Bazario", "vendeurs vérifiés", "livraison gratuite"],
+    "Bazario est la marketplace futuriste des produits et services digitaux : agents IA, prompts, templates, formations, musique générative et SaaS, livrés instantanément.",
+  keywords: ["marketplace", "produits digitaux", "IA", "agents IA", "prompts", "templates", "Bazario", "créateurs vérifiés", "livraison instantanée"],
   authors: [{ name: "Bazario" }],
   creator: "Bazario",
   publisher: "Bazario",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Bazario — Tout, mieux, partout.",
-    description: "La marketplace mondiale qui connecte acheteurs et vendeurs de confiance.",
+    title: "Bazario — Le marché du futur. Produits digitaux & IA.",
+    description: "Agents IA, prompts, templates, formations : 18 000 produits digitaux livrés instantanément.",
     url: siteUrl,
     siteName: "Bazario",
     type: "website",
@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bazario — Tout, mieux, partout.",
-    description: "La marketplace mondiale qui connecte acheteurs et vendeurs de confiance.",
+    title: "Bazario — Le marché du futur. Produits digitaux & IA.",
+    description: "Agents IA, prompts, templates, formations : 18 000 produits digitaux livrés instantanément.",
     images: ["/og-image.jpg"],
   },
   manifest: "/manifest.webmanifest",
@@ -97,10 +97,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAF9" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A0E1A" },
-  ],
+  themeColor: "#05060F",
   width: "device-width",
   initialScale: 1,
 }
@@ -113,7 +110,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${display.variable} ${mono.variable} bg-background`}
+      className={`${inter.variable} ${display.variable} ${mono.variable} dark bg-background`}
     >
       <body className="min-h-screen font-sans antialiased">
         <a

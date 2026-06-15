@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { headers } from "next/headers";
 import type Stripe from "stripe";
+import type { Json } from "@/types/database";
 import { stripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
@@ -74,7 +75,15 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
   const customerName = session.customer_details?.name || null;
   const customerEmail = session.customer_details?.email || session.customer_email || null;
   const customerPhone = session.customer_details?.phone || null;
-  const shippingAddress = session.shipping_details?.address || null;
+  // Stripe a déplacé/renommé l'adresse de livraison selon les versions d'API ;
+  // pour des produits digitaux elle est facultative, on la lit de façon défensive.
+  const shippingAddress =
+    (session as unknown as {
+      shipping_details?: { address?: Stripe.Address | null };
+      collected_information?: { shipping_details?: { address?: Stripe.Address | null } };
+    }).collected_information?.shipping_details?.address ||
+    (session as unknown as { shipping_details?: { address?: Stripe.Address | null } }).shipping_details?.address ||
+    null;
   const paymentIntentId =
     typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id || null;
   const trackingEventId =
@@ -91,7 +100,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
       customer_email: customerEmail,
       customer_name: customerName,
       customer_phone: customerPhone,
-      shipping_address: shippingAddress,
+      shipping_address: (shippingAddress as unknown as Json) ?? null,
       subtotal: (session.amount_subtotal || 0) / 100,
       total: (session.amount_total || 0) / 100,
       tax: (session.total_details?.amount_tax || 0) / 100,

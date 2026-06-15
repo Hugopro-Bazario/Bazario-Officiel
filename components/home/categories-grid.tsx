@@ -1,27 +1,27 @@
 import Link from "next/link"
 import Image from "next/image"
 import {
-  Shirt,
-  Smartphone,
-  Home,
+  Bot,
   Sparkles,
-  Dumbbell,
-  Baby,
-  Car,
-  ShoppingBasket,
+  LayoutTemplate,
+  GraduationCap,
+  Rocket,
+  Palette,
+  AudioWaveform,
+  Workflow,
   ArrowRight,
 } from "lucide-react"
 import { CATEGORIES } from "@/lib/data"
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  Shirt,
-  Smartphone,
-  Home,
+  Bot,
   Sparkles,
-  Dumbbell,
-  Baby,
-  Car,
-  ShoppingBasket,
+  LayoutTemplate,
+  GraduationCap,
+  Rocket,
+  Palette,
+  AudioWaveform,
+  Workflow,
 }
 
 export function CategoriesGrid() {
@@ -49,7 +49,7 @@ export function CategoriesGrid() {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
         {CATEGORIES.map((cat, index) => {
-          const Icon = ICONS[cat.icon] ?? Shirt
+          const Icon = ICONS[cat.icon] ?? Bot
           const image = cat.image
           // Make first card span 2 cols on larger screens
           const featured = index === 0

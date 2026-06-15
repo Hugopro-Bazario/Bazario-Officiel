@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { stripe } from "@/lib/stripe/server";
+import type { Json } from "@/types/database";
 import { formatPrice } from "@/lib/format";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { ClearCartOnSuccess } from "@/components/checkout/ClearCartOnSuccess";
@@ -39,7 +40,13 @@ export default async function CheckoutSuccessPage({
     const customerName = session.customer_details?.name || null;
     const customerEmail = session.customer_details?.email || session.customer_email || null;
     const customerPhone = session.customer_details?.phone || null;
-    const shippingAddress = session.shipping_details?.address || null;
+    const shippingAddress =
+      (session as unknown as {
+        shipping_details?: { address?: unknown };
+        collected_information?: { shipping_details?: { address?: unknown } };
+      }).collected_information?.shipping_details?.address ||
+      (session as unknown as { shipping_details?: { address?: unknown } }).shipping_details?.address ||
+      null;
 
     await supabase
       .from("orders")
@@ -49,7 +56,7 @@ export default async function CheckoutSuccessPage({
         customer_email: customerEmail,
         customer_name: customerName,
         customer_phone: customerPhone,
-        shipping_address: shippingAddress,
+        shipping_address: (shippingAddress as unknown as Json) ?? null,
         status: "paid",
         subtotal: (session.amount_subtotal || 0) / 100,
         total: (session.amount_total || 0) / 100,
@@ -112,21 +119,20 @@ export default async function CheckoutSuccessPage({
         </div>
       </section>
 
-      {session.shipping_details?.address ? (
-        <section className="rounded-xl border border-zinc-200 p-4 text-sm">
-          <h2 className="mb-2 text-xl font-semibold">Adresse de livraison</h2>
-          <p>{session.shipping_details.name || "Destinataire"}</p>
-          <p>{session.shipping_details.address.line1}</p>
-          {session.shipping_details.address.line2 ? <p>{session.shipping_details.address.line2}</p> : null}
-          <p>
-            {session.shipping_details.address.postal_code} {session.shipping_details.address.city}
-          </p>
-          <p>{session.shipping_details.address.country}</p>
-        </section>
-      ) : null}
+      <section className="rounded-xl border border-zinc-200 p-4 text-sm">
+        <h2 className="mb-2 text-xl font-semibold">Livraison numérique</h2>
+        <p className="text-zinc-600">
+          Vos produits sont disponibles immédiatement dans votre espace, et un lien de
+          téléchargement{" "}
+          {session.customer_details?.email
+            ? `a été envoyé à ${session.customer_details.email}`
+            : "vous a été envoyé par email"}
+          .
+        </p>
+      </section>
 
       <div className="flex gap-3">
-        <Link href="/produits" className="rounded-md border border-zinc-300 px-4 py-2 text-sm">
+        <Link href="/search" className="rounded-md border border-zinc-300 px-4 py-2 text-sm">
           Continuer mes achats
         </Link>
         <Link href="/" className="rounded-md bg-zinc-900 px-4 py-2 text-sm text-white">

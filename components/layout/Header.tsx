@@ -32,12 +32,12 @@ export function Header() {
         <div className="container flex h-9 items-center justify-between">
           <div className="flex items-center gap-4 text-muted-foreground">
             <RegionSwitcher />
-            <span className="text-muted-foreground">Livraison gratuite dès 49 €</span>
+            <span className="text-muted-foreground">Livraison instantanée · Mises à jour à vie</span>
           </div>
           <div className="flex items-center gap-4 text-muted-foreground">
             <Link href="/seller/dashboard" className="inline-flex items-center gap-1 hover:text-foreground">
               <Store className="h-3.5 w-3.5" />
-              Vendre sur Bazario
+              Vendre mes créations
             </Link>
             <Link href="/help" className="inline-flex items-center gap-1 hover:text-foreground">
               <HelpCircle className="h-3.5 w-3.5" />
@@ -74,8 +74,8 @@ export function Header() {
           <button className="hidden items-center gap-1 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground lg:inline-flex">
             <MapPin className="h-3.5 w-3.5" />
             <span className="text-left leading-tight">
-              <span className="block text-[10px]">Livrer en</span>
-              <span className="block text-foreground">France</span>
+              <span className="block text-[10px]">Espace</span>
+              <span className="block text-foreground">France · EUR</span>
             </span>
           </button>
 
@@ -159,7 +159,7 @@ export function Header() {
             href="/bestsellers"
             className="rounded-md px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted"
           >
-            Top ventes
+            Top téléchargements
           </Link>
           <Link
             href="/new"
@@ -201,7 +201,7 @@ export function Header() {
             href="/sell"
             className="ml-auto hidden rounded-md px-3 py-2 text-sm font-medium text-accent hover:bg-accent/10 lg:inline-flex"
           >
-            Devenir vendeur
+            Devenir créateur
           </Link>
         </div>
       </nav>

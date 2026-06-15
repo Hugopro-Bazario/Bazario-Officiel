@@ -4,27 +4,27 @@ import { Quote, Star } from "lucide-react"
 const TESTIMONIALS = [
   {
     name: "Camille L.",
-    role: "Cliente Premium · Paris",
+    role: "Fondatrice e-commerce · Paris",
     avatar: "/avatar-1.jpg",
-    text: "Bazario est devenu mon premier réflexe pour à peu près tout. La livraison est rapide, les avis sont fiables, et quand j'ai un souci le SAV répond en 10 min.",
+    text: "J'ai « embauché » l'agent Orion pour ma boutique : il qualifie mes leads la nuit et relance mes devis tout seul. Mis en place en une après-midi, rentabilisé en une semaine.",
     rating: 5,
-    purchase: "12 commandes",
+    purchase: "14 produits digitaux",
   },
   {
     name: "Marc T.",
-    role: "Vendeur · Studio Nord",
+    role: "Créateur · Synthrise Studio",
     avatar: "/avatar-2.jpg",
-    text: "Je vends sur Bazario depuis 14 mois. J'ai triplé mon chiffre d'affaires et je suis livré dans toute l'Europe sans m'occuper de la logistique. Le dashboard est imbattable.",
+    text: "Je vends mes packs audio IA sur Bazario depuis 9 mois. Zéro logistique, paiement J+2, et le dashboard créateur me dit exactement quoi produire ensuite. J'ai quitté mon CDI.",
     rating: 5,
-    purchase: "+ 42 000 € / mois",
+    purchase: "+ 18 000 € / mois",
   },
   {
     name: "Sofia R.",
-    role: "Cliente · Lyon",
+    role: "Freelance design · Lyon",
     avatar: "/avatar-3.jpg",
-    text: "J'avais peur des marketplaces, mais Bazario est différent : tout est vérifié, tout est transparent. Et les prix valent le détour, surtout pendant les ventes flash.",
+    text: "Les licences sont enfin claires : je sais exactement ce que j'ai le droit d'utiliser pour mes clients. Et tout est livré instantanément dans mon coffre-fort, avec les mises à jour.",
     rating: 5,
-    purchase: "Première commande il y a 8 mois",
+    purchase: "Membre Nexus+ depuis 6 mois",
   },
 ]
 

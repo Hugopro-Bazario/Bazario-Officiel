@@ -32,8 +32,8 @@ export function Newsletter() {
               −10 € sur votre première commande.
             </h2>
             <p className="mt-4 max-w-md text-base text-primary-foreground/85">
-              Inscrivez-vous à la newsletter Bazario et recevez en avant-première les ventes flash,
-              les nouveautés et les codes promos exclusifs.
+              Inscrivez-vous à la newsletter Bazario et recevez en avant-première les drops,
+              les nouveaux agents IA et les deals à vie exclusifs.
             </p>
             <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-primary-foreground/75">
               <li className="inline-flex items-center gap-1.5">
