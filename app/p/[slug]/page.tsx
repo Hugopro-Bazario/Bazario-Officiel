@@ -28,8 +28,16 @@ import {
 import { LiveActivity } from "@/components/product/live-activity"
 import { FrequentlyBought } from "@/components/product/frequently-bought"
 import { Reviews } from "@/components/product/reviews"
-import { getProductBySlug, getRelatedProducts } from "@/lib/data"
+import { getProductBySlug, getRelatedProducts, products } from "@/lib/data"
 import { discountPercent } from "@/lib/utils"
+
+// Catalogue statique : on pré-génère toutes les fiches et on renvoie un vrai 404
+// pour tout slug inconnu (meilleur SEO + pages servies statiquement).
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }))
+}
 
 export async function generateMetadata({
   params,

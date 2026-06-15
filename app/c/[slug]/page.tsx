@@ -23,6 +23,13 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { CATEGORIES, getProductsByCategory, sellers } from "@/lib/data"
 
+// Univers statiques : pré-génération + vrai 404 pour tout slug inconnu.
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return CATEGORIES.map((c) => ({ slug: c.slug }))
+}
+
 type Params = { slug: string }
 
 const SUB_CATEGORIES: Record<string, { label: string; href: string }[]> = {

@@ -30,6 +30,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ProductCard } from "@/components/product/product-card"
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return SELLERS.map((s) => ({ slug: s.slug }))
 }

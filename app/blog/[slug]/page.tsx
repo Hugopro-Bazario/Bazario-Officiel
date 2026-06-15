@@ -15,6 +15,8 @@ const CATEGORY_LABEL: Record<string, string> = {
   tendances: "Tendances",
 }
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }))
 }
