@@ -12,7 +12,7 @@ import { discountPercent } from "@/lib/utils"
 export const metadata: Metadata = {
   title: "Soldes & ventes flash — Économisez jusqu'à 50 %",
   description:
-    "Soldes Bazario, codes promo et ventes flash : jusqu'à 50 % de réduction sur des produits sélectionnés. Stocks limités, retour gratuit 30 jours.",
+    "Offres Bazario, codes promo et drops : jusqu'à 50 % de réduction sur une sélection de produits digitaux. Licences limitées, garantie 14 jours.",
   alternates: { canonical: "/deals" },
 }
 
@@ -42,8 +42,8 @@ export default function DealsPage() {
               Jusqu'à -50 % sur une sélection rare
             </h1>
             <p className="max-w-xl text-base text-accent-foreground/85 md:text-lg">
-              {all.length} produits en promotion sur Bazario. Stocks volontairement limités, livraison toujours offerte
-              dès 49 €.
+              {all.length} produits digitaux en promotion sur Bazario. Licences en quantité limitée, livraison
+              instantanée et mises à jour à vie incluses.
             </p>
             <div className="flex flex-wrap items-center gap-2 pt-1">
               {[
