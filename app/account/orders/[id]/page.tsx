@@ -38,42 +38,34 @@ function buildSteps(status: string): Step[] {
     {
       key: "ordered",
       label: "Commande confirmée",
-      description: "Paiement validé. Bazario a notifié votre vendeur.",
+      description: "Paiement validé. Bazario a notifié le créateur.",
       date: "Il y a 3 jours · 14:21",
       icon: CheckCircle2,
       done: true,
     },
     {
       key: "preparing",
-      label: "Préparation par le vendeur",
-      description: "Vos articles sont emballés et étiquetés en entrepôt.",
-      date: "Il y a 2 jours · 09:08",
+      label: "Préparation des accès",
+      description: "Vos licences et fichiers sont générés.",
+      date: "Il y a 3 jours · 14:21",
       icon: Box,
       done: status !== "pending",
       current: status === "pending",
     },
     {
       key: "shipped",
-      label: "Expédié",
-      description: "Pris en charge par notre transporteur partenaire.",
-      date: status === "shipped" || status === "delivered" ? "Hier · 18:42" : undefined,
+      label: "Livraison numérique",
+      description: "Accès et liens de téléchargement envoyés par email.",
+      date: status === "shipped" || status === "delivered" ? "Il y a 3 jours · 14:22" : undefined,
       icon: Truck,
       done: status === "shipped" || status === "delivered",
       current: status === "shipped",
     },
     {
-      key: "out",
-      label: "En cours de livraison",
-      description: "Votre colis est dans le véhicule de livraison.",
-      date: status === "delivered" ? "Aujourd'hui · 08:30" : undefined,
-      icon: Truck,
-      done: status === "delivered",
-    },
-    {
       key: "delivered",
-      label: "Livré",
-      description: "Colis remis au destinataire ou en point relais.",
-      date: status === "delivered" ? "Aujourd'hui · 11:14" : undefined,
+      label: "Disponible dans votre espace",
+      description: "Vos produits sont accessibles, avec les mises à jour à vie.",
+      date: status === "delivered" ? "Il y a 3 jours · 14:22" : undefined,
       icon: CheckCircle2,
       done: status === "delivered",
       current: status === "delivered",
@@ -291,23 +283,21 @@ export default async function OrderTrackingPage({
 
         {/* Right: meta panels */}
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-          {/* Address */}
+          {/* Digital delivery */}
           <Card className="p-5">
             <div className="mb-3 flex items-center gap-2">
               <MapPin className="size-4 text-primary" />
-              <h3 className="text-sm font-semibold">Adresse de livraison</h3>
+              <h3 className="text-sm font-semibold">Livraison numérique</h3>
             </div>
             <p className="text-sm leading-relaxed">
               Hugo Pro
               <br />
-              12 rue de la République, Apt 4B
+              <span className="text-muted-foreground">HugoPro05@icloud.com</span>
               <br />
-              75001 Paris, France
-              <br />
-              <span className="text-muted-foreground">+33 6 12 34 56 78</span>
+              <span className="text-muted-foreground">Accès disponibles dans votre espace</span>
             </p>
             <Button variant="outline" size="sm" className="mt-3 w-full bg-transparent">
-              Modifier l&apos;adresse
+              Renvoyer les liens par email
             </Button>
           </Card>
 

@@ -99,8 +99,8 @@ export default function OrdersPage() {
                 <div className="flex flex-wrap gap-2">
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/account/orders/${order.id}`}>
-                      <Truck className="mr-1.5 size-4" />
-                      Suivre le colis
+                      <Download className="mr-1.5 size-4" />
+                      Télécharger
                     </Link>
                   </Button>
                   <Button variant="outline" size="sm">
@@ -109,7 +109,7 @@ export default function OrdersPage() {
                   </Button>
                   <Button variant="outline" size="sm">
                     <MessageSquare className="mr-1.5 size-4" />
-                    Contacter le vendeur
+                    Contacter le créateur
                   </Button>
                 </div>
                 {order.status === "pending" && (
