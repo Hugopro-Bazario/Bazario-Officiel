@@ -38,7 +38,7 @@ const CHANNELS: Channel[] = [
     icon: MessageCircle,
     label: "Chat en direct",
     sla: "Réponse < 2 min",
-    description: "Le moyen le plus rapide pour les questions de commande, livraison ou retour.",
+    description: "Le moyen le plus rapide pour vos questions d'accès, de licence ou de remboursement.",
     cta: "Démarrer le chat",
     href: "/help",
     badge: "Recommandé",
@@ -63,12 +63,12 @@ const CHANNELS: Channel[] = [
 ]
 
 const SUBJECTS = [
-  { value: "order", label: "Commande", desc: "Suivi, livraison, retour" },
-  { value: "product", label: "Produit", desc: "Question avant achat, conseil" },
+  { value: "order", label: "Commande", desc: "Accès, téléchargement, remboursement" },
+  { value: "product", label: "Produit", desc: "Question avant achat, licence" },
   { value: "account", label: "Compte", desc: "Connexion, mot de passe, données" },
-  { value: "seller", label: "Devenir vendeur", desc: "Onboarding, KYC, commissions" },
+  { value: "seller", label: "Devenir créateur", desc: "Onboarding, KYC, commissions" },
   { value: "press", label: "Presse & partenariats", desc: "Média, contenu, partenariats" },
-  { value: "other", label: "Autre", desc: "Suggestion, retour produit" },
+  { value: "other", label: "Autre", desc: "Suggestion, retour d'expérience" },
 ] as const
 
 const DEPARTMENTS = [
@@ -81,8 +81,8 @@ const DEPARTMENTS = [
   },
   {
     icon: Building2,
-    title: "Service vendeurs",
-    email: "sellers@bazario.com",
+    title: "Service créateurs",
+    email: "creators@bazario.com",
     phone: "01 84 88 32 01",
     hours: "Lun-Ven · 9h-18h",
   },
