@@ -1,4 +1,4 @@
-import { Search, Download, Truck } from "lucide-react"
+import { Search, Download } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,8 +23,8 @@ const ORDERS = [
     date: "25 avril 2026",
     items: 1,
     total: 129,
-    status: "À expédier",
-    statusVariant: "secondary" as const,
+    status: "Livrée",
+    statusVariant: "success" as const,
   },
   {
     id: "BZ-20264108",
@@ -33,8 +33,8 @@ const ORDERS = [
     date: "25 avril 2026",
     items: 2,
     total: 78,
-    status: "À expédier",
-    statusVariant: "secondary" as const,
+    status: "Livrée",
+    statusVariant: "success" as const,
   },
   {
     id: "BZ-20264102",
@@ -43,8 +43,8 @@ const ORDERS = [
     date: "24 avril 2026",
     items: 1,
     total: 219,
-    status: "Expédiée",
-    statusVariant: "default" as const,
+    status: "Livrée",
+    statusVariant: "success" as const,
   },
   {
     id: "BZ-20264087",
@@ -73,8 +73,8 @@ export default function SellerOrdersPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Commandes</h1>
-          <p className="text-muted-foreground">Gérez les expéditions et le suivi de vos ventes.</p>
+          <h1 className="text-3xl font-bold">Ventes</h1>
+          <p className="text-muted-foreground">Suivez vos ventes et vos revenus en temps réel.</p>
         </div>
         <Button variant="outline">
           <Download className="size-4" />
@@ -89,7 +89,7 @@ export default function SellerOrdersPage() {
           <Input placeholder="Rechercher numéro, acheteur…" className="pl-10" />
         </div>
         <div className="ml-auto flex flex-wrap gap-2">
-          {["Toutes", "Nouvelles", "À expédier", "Expédiées", "Livrées", "Annulées"].map((label, i) => (
+          {["Toutes", "Livrées", "Remboursées"].map((label, i) => (
             <Button key={label} variant={i === 0 ? "default" : "outline"} size="sm">
               {label}
             </Button>
@@ -127,16 +127,9 @@ export default function SellerOrdersPage() {
                     <Badge variant={o.statusVariant}>{o.status}</Badge>
                   </td>
                   <td className="px-5 py-3 text-right">
-                    {o.status === "À expédier" || o.status === "Nouvelle" ? (
-                      <Button size="sm">
-                        <Truck className="size-4" />
-                        Expédier
-                      </Button>
-                    ) : (
-                      <Button size="sm" variant="outline">
-                        Détails
-                      </Button>
-                    )}
+                    <Button size="sm" variant="outline">
+                      Détails
+                    </Button>
                   </td>
                 </tr>
               ))}

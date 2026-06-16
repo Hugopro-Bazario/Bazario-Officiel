@@ -13,14 +13,14 @@ import { TrackOrderForm } from "@/components/track/track-order-form"
 const SITE_URL = "https://www.bazario-official.com"
 
 export const metadata: Metadata = {
-  title: "Suivre une commande | Bazario",
+  title: "Retrouver mes accès | Bazario",
   description:
-    "Suivez votre commande Bazario en temps réel : numéro et e-mail suffisent. Notifications SMS, e-mail et push à chaque étape.",
+    "Retrouvez vos produits digitaux Bazario : numéro de commande et e-mail suffisent pour récupérer vos accès et liens de téléchargement.",
   alternates: { canonical: `${SITE_URL}/track` },
   openGraph: {
-    title: "Suivre votre commande Bazario",
+    title: "Retrouver mes accès Bazario",
     description:
-      "Saisissez votre numéro de commande et votre e-mail pour voir la progression en temps réel.",
+      "Saisissez votre numéro de commande et votre e-mail pour retrouver vos accès et téléchargements.",
     url: `${SITE_URL}/track`,
     type: "website",
   },
@@ -31,19 +31,19 @@ const STEPS = [
     icon: PackageSearch,
     title: "Saisissez votre numéro",
     description:
-      "Le numéro de commande figure dans l'e-mail de confirmation et sur votre espace membre, format BZR-2026-XXXX.",
+      "Le numéro de commande figure dans l'e-mail de confirmation et dans votre espace membre, format BZ-2026-XXXX.",
   },
   {
     icon: Truck,
-    title: "Voyez chaque étape en direct",
+    title: "Retrouvez vos accès",
     description:
-      "Atelier, hub Bazario, transporteur final, tournée locale : 6 jalons précis avec horodatage à la minute.",
+      "Vos produits, licences et liens de téléchargement s'affichent immédiatement, avec les mises à jour à vie.",
   },
   {
     icon: Mail,
-    title: "Recevez les bonnes alertes",
+    title: "Renvoi par e-mail",
     description:
-      "Choisissez entre e-mail, SMS et notifications push. Vous pouvez arrêter à tout moment depuis votre compte.",
+      "Recevez à nouveau vos liens d'accès par e-mail en un clic, à tout moment, depuis votre compte.",
   },
 ]
 
@@ -56,16 +56,15 @@ export default function TrackPage() {
             <div>
               <span className="inline-flex w-fit items-center gap-2 rounded-full border bg-background px-3 py-1 text-xs font-semibold uppercase tracking-widest">
                 <PackageSearch className="h-3.5 w-3.5" />
-                Suivi en temps réel
+                Accès instantané
               </span>
               <h1 className="mt-5 font-display text-3xl font-bold tracking-tight md:text-5xl">
-                Où en est votre commande ?
+                Retrouvez vos accès
               </h1>
               <p className="mt-4 max-w-xl text-balance text-muted-foreground md:text-lg">
                 Saisissez votre numéro de commande Bazario et l&apos;e-mail
-                associé. Nous vous montrons immédiatement où se trouve votre
-                colis, la date estimée de livraison et le contact direct du
-                vendeur.
+                associé. Nous affichons immédiatement vos produits, vos licences
+                et vos liens de téléchargement, mises à jour à vie incluses.
               </p>
 
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
@@ -75,7 +74,7 @@ export default function TrackPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Headphones className="mt-0.5 h-4 w-4 text-foreground" />
-                  Concierge humain joignable 7j/7 si quelque chose cloche.
+                  Support augmenté par IA joignable 24/7 si besoin.
                 </li>
               </ul>
             </div>

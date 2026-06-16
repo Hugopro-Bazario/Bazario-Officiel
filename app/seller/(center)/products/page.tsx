@@ -53,7 +53,7 @@ export default function SellerProductsPage() {
                 <th className="px-5 py-3 font-medium">Produit</th>
                 <th className="px-5 py-3 font-medium">SKU</th>
                 <th className="px-5 py-3 font-medium text-right">Prix</th>
-                <th className="px-5 py-3 font-medium text-right">Stock</th>
+                <th className="px-5 py-3 font-medium text-right">Licences</th>
                 <th className="px-5 py-3 font-medium text-right">Ventes</th>
                 <th className="px-5 py-3 font-medium">Statut</th>
                 <th className="px-5 py-3 font-medium" />
@@ -61,8 +61,6 @@ export default function SellerProductsPage() {
             </thead>
             <tbody>
               {list.map((p) => {
-                const totalStock = p.variants.reduce((acc, v) => acc + v.stock, 0)
-                const lowStock = totalStock < 20
                 return (
                   <tr key={p.id} className="border-b last:border-0 hover:bg-muted/30">
                     <td className="px-5 py-3">
@@ -83,16 +81,12 @@ export default function SellerProductsPage() {
                     </td>
                     <td className="px-5 py-3 font-mono text-xs text-muted-foreground">{p.id.toUpperCase()}</td>
                     <td className="px-5 py-3 text-right font-semibold">{formatPrice(p.price)}</td>
-                    <td className="px-5 py-3 text-right">
-                      <span className={lowStock ? "text-destructive font-medium" : ""}>{totalStock}</span>
-                    </td>
+                    <td className="px-5 py-3 text-right">{p.variants.length}</td>
                     <td className="px-5 py-3 text-right text-muted-foreground">
-                      {Math.floor(Math.random() * 200)}
+                      {p.sold.toLocaleString("fr-FR")}
                     </td>
                     <td className="px-5 py-3">
-                      <Badge variant={lowStock ? "destructive" : "success"}>
-                        {lowStock ? "Stock faible" : "Actif"}
-                      </Badge>
+                      <Badge variant="success">Actif</Badge>
                     </td>
                     <td className="px-5 py-3 text-right">
                       <div className="flex justify-end gap-1">
