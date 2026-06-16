@@ -12,14 +12,44 @@ export default function SignupPage() {
   const [role, setRole] = useState<"buyer" | "seller">("buyer")
   const [showPwd, setShowPwd] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [info, setInfo] = useState<string | null>(null)
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setError(null)
+    setInfo(null)
     setLoading(true)
-    setTimeout(() => {
+    const form = new FormData(e.currentTarget)
+    const email = String(form.get("email") || "")
+    const password = String(form.get("password") || "")
+    const firstName = String(form.get("firstName") || "")
+    const lastName = String(form.get("lastName") || "")
+    const destination = role === "seller" ? "/seller/onboarding" : "/account"
+    try {
+      const { createSupabaseBrowserClient } = await import("@/lib/supabase/client")
+      const supabase = createSupabaseBrowserClient()
+      const { data, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { first_name: firstName, last_name: lastName, role } },
+      })
+      if (authError) {
+        setError(authError.message || "Impossible de créer le compte.")
+        setLoading(false)
+        return
+      }
+      // Si la confirmation par email est activée, pas de session immédiate.
+      if (data.session) {
+        window.location.href = destination
+      } else {
+        setInfo("Compte créé ! Vérifiez votre boîte mail pour confirmer votre adresse.")
+        setLoading(false)
+      }
+    } catch {
+      setError("L'inscription n'est pas encore activée (Supabase non configuré).")
       setLoading(false)
-      window.location.href = role === "seller" ? "/seller/onboarding" : "/account"
-    }, 800)
+    }
   }
 
   return (
@@ -41,7 +71,7 @@ export default function SignupPage() {
           onClick={() => setRole("seller")}
           icon={<Store className="h-5 w-5" />}
           title="Vendre"
-          desc="Ouvrir une boutique"
+          desc="Ouvrir un studio"
         />
       </div>
 
@@ -63,6 +93,7 @@ export default function SignupPage() {
             <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               id="password"
+              name="password"
               type={showPwd ? "text" : "password"}
               required
               placeholder="8 caractères minimum"
@@ -90,19 +121,30 @@ export default function SignupPage() {
           <input type="checkbox" required className="mt-0.5 h-4 w-4 rounded border-input accent-primary" />
           <span>
             J&apos;accepte les{" "}
-            <Link href="/terms" className="text-primary hover:underline">
-              CGU
+            <Link href="/legal/terms" className="text-primary hover:underline">
+              CGV
             </Link>{" "}
             et la{" "}
-            <Link href="/privacy" className="text-primary hover:underline">
+            <Link href="/legal/privacy" className="text-primary hover:underline">
               politique de confidentialité
             </Link>
             .
           </span>
         </label>
 
+        {error && (
+          <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {error}
+          </p>
+        )}
+        {info && (
+          <p className="rounded-md bg-success/10 px-3 py-2 text-sm text-success">
+            {info}
+          </p>
+        )}
+
         <Button type="submit" className="h-11 w-full" disabled={loading}>
-          {loading ? "Création..." : role === "seller" ? "Créer ma boutique" : "Créer mon compte"}
+          {loading ? "Création..." : role === "seller" ? "Créer mon studio" : "Créer mon compte"}
         </Button>
       </form>
 
@@ -165,7 +207,7 @@ function Field({
       <Label htmlFor={id}>{label}</Label>
       <div className="relative">
         {icon ? <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">{icon}</span> : null}
-        <Input id={id} type={type} required placeholder={placeholder} className={icon ? "pl-10" : ""} />
+        <Input id={id} name={id} type={type} required placeholder={placeholder} className={icon ? "pl-10" : ""} />
       </div>
     </div>
   )
