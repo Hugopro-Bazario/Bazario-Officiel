@@ -2,10 +2,11 @@ import type { NextRequest } from "next/server";
 import { headers } from "next/headers";
 import type Stripe from "stripe";
 import type { Json } from "@/types/database";
-import { stripe } from "@/lib/stripe/server";
+import { stripe, getStripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
+import { sendOrderConfirmationEmail, sendSubscriptionWelcomeEmail } from "@/lib/email/digital";
 import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
 import { sendTikTokPurchaseServerEvent } from "@/lib/tracking/tiktok-events";
 
@@ -39,8 +40,46 @@ function createServerEventId(): string {
   return `evt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+async function handleDigitalSessionCompleted(session: Stripe.Checkout.Session) {
+  const kind = session.metadata?.kind;
+  const email = session.customer_details?.email || session.customer_email || null;
+
+  if (kind === "subscription") {
+    const sent = await sendSubscriptionWelcomeEmail(email || "", session.metadata?.plan || "monthly");
+    console.info(JSON.stringify({ scope: "stripe_webhook", kind, action: "subscription_email", sent }));
+    return;
+  }
+
+  // digital_cart : on récupère les lignes pour le récapitulatif et on envoie la confirmation.
+  let items: { description: string; quantity: number }[] = [];
+  try {
+    const lineItems = await getStripe().checkout.sessions.listLineItems(session.id, { limit: 100 });
+    items = lineItems.data.map((i) => ({ description: i.description || "Produit", quantity: i.quantity || 1 }));
+  } catch (error) {
+    console.error(JSON.stringify({ scope: "stripe_webhook", kind, action: "list_line_items_failed", error: String(error) }));
+  }
+
+  const sent = await sendOrderConfirmationEmail({
+    email: email || "",
+    reference: session.id.slice(-8).toUpperCase(),
+    total: session.amount_total != null ? session.amount_total / 100 : null,
+    currency: (session.currency || "eur").toUpperCase(),
+    items,
+  });
+  console.info(JSON.stringify({ scope: "stripe_webhook", kind: "digital_cart", action: "order_email", sent }));
+}
+
 async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeaders: Headers) {
   const session = event.data.object as Stripe.Checkout.Session;
+
+  // Nouvelles sessions digitales (catalogue front) : traitées indépendamment de
+  // Supabase, qui n'a pas d'enregistrement de commande pour ce flux.
+  const kind = session.metadata?.kind;
+  if (kind === "digital_cart" || kind === "subscription") {
+    await handleDigitalSessionCompleted(session);
+    return;
+  }
+
   const supabase = createSupabaseAdminClient();
 
   const { data: existingOrder, error: selectError } = await supabase
