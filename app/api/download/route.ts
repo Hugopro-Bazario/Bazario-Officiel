@@ -1,15 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import { PRODUCTS } from "@/lib/data"
 
 export const runtime = "nodejs"
 
 /**
- * Livraison numérique du catalogue de démonstration.
+ * Livraison numérique : remet, en pièce jointe, le fichier livrable du produit.
  *
- * Renvoie, en pièce jointe, un guide d'accès + licence généré pour le produit
- * demandé. C'est le mécanisme réel de remise de fichier ; en production on
- * remplacera le contenu généré par le(s) vrai(s) fichier(s) du créateur
- * (stockage privé) et on validera l'achat (entitlement) avant la remise.
+ * On sert d'abord le vrai livrable (public/deliverables/<slug>.md, généré par
+ * scripts/generate-deliverables.ts). En cas d'absence, on retombe sur un guide
+ * d'accès minimal. En production, validez l'entitlement de l'acheteur avant la
+ * remise et servez le(s) vrai(s) fichier(s) depuis un stockage privé.
  */
 export async function GET(request: NextRequest) {
   const slug = request.nextUrl.searchParams.get("slug")?.trim()
@@ -22,52 +24,20 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Produit introuvable." }, { status: 404 })
   }
 
-  const now = new Date().toLocaleString("fr-FR")
-  const licenses = product.variants.map((v) => `- ${v.label} (${v.sku})`).join("\n")
-
-  const content = `BAZARIO — GUIDE D'ACCÈS & LICENCE
-====================================
-
-Produit : ${product.title}
-Créateur : ${product.brand}
-Catégorie : ${product.categoryPath.join(" > ")}
-Délivré le : ${now}
-
-À PROPOS
---------
-${product.description}
-
-VOS ACCÈS
----------
-1. Connectez-vous à votre espace : https://www.bazario-official.com/account/orders
-2. Retrouvez ce produit dans « Mes téléchargements ».
-3. Les mises à jour à vie apparaîtront automatiquement dans cet espace.
-
-LICENCES DISPONIBLES
---------------------
-${licenses}
-
-CONDITIONS DE LICENCE
----------------------
-- Usage conforme à la licence achetée (personnelle, commerciale ou agence).
-- Revente / redistribution interdites hors des droits accordés.
-- Garantie 14 jours satisfait ou remboursé.
-
-SUPPORT
--------
-support@bazario.com — réponse augmentée par IA 24/7.
-
-Merci de votre confiance.
-— L'équipe Bazario
-`
-
-  const filename = `bazario-${slug}.txt`
+  let content: string
+  let extension = "md"
+  try {
+    content = await readFile(join(process.cwd(), "public", "deliverables", `${slug}.md`), "utf-8")
+  } catch {
+    extension = "txt"
+    content = `BAZARIO — GUIDE D'ACCÈS\n\nProduit : ${product.title}\nCréateur : ${product.brand}\n\nRetrouvez vos accès et mises à jour dans votre espace :\nhttps://www.bazario-official.com/account/orders\n`
+  }
 
   return new NextResponse(content, {
     status: 200,
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Type": `text/${extension === "md" ? "markdown" : "plain"}; charset=utf-8`,
+      "Content-Disposition": `attachment; filename="bazario-${slug}.${extension}"`,
       "Cache-Control": "no-store",
     },
   })

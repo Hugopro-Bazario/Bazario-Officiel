@@ -10,7 +10,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "vitest run tests/unit",
-    "cj:fetch-top": "tsx scripts/fetch-cj-top-products.ts"
+    "cj:fetch-top": "tsx scripts/fetch-cj-top-products.ts",
+    "gen:assets": "node scripts/generate-digital-assets.mjs",
+    "gen:deliverables": "tsx scripts/generate-deliverables.ts"
   },
   "dependencies": {
     "@getbrevo/brevo": "^3.0.2",
