@@ -81,6 +81,14 @@ export default function OrdersPage() {
                       </p>
                     </div>
                     <div className="flex flex-col gap-1.5">
+                      {order.status === "delivered" && item.slug && (
+                        <Button variant="accent" size="sm" asChild>
+                          <a href={`/api/download?slug=${item.slug}`} download>
+                            <Download className="mr-1.5 size-4" />
+                            Télécharger
+                          </a>
+                        </Button>
+                      )}
                       <Button variant="outline" size="sm">
                         Racheter
                       </Button>

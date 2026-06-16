@@ -7,6 +7,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
 import { sendOrderConfirmationEmail, sendSubscriptionWelcomeEmail } from "@/lib/email/digital";
+import { PRODUCTS } from "@/lib/data";
 import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
 import { sendTikTokPurchaseServerEvent } from "@/lib/tracking/tiktok-events";
 
@@ -59,14 +60,50 @@ async function handleDigitalSessionCompleted(session: Stripe.Checkout.Session) {
     console.error(JSON.stringify({ scope: "stripe_webhook", kind, action: "list_line_items_failed", error: String(error) }));
   }
 
+  const reference = session.id.slice(-8).toUpperCase();
   const sent = await sendOrderConfirmationEmail({
     email: email || "",
-    reference: session.id.slice(-8).toUpperCase(),
+    reference,
     total: session.amount_total != null ? session.amount_total / 100 : null,
     currency: (session.currency || "eur").toUpperCase(),
     items,
   });
-  console.info(JSON.stringify({ scope: "stripe_webhook", kind: "digital_cart", action: "order_email", sent }));
+
+  // Enregistre les droits d'accès (entitlements) pour l'espace compte.
+  // Défensif : si Supabase n'est pas configuré, on n'interrompt pas le webhook.
+  let entitlementsSaved = false;
+  try {
+    const parsed = JSON.parse(session.metadata?.items || "[]") as { id: string; v: string; q: number }[];
+    const rows = parsed
+      .map((entry) => {
+        const product = PRODUCTS.find((p) => p.id === entry.id);
+        if (!product) return null;
+        const variant = product.variants.find((v) => v.id === entry.v);
+        return {
+          customer_email: email,
+          product_slug: product.slug,
+          product_title: product.title,
+          license_label: variant?.label ?? null,
+          stripe_session_id: session.id,
+          order_reference: reference,
+          status: "active",
+        };
+      })
+      .filter((r): r is NonNullable<typeof r> => r !== null);
+
+    if (rows.length > 0) {
+      const supabase = createSupabaseAdminClient();
+      const { error } = await supabase.from("entitlements").upsert(rows, {
+        onConflict: "user_id,product_slug,stripe_session_id",
+        ignoreDuplicates: true,
+      });
+      entitlementsSaved = !error;
+    }
+  } catch (error) {
+    console.error(JSON.stringify({ scope: "stripe_webhook", action: "entitlements_skip", error: String(error) }));
+  }
+
+  console.info(JSON.stringify({ scope: "stripe_webhook", kind: "digital_cart", action: "order_email", sent, entitlementsSaved }));
 }
 
 async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeaders: Headers) {

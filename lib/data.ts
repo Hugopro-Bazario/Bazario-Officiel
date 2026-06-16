@@ -736,7 +736,7 @@ export type Order = {
   statusLabel: string
   total: number
   trackingUrl?: string
-  items: { title: string; image: string; qty: number; price: number; sellerId: string }[]
+  items: { title: string; image: string; qty: number; price: number; sellerId: string; slug?: string }[]
 }
 
 export const mockOrders: Order[] = [
@@ -753,6 +753,7 @@ export const mockOrders: Order[] = [
         qty: 1,
         price: 149,
         sellerId: "neuraforge",
+        slug: "agent-orion-assistant-commercial",
       },
       {
         title: "Nebula UI — 450 composants React/Tailwind futuristes",
@@ -760,6 +761,7 @@ export const mockOrders: Order[] = [
         qty: 1,
         price: 79,
         sellerId: "quantum",
+        slug: "ui-kit-nebula-react",
       },
     ],
   },
@@ -777,6 +779,7 @@ export const mockOrders: Order[] = [
         qty: 1,
         price: 29,
         sellerId: "aether",
+        slug: "120-avatars-ia-professionnels",
       },
     ],
   },
@@ -793,6 +796,7 @@ export const mockOrders: Order[] = [
         qty: 1,
         price: 199,
         sellerId: "nova-academy",
+        slug: "masterclass-ia-generative",
       },
     ],
   },
