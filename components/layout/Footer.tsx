@@ -30,6 +30,7 @@ const COL_DECOUVRIR = [
 const COL_AIDE = [
   { label: "Centre d'aide", href: "/help" },
   { label: "FAQ", href: "/faq" },
+  { label: "Vérifier une licence", href: "/verify" },
   { label: "Centre de confiance", href: "/trust" },
   { label: "Suivi de commande", href: "/track" },
   { label: "Retours & remboursements", href: "/faq#retours" },

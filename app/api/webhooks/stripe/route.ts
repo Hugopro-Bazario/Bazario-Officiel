@@ -7,6 +7,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
 import { sendOrderConfirmationEmail, sendSubscriptionWelcomeEmail } from "@/lib/email/digital";
+import { generateLicenseCode } from "@/lib/license";
 import { PRODUCTS } from "@/lib/data";
 import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
 import { sendTikTokPurchaseServerEvent } from "@/lib/tracking/tiktok-events";
@@ -52,12 +53,25 @@ async function handleDigitalSessionCompleted(session: Stripe.Checkout.Session) {
   }
 
   // digital_cart : on récupère les lignes pour le récapitulatif et on envoie la confirmation.
-  let items: { description: string; quantity: number }[] = [];
+  let items: { description: string; quantity: number; license?: string }[] = [];
   try {
     const lineItems = await getStripe().checkout.sessions.listLineItems(session.id, { limit: 100 });
     items = lineItems.data.map((i) => ({ description: i.description || "Produit", quantity: i.quantity || 1 }));
   } catch (error) {
     console.error(JSON.stringify({ scope: "stripe_webhook", kind, action: "list_line_items_failed", error: String(error) }));
+  }
+
+  // Licences signées : une par produit acheté, vérifiable sur /verify.
+  try {
+    const parsedForLicense = JSON.parse(session.metadata?.items || "[]") as { id: string }[];
+    const byTitle = new Map<string, string>();
+    for (const entry of parsedForLicense) {
+      const product = PRODUCTS.find((p) => p.id === entry.id);
+      if (product) byTitle.set(product.title, generateLicenseCode(product.id, session.id));
+    }
+    items = items.map((i) => ({ ...i, license: byTitle.get(i.description) }));
+  } catch {
+    // metadata absente ou invalide : email sans codes, sans bloquer le webhook.
   }
 
   const reference = session.id.slice(-8).toUpperCase();

@@ -32,7 +32,7 @@ export type DigitalOrderEmail = {
   reference: string
   total: number | null
   currency: string
-  items: { description: string; quantity: number }[]
+  items: { description: string; quantity: number; license?: string }[]
 }
 
 /**
@@ -42,11 +42,16 @@ export type DigitalOrderEmail = {
 export async function sendOrderConfirmationEmail(order: DigitalOrderEmail): Promise<boolean> {
   if (!isEmailConfigured() || !order.email) return false
   const rows = order.items
-    .map(
-      (i) =>
-        `<tr><td style="padding:8px 0;border-bottom:1px solid #1c2030;">${i.quantity} × ${i.description}</td></tr>`,
-    )
+    .map((i) => {
+      const license = i.license
+        ? `<br/><span style="font-family:ui-monospace,monospace;font-size:12px;color:${ACCENT};">Licence : ${i.license}</span>`
+        : ""
+      return `<tr><td style="padding:8px 0;border-bottom:1px solid #1c2030;">${i.quantity} × ${i.description}${license}</td></tr>`
+    })
     .join("")
+  const licenseNote = order.items.some((i) => i.license)
+    ? `<p style="color:#8b93a7;font-size:12px;margin-top:14px;">Chaque licence est signée cryptographiquement — vérifiable à tout moment sur <a href="https://www.bazario-official.com/verify" style="color:${ACCENT};">bazario-official.com/verify</a> (certificat téléchargeable).</p>`
+    : ""
   const totalLine =
     order.total != null
       ? `<p style="font-size:16px;margin:16px 0 0;"><strong>Total : ${formatPrice(order.total, order.currency)}</strong></p>`
@@ -56,6 +61,7 @@ export async function sendOrderConfirmationEmail(order: DigitalOrderEmail): Prom
     <p style="color:#8b93a7;font-size:13px;">Référence : <strong style="color:#fff;">${order.reference}</strong></p>
     <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:14px;color:#e8ecf4;">${rows}</table>
     ${totalLine}
+    ${licenseNote}
     <div style="margin-top:24px;">
       <a href="https://www.bazario-official.com/account/orders" style="display:inline-block;background:${ACCENT};color:#05060f;font-weight:700;text-decoration:none;padding:12px 20px;border-radius:10px;">Accéder à mes produits</a>
     </div>`
