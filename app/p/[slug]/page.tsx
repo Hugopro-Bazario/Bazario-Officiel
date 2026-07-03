@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ProductGallery } from "@/components/product/product-gallery"
 import { AddToCart } from "@/components/product/add-to-cart"
+import { AgentDemo } from "@/components/product/agent-demo"
 import { ProductCard } from "@/components/product/product-card"
 import { ProductTabs } from "@/components/product/product-tabs"
 import { PriceCompare } from "@/components/product/price-compare"
@@ -252,6 +253,10 @@ export default async function ProductPage({
               <Separator />
 
               <AddToCart product={product} />
+
+              {product.category === "agents-ia" && (
+                <AgentDemo slug={product.slug} agentName={product.brand} />
+              )}
 
               <LiveActivity slug={product.slug} />
 
