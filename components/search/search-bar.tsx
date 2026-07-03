@@ -26,12 +26,12 @@ const STORAGE_KEY = "bazario_recent_searches_v1"
 const MAX_RECENT = 6
 
 const POPULAR = [
-  "lampe à poser",
-  "casque sans fil",
-  "sérum vitamine C",
-  "sneakers",
-  "table basse",
-  "robe été",
+  "agent IA commercial",
+  "pack de prompts",
+  "template Notion",
+  "formation IA",
+  "musique libre de droits",
+  "workflow n8n",
 ] as const
 
 const TRENDING_TAGS = [

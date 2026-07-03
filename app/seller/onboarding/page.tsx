@@ -150,7 +150,7 @@ function Step2() {
         <Field id="legal" label="Type de structure" placeholder="Auto-entrepreneur / SASU / SARL..." required />
         <Field id="siret" label="SIRET / Numéro d'enregistrement" placeholder="123 456 789 00012" required />
         <Field id="vat" label="Numéro de TVA intracommunautaire" placeholder="FR12345678901" />
-        <Field id="country" label="Pays d'expédition principal" placeholder="France" required />
+        <Field id="country" label="Pays de résidence fiscale" placeholder="France" required />
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">

@@ -37,7 +37,7 @@ const SORT_OPTIONS = [
   { value: "newest", label: "Nouveautés" },
 ]
 
-const POPULAR_QUERIES = ["Casque", "Sneakers", "Lampe", "Sérum", "Café", "Vélo"]
+const POPULAR_QUERIES = ["Agent IA", "Prompts", "Notion", "Formation", "Musique", "n8n"]
 
 function SearchPageInner() {
   const params = useSearchParams()

@@ -140,7 +140,7 @@ export function CartDrawer() {
                   <section key={sellerId} className="mb-5 last:mb-0">
                     <div className="mb-2 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                       <ShieldCheck className="size-3 text-primary" />
-                      Expédié par vendeur Bazario
+                      Livraison instantanée · créateur vérifié
                     </div>
                     <ul className="space-y-3">
                       {sellerItems.map((item) => (

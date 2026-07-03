@@ -63,7 +63,7 @@ export default function SellerDashboardPage() {
         <div>
           <h1 className="font-display text-3xl font-bold tracking-tight">Tableau de bord</h1>
           <p className="text-muted-foreground">
-            Bonjour <span className="font-medium text-foreground">Lumen Studio</span>, voici vos performances aujourd&apos;hui.
+            Bonjour <span className="font-medium text-foreground">NeuraForge Studio</span>, voici vos performances aujourd&apos;hui.
           </p>
         </div>
         <div className="flex gap-2">
@@ -198,10 +198,10 @@ export default function SellerDashboardPage() {
               <Sparkles className="size-3" /> Insight IA
             </div>
             <h3 className="mt-4 font-display text-xl font-bold leading-snug">
-              +24 % de conversion attendue sur les Sneakers Lumen Classic ce week-end
+              +24 % de conversion attendue sur l'agent Orion ce week-end
             </h3>
             <p className="mt-2 text-sm text-primary-foreground/80">
-              Les recherches sur cette gamme ont bondi de 38 % cette semaine. Activez une promo flash pour capter la demande.
+              Les recherches « agent commercial IA » ont bondi de 38 % cette semaine. Activez une promo flash pour capter la demande.
             </p>
             <Button variant="accent" className="mt-6 w-full">
               Créer une promo flash

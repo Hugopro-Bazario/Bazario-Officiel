@@ -193,7 +193,7 @@ export default async function SellerPage({
             <Stat
               icon={Truck}
               value={profile.shippingTime}
-              label="Délai d'expédition"
+              label="Livraison"
             />
           </div>
         </Card>
