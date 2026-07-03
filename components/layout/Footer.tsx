@@ -19,6 +19,8 @@ const COL_DECOUVRIR = [
   { label: "Salle de presse", href: "/press" },
   { label: "Le Mag Bazario", href: "/blog" },
   { label: "Bazario Nexus+", href: "/premium" },
+  { label: "Packs & stacks", href: "/bundles" },
+  { label: "Assistant IA", href: "/discover" },
   { label: "Cartes cadeaux", href: "/gift-cards" },
   { label: "Pourquoi Bazario", href: "/why-bazario" },
   { label: "Programme de fidélité", href: "/loyalty" },

@@ -12,6 +12,7 @@ sont structurellement élevées et la livraison est instantanée.
 | **Commission marketplace** | Prélevée sur chaque vente d'un créateur | 15 à 30 % selon le volume |
 | **Abonnement Nexus+** | Abonnement acheteur (avantages + crédits IA) | 9,99 €/mois · 99,90 €/an |
 | **Ventes propres** | Produits édités par Bazario (drops, packs maison) | Marge ~95 % |
+| **Packs (bundles)** | Stacks de produits complémentaires à −20/−25 % (`/bundles`) | Panier moyen +40 à +80 % |
 | **Mise en avant** | Placements sponsorisés, drops vedettes | CPC / forfait |
 | **Crédits IA** | Recharges au-delà des crédits inclus | À l'usage |
 

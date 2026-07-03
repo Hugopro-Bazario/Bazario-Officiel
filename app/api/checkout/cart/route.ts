@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import type Stripe from "stripe"
 import { getStripe } from "@/lib/stripe/server"
 import { PRODUCTS } from "@/lib/data"
+import { computeCartBundleDiscount, getBundleProducts } from "@/lib/bundles"
 
 export const runtime = "nodejs"
 
@@ -56,7 +57,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Votre panier est vide." }, { status: 400 })
   }
 
-  const line_items: CheckoutLineItem[] = []
+  type BuiltLine = { product: (typeof PRODUCTS)[number]; variant: (typeof PRODUCTS)[number]["variants"][number]; qty: number }
+  const built: BuiltLine[] = []
   const metadataItems: { id: string; v: string; q: number }[] = []
 
   for (const raw of incoming) {
@@ -65,24 +67,62 @@ export async function POST(request: NextRequest) {
     const variant = product.variants.find((v) => v.id === raw.variantId) ?? product.variants[0]
     if (!variant) continue
     const qty = Math.min(Math.max(Math.floor(Number(raw.qty) || 1), 1), 20)
-
-    line_items.push({
-      quantity: qty,
-      price_data: {
-        currency: (product.currency || "EUR").toLowerCase(),
-        unit_amount: Math.round(variant.price * 100),
-        product_data: {
-          name: product.title,
-          description: variant.label !== product.title ? variant.label : undefined,
-          metadata: { product_id: product.id, variant_id: variant.id, seller_id: product.seller.id },
-        },
-      },
-    })
+    built.push({ product, variant, qty })
     metadataItems.push({ id: product.id, v: variant.id, q: qty })
   }
 
-  if (line_items.length === 0) {
+  if (built.length === 0) {
     return NextResponse.json({ error: "Aucun produit valide dans le panier." }, { status: 400 })
+  }
+
+  // Remise « packs » : si tous les produits d'un pack sont présents au tarif de
+  // base, une unité de chacun est facturée au prorata du prix pack (répartition
+  // exacte au centime, le reliquat va au dernier produit du pack).
+  const { bundles } = computeCartBundleDiscount(
+    built.map((b) => ({ productId: b.product.id, qty: b.qty, price: b.variant.price })),
+  )
+  const packUnitCents = new Map<string, { cents: number; bundleName: string }>()
+  for (const bundle of bundles) {
+    const items = getBundleProducts(bundle)
+    const originalCents = items.reduce((sum, p) => sum + Math.round(p.price * 100), 0)
+    const packCents = Math.round(bundle.price * 100)
+    let allocated = 0
+    items.forEach((p, i) => {
+      const cents =
+        i === items.length - 1
+          ? packCents - allocated
+          : Math.round((Math.round(p.price * 100) * packCents) / originalCents)
+      allocated += cents
+      packUnitCents.set(p.id, { cents, bundleName: bundle.name })
+    })
+  }
+
+  const line_items: CheckoutLineItem[] = []
+  const pushLine = (b: BuiltLine, quantity: number, unit_amount: number, description?: string) => {
+    line_items.push({
+      quantity,
+      price_data: {
+        currency: (b.product.currency || "EUR").toLowerCase(),
+        unit_amount,
+        product_data: {
+          name: b.product.title,
+          description: description ?? (b.variant.label !== b.product.title ? b.variant.label : undefined),
+          metadata: { product_id: b.product.id, variant_id: b.variant.id, seller_id: b.product.seller.id },
+        },
+      },
+    })
+  }
+
+  for (const b of built) {
+    const fullUnit = Math.round(b.variant.price * 100)
+    const pack = packUnitCents.get(b.product.id)
+    const isBaseVariant = b.variant.price === b.product.price
+    if (pack && isBaseVariant) {
+      pushLine(b, 1, pack.cents, `${b.variant.label} · tarif pack « ${pack.bundleName} »`)
+      if (b.qty > 1) pushLine(b, b.qty - 1, fullUnit)
+    } else {
+      pushLine(b, b.qty, fullUnit)
+    }
   }
 
   const origin = readOrigin(request)
@@ -101,6 +141,7 @@ export async function POST(request: NextRequest) {
       metadata: {
         kind: "digital_cart",
         items: JSON.stringify(metadataItems).slice(0, 480),
+        bundles: bundles.map((b) => b.slug).join(","),
       },
     })
 

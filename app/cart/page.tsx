@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import { useCart } from "@/lib/cart-store"
 import { Button } from "@/components/ui/button"
+import { computeCartBundleDiscount } from "@/lib/bundles"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -55,7 +56,10 @@ export default function CartPage() {
   // Produits 100 % numériques : livraison instantanée et gratuite.
   const shipping = 0
   const promoDiscount = promoApplied ? Math.min(20, subtotal * 0.1) : 0
-  const total = Math.max(0, subtotal + shipping - promoDiscount)
+  const { discount: bundleDiscount } = computeCartBundleDiscount(
+    items.map((i) => ({ productId: i.productId, qty: i.qty, price: i.price })),
+  )
+  const total = Math.max(0, subtotal + shipping - promoDiscount - bundleDiscount)
 
   // Recommendations: take first 4 products not already in cart
   const inCartIds = new Set(items.map((it) => it.productSlug))
@@ -315,6 +319,12 @@ export default function CartPage() {
                     <dt className="text-muted-foreground">Livraison</dt>
                     <dd className="tabular-nums text-accent">Instantanée</dd>
                   </div>
+                  {bundleDiscount > 0 && (
+                    <div className="flex justify-between text-success">
+                      <dt>Remise pack</dt>
+                      <dd className="tabular-nums">- {formatPrice(bundleDiscount)}</dd>
+                    </div>
+                  )}
                   {promoApplied && (
                     <div className="flex justify-between text-success">
                       <dt>Code promo</dt>

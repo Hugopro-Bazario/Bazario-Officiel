@@ -12,10 +12,15 @@ import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { StripeCheckoutButton } from "@/components/checkout/stripe-checkout-button"
 import { formatPrice } from "@/lib/data"
+import { computeCartBundleDiscount } from "@/lib/bundles"
 
 export default function CheckoutPage() {
   const { items, subtotal } = useCart()
   const [email, setEmail] = React.useState("")
+  const { discount: bundleDiscount, bundles } = computeCartBundleDiscount(
+    items.map((i) => ({ productId: i.productId, qty: i.qty, price: i.price })),
+  )
+  const total = Math.max(0, subtotal - bundleDiscount)
 
   if (items.length === 0) {
     return (
@@ -93,6 +98,12 @@ export default function CheckoutPage() {
                 <span className="text-muted-foreground">Sous-total</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
+              {bundleDiscount > 0 && (
+                <div className="flex justify-between text-success">
+                  <span>Remise pack{bundles.length > 1 ? "s" : ""} ({bundles.map((b) => b.name).join(", ")})</span>
+                  <span>−{formatPrice(bundleDiscount)}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Livraison</span>
                 <span className="text-accent">Instantanée · 0 €</span>
@@ -101,11 +112,11 @@ export default function CheckoutPage() {
             <Separator className="my-4" />
             <div className="mb-5 flex items-baseline justify-between">
               <span className="font-semibold">Total</span>
-              <span className="font-display text-2xl font-bold">{formatPrice(subtotal)}</span>
+              <span className="font-display text-2xl font-bold">{formatPrice(total)}</span>
             </div>
 
             <StripeCheckoutButton email={email} className="w-full">
-              Payer {formatPrice(subtotal)}
+              Payer {formatPrice(total)}
             </StripeCheckoutButton>
 
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

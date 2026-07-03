@@ -171,13 +171,19 @@ export function Header() {
             href="/deals"
             className="rounded-md px-3 py-2 text-sm font-semibold text-accent hover:bg-accent/10"
           >
-            Soldes
+            Offres
+          </Link>
+          <Link
+            href="/bundles"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            Packs
           </Link>
           <Link
             href="/discover"
             className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
           >
-            Découvrir
+            Assistant IA
           </Link>
           <Link
             href="/blog"
