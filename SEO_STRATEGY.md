@@ -1,75 +1,81 @@
-# Strategie SEO Bazario
+# Stratégie SEO & trafic — Bazario (produits digitaux & IA)
 
 ## Objectif
 
-Construire une base SEO indexable avant d'acheter du trafic : pages statiques lisibles sans JavaScript, contenu de confiance, sitemap, robots.txt et futures pages categorie/produit.
+Générer du trafic organique qualifié (intention d'achat) sans dépendre de la
+publicité, en capitalisant sur ce qui est **déjà codé** : pages statiques
+rapides, données structurées complètes, sitemap dynamique, vrais 404.
 
-## Mots-cles money prioritaires
+## ✅ Fondations techniques en place (dans le code)
 
-| Mot-cle | Intention | Difficulte | Page cible |
-| --- | --- | --- | --- |
-| boutique en ligne produits tendance | Achat | Moyen | Home / categorie |
-| accessoires maison pratiques | Achat | Moyen | Categorie maison |
-| gadgets utiles pas cher | Achat | Moyen | Categorie tech |
-| idees cadeaux utiles | Achat | Moyen | Categorie cadeaux |
-| accessoires lifestyle tendance | Achat | Moyen | Categorie lifestyle |
-| produits bien etre maison | Achat | Moyen | Categorie bien-etre |
-| boutique francophone livraison suivie | Achat | Facile | Home |
-| objets pratiques quotidien | Achat | Moyen | Categorie maison |
-| accessoires tech utiles | Achat | Moyen | Categorie tech |
-| produits tendance livraison france | Achat | Difficile | Home / categories |
+| Élément | État |
+|---|---|
+| Sitemap dynamique (`/sitemap.xml`) : accueil, 8 catégories, 40 produits, 5 studios, blog, packs | ✅ |
+| `robots.txt` : crawl ouvert, `/account` `/admin` `/seller` `/checkout` `/api` exclus | ✅ |
+| Pages produit/catégorie/studio/blog **pré-rendues statiques** + vrais 404 | ✅ |
+| `metadataBase`, canonicals, Open Graph + Twitter cards | ✅ |
+| JSON-LD : `Organization` + `WebSite` (SearchAction), `Product` + `Offer` + `AggregateRating` + `BreadcrumbList` (fiches), `FAQPage` (FAQ), `Article` (blog), `CollectionPage` + `ItemList` (catégories), `ItemList` + `Offer` (packs) | ✅ |
+| Performance : images AVIF/WebP, SVG légers, dark theme sans flash | ✅ |
 
-## Long-tail a produire
+## 🚀 À faire au lancement (jour J, ~30 min)
 
-- accessoires maison pratiques pour petit appartement
-- idees cadeaux utiles moins de 30 euros
-- gadgets utiles pour organiser son bureau
-- accessoires lifestyle tendance pour femme
-- objets pratiques pour gagner de la place
-- produits bien etre faciles a offrir
-- comment suivre une commande dropshipping
-- livraison suivie boutique en ligne france
-- retours 14 jours achat en ligne france
-- produits utiles pour routine quotidienne
-- accessoires tech compacts pour voyage
-- idees cadeaux pratiques pour parents
-- objets malins pour la cuisine
-- accessoires rangement maison pas cher
-- produits tendance pour teletravail
-- boutique en ligne avec support francophone
-- selection produits utiles marketplace
-- accessoires utiles pour smartphone
-- idees cadeaux utiles derniere minute
-- produits pratiques pour maison connectee
+1. **Google Search Console** : ajouter la propriété `www.bazario-official.com`,
+   soumettre `/sitemap.xml`, demander l'indexation de l'accueil + 8 catégories.
+2. **Bing Webmaster Tools** : importer depuis Search Console (2 clics).
+3. Vérifier les rich results : https://search.google.com/test/rich-results
+   sur une fiche produit, la FAQ et un article de blog.
+4. Créer les profils sociaux du `sameAs` (Instagram, TikTok, LinkedIn) — même
+   vides, ils consolident l'entité « Bazario » chez Google.
 
-## Pages categories a creer ensuite
+## 🎯 Mots-clés money (intention d'achat)
 
-1. `/categorie/maison-pratique`
-2. `/categorie/tech-mobilite`
-3. `/categorie/mode-lifestyle`
-4. `/categorie/bien-etre`
-5. `/categorie/idees-cadeaux`
+| Mot-clé | Page cible |
+|---|---|
+| acheter agent ia / agent ia entreprise | `/c/agents-ia` |
+| pack prompts chatgpt français | `/c/prompts` |
+| template notion second cerveau | `/p/second-cerveau-os-notion` |
+| starter saas next.js | `/p/starter-saas-nextjs-launchpad` |
+| formation ia générative certifiante | `/c/formations` |
+| musique libre de droits youtube | `/c/audio-ia` |
+| workflow n8n e-commerce | `/p/pack-120-workflows-n8n-ecommerce` |
+| marketplace produits digitaux | `/` + `/why-bazario` |
 
-Chaque page doit contenir : H1 unique, intro editoriale 200-300 mots, grille produits, filtres, FAQ courte, Schema.org ItemList et canonical.
+## ✍️ Long-tail : le blog est la machine à trafic
 
-## Idees blog initiales
+3 articles optimisés sont déjà en ligne (agents IA, prompt engineering,
+revenus passifs). Cadence recommandée : **2 articles/semaine**, format
+guide/comparatif, chacun ciblant UNE requête long-tail et poussant vers 1-2
+produits (CTA intégré, comme les articles existants). Exemples à produire :
 
-1. Comment choisir un produit utile sans tomber dans le gadget inutile ?
-2. Les objets pratiques qui simplifient une petite cuisine.
-3. Guide des retours et garanties pour acheter en ligne sereinement.
-4. Idees cadeaux utiles pour moins de 30 euros.
-5. Comment lire les delais de livraison sur une marketplace ?
+- « meilleur agent ia support client 2026 » → Luna
+- « comment vendre ses prompts » → /sell
+- « notion vs obsidian second cerveau » → template Notion
+- « combien coûte un agent ia » → /c/agents-ia
+- « musique ia droits commerciaux youtube » → banque musicale
+- « automatiser sa prospection linkedin » → Atlas
+- « créer un saas sans coder 2026 » → LaunchPad + formations
+- « avatars ia photo profil linkedin » → pack avatars
 
-## Quick wins appliques dans ce commit
+## 📣 Distribution (générer du trafic au-delà de Google)
 
-- Home enrichie avec meta description, canonical, Open Graph et JSON-LD Organization/WebSite.
-- Checkout enrichi avec canonical, Open Graph, OfferCatalog et signaux de confiance.
-- `robots.txt` et `sitemap.xml` statiques ajoutes.
-- Pages confiance/legales prevues dans le sitemap et le footer.
+1. **Réutilisation systématique** : chaque article blog → 1 thread X + 1 post
+   LinkedIn + 1 carrousel Instagram + 1 vidéo courte TikTok.
+2. **Communautés FR** : subreddits entrepreneuriat/IA, groupes Facebook &
+   Discord no-code, Product Hunt (lancement des packs), betalist.
+3. **Créateurs relais** : chaque studio partenaire relaie ses fiches — prévoir
+   un kit de partage (visuels + liens UTM) dans l'espace créateur.
+4. **Newsletter** (déjà sur le site) nourrie par les drops et le blog.
+5. Plus tard : flux Google Merchant Center (produits digitaux éligibles).
 
-## Prochaines optimisations
+## 📊 Mesure avant d'acheter du trafic
 
-- Creer un vrai catalogue produit et des pages detail produit avec `Product`, `Offer`, `AggregateRating`.
-- Ajouter un flux Google Merchant Center quand les produits seront reels.
-- Mesurer les requetes et clics dans Google Search Console.
-- Remplacer les contenus pilotes par des avis et preuves verifiees.
+Meta Pixel + TikTok Pixel + consentement RGPD sont déjà intégrés. Règle
+maintenue : **pas d'achat média tant que** le tunnel organique ne convertit pas
+(≥ 1 % visiteur→achat) et que LTV/CAC estimé < 3.
+
+## Definition of done SEO
+
+- Search Console : 0 erreur de couverture, sitemap accepté.
+- Rich results valides sur produit, FAQ, article.
+- 8 articles publiés le premier mois.
+- Positions suivies sur les 8 mots-clés money (Search Console → Performances).

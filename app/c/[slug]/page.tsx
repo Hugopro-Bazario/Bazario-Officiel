@@ -194,8 +194,43 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   const subs = SUB_CATEGORIES[slug] ?? []
   const guides = getGuides(slug)
 
+  const SITE = "https://www.bazario-official.com"
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${category.name} — Bazario`,
+    url: `${SITE}/c/${category.slug}`,
+    inLanguage: "fr-FR",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: products.length,
+      itemListElement: products.slice(0, 20).map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${SITE}/p/${p.slug}`,
+        name: p.title,
+      })),
+    },
+  }
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: SITE },
+      { "@type": "ListItem", position: 2, name: category.name, item: `${SITE}/c/${category.slug}` },
+    ],
+  }
+
   return (
     <div className="bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">

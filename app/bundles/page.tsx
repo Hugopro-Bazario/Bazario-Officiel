@@ -17,8 +17,37 @@ const REASSURANCE = [
 ]
 
 export default function BundlesPage() {
+  const SITE = "https://www.bazario-official.com"
+  const bundlesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Packs Bazario — stacks de produits digitaux",
+    url: `${SITE}/bundles`,
+    numberOfItems: BUNDLES.length,
+    itemListElement: BUNDLES.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: `Pack ${b.name}`,
+        description: b.description,
+        url: `${SITE}/bundles`,
+        offers: {
+          "@type": "Offer",
+          price: b.price.toFixed(2),
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+        },
+      },
+    })),
+  }
+
   return (
     <div className="relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bundlesJsonLd) }}
+      />
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="bg-cyber-grid absolute inset-0 opacity-60" />
         <div className="animate-float-slow absolute -top-24 right-1/4 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
