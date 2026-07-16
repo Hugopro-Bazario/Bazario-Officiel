@@ -7,7 +7,7 @@ export function SiteJsonLd() {
     name: "Bazario",
     legalName: "Bazario",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/icon-512.jpg`,
     description:
       "Bazario est la marketplace futuriste des produits et services digitaux : agents IA, prompts, templates, formations, musique générative et SaaS, livrés instantanément par des créateurs vérifiés.",
     slogan: "Le marché du futur.",

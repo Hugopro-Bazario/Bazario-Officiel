@@ -151,6 +151,7 @@ export function LiveDrops() {
                       {[t.h, t.m, t.s].map((v, i) => (
                         <span
                           key={i}
+                          suppressHydrationWarning
                           className="rounded-md bg-background/15 px-2 py-1 text-xs font-bold tabular-nums backdrop-blur-sm"
                         >
                           {v}

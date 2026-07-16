@@ -84,7 +84,10 @@ export function FlashSales() {
 function Countdown({ unit, label }: { unit: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className="inline-flex h-11 min-w-[3rem] items-center justify-center rounded-lg bg-foreground px-2 font-display font-bold tabular-nums text-background shadow-md">
+      <span
+        suppressHydrationWarning
+        className="inline-flex h-11 min-w-[3rem] items-center justify-center rounded-lg bg-foreground px-2 font-display font-bold tabular-nums text-background shadow-md"
+      >
         {unit}
       </span>
       <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
