@@ -1,16 +1,16 @@
 const BRANDS = [
-  "Aurora",
-  "Lumen",
-  "Verte",
-  "Nordic",
-  "Kobe",
-  "TechWave",
-  "Maison Lou",
-  "Atelier Rive",
-  "Halo",
-  "Studio Nord",
-  "Origine",
-  "Métro",
+  "NeuraForge",
+  "PromptCraft",
+  "Quantum",
+  "Aether",
+  "Nova",
+  "Synthrise",
+  "Vectorium",
+  "Lumina AI",
+  "Hexalab",
+  "Orbital",
+  "Datafall",
+  "Nocturne",
 ]
 
 export function BrandMarquee() {
@@ -18,7 +18,7 @@ export function BrandMarquee() {
     <section className="border-y bg-background py-8">
       <div className="container">
         <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          Plus de 8 000 marques et créateurs nous font confiance
+          Plus de 8 000 studios et créateurs digitaux nous font confiance
         </p>
       </div>
       <div className="relative flex overflow-hidden">

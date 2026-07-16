@@ -11,7 +11,7 @@ export default function SellerLayout({ children }: { children: React.ReactNode }
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background px-6">
           <div className="relative max-w-md flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Rechercher dans le seller center…" className="pl-10" />
+            <Input placeholder="Rechercher dans le studio créateur…" className="pl-10" />
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" className="relative">
@@ -21,8 +21,8 @@ export default function SellerLayout({ children }: { children: React.ReactNode }
             <div className="flex items-center gap-3">
               <div className="size-9 rounded-full bg-gradient-to-br from-primary to-accent" />
               <div className="hidden sm:block">
-                <p className="text-sm font-semibold leading-tight">Lumen Studio</p>
-                <p className="text-xs text-muted-foreground">Vendeur · 4,8 / 5</p>
+                <p className="text-sm font-semibold leading-tight">NeuraForge Studio</p>
+                <p className="text-xs text-muted-foreground">Créateur · 4,9 / 5</p>
               </div>
             </div>
           </div>

@@ -22,28 +22,28 @@ const DEMO_STEPS: Step[] = [
   },
   {
     icon: Package,
-    label: "Préparation chez le vendeur",
-    detail: "Atelier Lumen · Lyon — 25 avr. 2026 — 09:11",
+    label: "Préparation des accès",
+    detail: "Génération des licences · 24 avr. 2026 — 14:32",
     done: true,
   },
   {
     icon: Truck,
-    label: "En transit vers le hub Bazario",
-    detail: "Hub Paris-Sud · arrivée 26 avr. 2026 — 08:45",
+    label: "Livraison numérique",
+    detail: "Liens envoyés par e-mail · 24 avr. 2026 — 14:32",
     done: true,
     current: true,
   },
   {
     icon: MapPin,
-    label: "Tournée du livreur",
-    detail: "Estimé le 27 avr. 2026 entre 09:00 et 13:00",
-    done: false,
+    label: "Disponible dans votre espace",
+    detail: "Produits et mises à jour accessibles à vie",
+    done: true,
   },
   {
     icon: Check,
-    label: "Livré",
-    detail: "Signature électronique requise",
-    done: false,
+    label: "Téléchargeable",
+    detail: "Accès illimité depuis Mon compte › Mes téléchargements",
+    done: true,
   },
 ]
 
@@ -102,10 +102,10 @@ export function TrackOrderForm() {
       {status === "found" && (
         <div className="mt-6 border-t pt-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Commande {order || "BZR-2026-AB12"}
+            Commande {order || "BZ-2026-AB12"}
           </p>
           <p className="mt-1 font-display text-xl font-semibold tracking-tight">
-            Livraison estimée le 27 avr. 2026
+            Vos accès sont disponibles ✓
           </p>
           <ol className="mt-5 space-y-4">
             {DEMO_STEPS.map((s) => (

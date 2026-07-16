@@ -52,6 +52,31 @@ export interface Database {
           created_at: string;
           updated_at: string;
         }>;
+      profiles: TableDefinition<{
+          id: string;
+          email: string | null;
+          first_name: string | null;
+          last_name: string | null;
+          role: string;
+          created_at: string;
+          updated_at: string;
+        }>;
+      entitlements: TableDefinition<{
+          id: number;
+          user_id: string | null;
+          customer_email: string | null;
+          product_slug: string;
+          product_title: string;
+          license_label: string | null;
+          stripe_session_id: string | null;
+          order_reference: string | null;
+          status: string;
+          created_at: string;
+        }>;
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 }

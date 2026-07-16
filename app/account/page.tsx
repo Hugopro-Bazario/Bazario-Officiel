@@ -25,29 +25,29 @@ const TIMELINE = [
   {
     icon: CheckCircle2,
     color: "success",
-    title: "Commande BZ-20264102 livrée",
-    sub: "Sneakers cuir blanc · livré chez vous le 14 avril",
+    title: "Commande BZ-20266102 livrée",
+    sub: "Agent IA Orion · accès disponible dans votre espace",
     time: "il y a 12 jours",
   },
   {
     icon: Truck,
     color: "primary",
-    title: "Commande BZ-20264087 expédiée",
-    sub: "Lampe Halo laiton brossé · arrivée prévue demain",
+    title: "Mise à jour disponible",
+    sub: "Nebula UI v4.2 · nouvelle version incluse à vie",
     time: "il y a 3 jours",
   },
   {
     icon: Coins,
     color: "accent",
     title: "+85 Bazario Coins gagnés",
-    sub: "Achat éligible Premium · 1 coin = 0,01 €",
+    sub: "Achat éligible Nexus+ · 1 coin = 0,01 €",
     time: "il y a 3 jours",
   },
   {
     icon: Gift,
     color: "primary",
-    title: "Code promo VOYAGE-15 reçu",
-    sub: "−15 % sur la catégorie Voyage, valable 30 jours",
+    title: "Code promo NEXUS-15 reçu",
+    sub: "−15 % sur la catégorie Agents IA, valable 30 jours",
     time: "il y a 6 jours",
   },
   {
@@ -152,13 +152,12 @@ export default function AccountDashboard() {
             </div>
             <p className="text-xs text-muted-foreground">
               Plus que <span className="font-semibold text-foreground">{formatPrice(goalSpent - yearSpent)}</span> pour
-              débloquer le statut <span className="font-semibold text-accent">Premium Platine</span> (livraison express
-              illimitée).
+              débloquer le statut <span className="font-semibold text-accent">Nexus Black</span> (crédits IA doublés).
             </p>
           </div>
 
           <div className="mt-6 grid grid-cols-3 gap-4 border-t pt-6">
-            <Mini label="Économies Premium" value={formatPrice(218)} />
+            <Mini label="Économies Nexus+" value={formatPrice(218)} />
             <Mini label="Coins encaissés" value="−85 €" />
             <Mini label="Promos appliquées" value="6" />
           </div>

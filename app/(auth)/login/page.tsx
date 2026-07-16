@@ -10,20 +10,35 @@ import { Label } from "@/components/ui/label"
 export default function LoginPage() {
   const [showPwd, setShowPwd] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setError(null)
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
+    const form = new FormData(e.currentTarget)
+    const email = String(form.get("email") || "")
+    const password = String(form.get("password") || "")
+    try {
+      const { createSupabaseBrowserClient } = await import("@/lib/supabase/client")
+      const supabase = createSupabaseBrowserClient()
+      const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+      if (authError) {
+        setError("Email ou mot de passe incorrect.")
+        setLoading(false)
+        return
+      }
       window.location.href = "/account"
-    }, 800)
+    } catch {
+      setError("La connexion n'est pas encore activée (Supabase non configuré).")
+      setLoading(false)
+    }
   }
 
   return (
     <div>
       <h1 className="font-display text-3xl font-bold tracking-tight text-balance">Bon retour sur Bazario</h1>
-      <p className="mt-2 text-muted-foreground">Connectez-vous pour suivre vos commandes et profiter de vos avantages Premium.</p>
+      <p className="mt-2 text-muted-foreground">Connectez-vous pour accéder à vos produits, vos licences et vos avantages Nexus+.</p>
 
       <div className="mt-8 grid grid-cols-2 gap-3">
         <Button variant="outline" className="h-11 gap-2" type="button">
@@ -45,7 +60,7 @@ export default function LoginPage() {
           <Label htmlFor="email">E-mail</Label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input id="email" type="email" required placeholder="vous@exemple.com" className="pl-10" />
+            <Input id="email" name="email" type="email" required placeholder="vous@exemple.com" className="pl-10" />
           </div>
         </div>
 
@@ -60,6 +75,7 @@ export default function LoginPage() {
             <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               id="password"
+              name="password"
               type={showPwd ? "text" : "password"}
               required
               placeholder="••••••••"
@@ -80,6 +96,12 @@ export default function LoginPage() {
           <input type="checkbox" className="h-4 w-4 rounded border-input accent-primary" defaultChecked />
           Se souvenir de moi
         </label>
+
+        {error && (
+          <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {error}
+          </p>
+        )}
 
         <Button type="submit" className="h-11 w-full" disabled={loading}>
           {loading ? "Connexion..." : "Se connecter"}

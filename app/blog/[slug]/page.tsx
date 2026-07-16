@@ -15,6 +15,8 @@ const CATEGORY_LABEL: Record<string, string> = {
   tendances: "Tendances",
 }
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }))
 }
@@ -74,7 +76,7 @@ export default async function BlogArticlePage({
     publisher: {
       "@type": "Organization",
       name: "Bazario",
-      logo: { "@type": "ImageObject", url: `${SITE}/logo.png` },
+      logo: { "@type": "ImageObject", url: `${SITE}/icon-512.jpg` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}/blog/${post.slug}` },
     keywords: post.keywords.join(", "),

@@ -4,7 +4,7 @@ import Link from "next/link"
 export const metadata: Metadata = {
   title: "Centre d'aide — Réponses 24/7",
   description:
-    "Trouvez la réponse à toutes vos questions Bazario : commandes, livraison, retours, paiement, vendeurs. Notre équipe vous répond en moins d'une heure.",
+    "Trouvez la réponse à toutes vos questions Bazario : accès aux produits, livraison numérique, remboursements, paiement, créateurs. Notre équipe vous répond en moins d'une heure.",
   alternates: { canonical: "/help" },
 }
 
@@ -32,16 +32,16 @@ import { Badge } from "@/components/ui/badge"
 const TOPICS = [
   {
     icon: Package,
-    title: "Suivi de commande",
-    desc: "Localisez vos colis en temps réel",
+    title: "Mes téléchargements",
+    desc: "Accédez à vos produits et licences",
     href: "/account/orders",
     articles: 24,
     tone: "primary",
   },
   {
     icon: RotateCcw,
-    title: "Retours & remboursements",
-    desc: "Politique 30 jours satisfait ou remboursé",
+    title: "Remboursements",
+    desc: "Garantie 14 jours satisfait ou remboursé",
     href: "#returns",
     articles: 18,
     tone: "accent",
@@ -49,7 +49,7 @@ const TOPICS = [
   {
     icon: CreditCard,
     title: "Paiement & facturation",
-    desc: "Modes de paiement, factures, devises",
+    desc: "Moyens de paiement, factures, abonnement",
     href: "#payment",
     articles: 32,
     tone: "primary",
@@ -64,15 +64,15 @@ const TOPICS = [
   },
   {
     icon: Store,
-    title: "Vendeurs & boutiques",
-    desc: "Devenir vendeur, gérer ses ventes",
+    title: "Créateurs & studios",
+    desc: "Devenir créateur, gérer ses ventes",
     href: "/sell",
     articles: 41,
     tone: "accent",
   },
   {
     icon: MessageSquare,
-    title: "Contacter un vendeur",
+    title: "Contacter un créateur",
     desc: "Posez vos questions avant achat",
     href: "/account/messages",
     articles: 9,
@@ -81,46 +81,46 @@ const TOPICS = [
 ]
 
 const POPULAR = [
-  "Modifier l'adresse de livraison",
-  "Suivre mon colis",
-  "Annuler une commande",
+  "Accéder à mes téléchargements",
+  "Renvoyer mes liens par email",
+  "Demander un remboursement",
   "Changer mon mode de paiement",
-  "Ouvrir un litige",
-  "Activer Premium",
+  "Gérer mon abonnement Nexus+",
+  "Comprendre les licences",
 ]
 
 const FAQ = [
   {
-    q: "Combien de temps prend la livraison ?",
-    a: "Cela dépend du vendeur et du pays d'expédition. Les délais estimés sont indiqués sur chaque fiche produit. En moyenne : 2-4 jours pour la France métropolitaine, 5-10 jours pour l'international. Avec Premium, livraison express en 24 h sur des millions d'articles éligibles.",
+    q: "Quand vais-je recevoir mon produit ?",
+    a: "Immédiatement. Les produits sont numériques : dès le paiement validé, vos accès et liens de téléchargement apparaissent dans votre espace et vous sont envoyés par e-mail. Aucun délai, aucun frais de port.",
   },
   {
-    q: "Puis-je retourner un produit ?",
-    a: "Oui, vous avez 30 jours après réception pour retourner un produit non conforme ou qui ne vous convient pas. Le retour est gratuit sur tous les produits éligibles (badge Retour gratuit). Le remboursement intervient sous 3 à 5 jours ouvrés après réception du colis par le vendeur.",
+    q: "Puis-je être remboursé ?",
+    a: "Oui. Bazario applique une garantie 14 jours satisfait ou remboursé : si un produit ne correspond pas à sa description ou est inutilisable, écrivez à support@bazario.com avec votre référence. Le remboursement est traité sous 14 jours.",
   },
   {
-    q: "Comment annuler une commande ?",
-    a: "Vous pouvez annuler votre commande tant qu'elle n'a pas été expédiée par le vendeur. Rendez-vous dans Mon compte → Commandes → Annuler. Une fois expédiée, vous pourrez la retourner après réception sous le délai de 30 jours.",
+    q: "Où retrouver mes achats et leurs mises à jour ?",
+    a: "Dans Mon compte → Mes téléchargements. Vous y retrouvez tous vos produits, vos licences et les mises à jour à vie, qui apparaissent automatiquement.",
   },
   {
     q: "Mon paiement est-il sécurisé ?",
-    a: "Oui. Bazario utilise Stripe, leader mondial du paiement en ligne, avec chiffrement TLS et 3D Secure systématique. Aucune information bancaire n'est stockée sur nos serveurs. Tous les paiements sont protégés par notre garantie acheteur.",
+    a: "Oui. Bazario utilise Stripe, leader mondial du paiement en ligne, avec chiffrement TLS et 3D Secure systématique. Aucune information bancaire n'est stockée sur nos serveurs.",
   },
   {
-    q: "Comment contacter un vendeur ?",
-    a: "Depuis chaque fiche produit, cliquez sur Contacter le vendeur. Toutes les conversations passent par la messagerie sécurisée Bazario, jamais par e-mail externe. Les vendeurs s'engagent à répondre sous 24 h ouvrées.",
+    q: "Comment contacter un créateur ?",
+    a: "Depuis chaque fiche produit, cliquez sur Contacter. Toutes les conversations passent par la messagerie sécurisée Bazario. Les créateurs s'engagent à répondre rapidement.",
   },
   {
-    q: "Que se passe-t-il en cas de litige ?",
-    a: "La Protection acheteur Bazario vous couvre : si un produit n'arrive jamais ou n'est pas conforme, vous pouvez ouvrir un litige sous 60 jours. Notre équipe médie sous 48 h et vous rembourse intégralement si le vendeur est en tort.",
+    q: "Comment fonctionnent les licences ?",
+    a: "Chaque produit précise sa licence : personnelle (usage privé), commerciale (projets pro) ou agence (clients illimités). Le détail figure sur la fiche produit et dans votre livrable.",
   },
   {
-    q: "Comment fonctionne Bazario Premium ?",
-    a: "Pour 5,99 € / mois, profitez de la livraison express illimitée, de retours gratuits, de Bazario Coins doublés et d'un accès prioritaire aux ventes flash. Annulable à tout moment, sans engagement. Premier mois offert à l'inscription.",
+    q: "Comment fonctionne Bazario Nexus+ ?",
+    a: "Pour 9,99 € / mois (ou 99,90 €/an), profitez de −20 % sur tout le catalogue, de crédits IA mensuels, de l'accès anticipé aux drops et du coffre-fort de licences. 30 jours d'essai, annulable à tout moment.",
   },
   {
-    q: "Combien rapporte Bazario aux vendeurs ?",
-    a: "La commission Bazario est dégressive : 12 % sur les premiers 10 000 € de ventes mensuelles, puis 9 % au-delà. Aucun frais d'inscription, aucun abonnement obligatoire, paiement sous 7 jours après livraison.",
+    q: "Combien rapporte Bazario aux créateurs ?",
+    a: "La commission est de 15 à 20 % selon la catégorie. Aucun frais fixe, aucun abonnement obligatoire, paiement automatique J+2 via Stripe.",
   },
 ]
 

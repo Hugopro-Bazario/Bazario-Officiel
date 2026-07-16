@@ -5,62 +5,62 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "Pourquoi Bazario · Bazario vs Amazon",
+  title: "Pourquoi Bazario · La marketplace digitale de confiance",
   description:
-    "Découvrez ce qui fait de Bazario la meilleure alternative à Amazon : vendeurs vérifiés, paiement sécurisé, 0 produit contrefait, livraison express, support humain et programme de fidélité Bazario+.",
+    "Ce qui distingue Bazario des autres plateformes de produits digitaux : créateurs vérifiés, licences claires, livraison instantanée, mises à jour à vie, garantie 14 jours et abonnement Nexus+.",
   alternates: { canonical: "/why-bazario" },
-  openGraph: { title: "Pourquoi Bazario · Bazario vs Amazon", url: "/why-bazario", type: "article" },
+  openGraph: { title: "Pourquoi Bazario · La marketplace digitale de confiance", url: "/why-bazario", type: "article" },
 }
 
 const COMPARE_ROWS = [
-  { label: "Vendeurs vérifiés à 100 %", bazario: true, amazon: false, note: "Audit administratif et contrôle qualité avant publication" },
-  { label: "Aucune contrefaçon (garantie écrite)", bazario: true, amazon: false, note: "Politique zéro tolérance, achats remboursés" },
-  { label: "Paiement sécurisé chiffré PCI-DSS", bazario: true, amazon: true },
-  { label: "Garantie meilleur prix remboursé", bazario: true, amazon: false, note: "On rembourse 110% de la différence sous 14 jours" },
-  { label: "Service client humain 7j/7", bazario: true, amazon: false, note: "Réponse < 2h, jamais de chatbot bloquant" },
-  { label: "Cashback réel sur chaque commande", bazario: true, amazon: false, note: "Jusqu'à 5 % crédités en Bazario Coins" },
-  { label: "Livraison express 24-48h en Europe", bazario: true, amazon: true },
-  { label: "Compensation carbone des livraisons", bazario: true, amazon: false, note: "Inclus pour tous les membres Bazario+" },
-  { label: "Programme de fidélité avec avantages réels", bazario: true, amazon: true, note: "Bazario+ vs Amazon Prime" },
-  { label: "Soldes anticipées pour les membres fidèles", bazario: true, amazon: false },
-  { label: "Vendeurs locaux et marques émergentes mises en avant", bazario: true, amazon: false, note: "Curation éditoriale par notre équipe" },
-  { label: "Concierge VIP gratuit", bazario: true, amazon: false, note: "Inclus dans Bazario Black" },
-  { label: "Frais cachés au checkout", bazario: false, amazon: true, note: "Tous les frais sont annoncés à l'ajout au panier" },
-  { label: "Publicités et résultats sponsorisés intrusifs", bazario: false, amazon: true, note: "Aucun encart pub n'apparaît sur la fiche produit" },
+  { label: "Créateurs vérifiés à 100 %", bazario: true, amazon: false, note: "Contrôle qualité et identité avant publication" },
+  { label: "Licences claires (perso / commerciale / agence)", bazario: true, amazon: false, note: "Les droits d'usage sont précisés sur chaque produit" },
+  { label: "Paiement sécurisé chiffré (Stripe, 3D Secure)", bazario: true, amazon: true },
+  { label: "Garantie 14 jours satisfait ou remboursé", bazario: true, amazon: false, note: "Remboursement si le produit ne correspond pas à sa description" },
+  { label: "Support augmenté par IA 24/7", bazario: true, amazon: false, note: "Réponse en quelques secondes, escalade humaine si besoin" },
+  { label: "Crédits IA inclus avec l'abonnement", bazario: true, amazon: false, note: "Images, voix et textes générés inclus dans Nexus+" },
+  { label: "Livraison instantanée des produits", bazario: true, amazon: true },
+  { label: "Mises à jour à vie incluses", bazario: true, amazon: false, note: "Vos achats évoluent à chaque nouvelle version" },
+  { label: "Coffre-fort de licences à vie", bazario: true, amazon: false, note: "Tous vos achats réunis et sécurisés au même endroit" },
+  { label: "Accès anticipé aux drops pour les membres", bazario: true, amazon: false },
+  { label: "Créateurs émergents et studios indés mis en avant", bazario: true, amazon: false, note: "Curation éditoriale par notre équipe" },
+  { label: "Filigrane et traçabilité des fichiers", bazario: true, amazon: false, note: "Protection des créateurs contre la fraude" },
+  { label: "Frais cachés au checkout", bazario: false, amazon: true, note: "Tous les frais sont annoncés avant le paiement" },
+  { label: "Publicités et résultats sponsorisés intrusifs", bazario: false, amazon: true, note: "Aucun encart pub sur la fiche produit" },
 ]
 
 const PILLARS = [
   {
     icon: Shield,
     title: "Confiance avant tout",
-    body: "Chaque vendeur est audité, identifié et noté par les acheteurs. Nous bloquons les produits suspects avant publication, pas après les plaintes.",
+    body: "Chaque créateur est vérifié et noté par les acheteurs. Nous contrôlons les produits avant publication, et les licences sont toujours explicites.",
   },
   {
     icon: Sparkles,
     title: "Curation premium",
-    body: "Nos équipes éditoriales sélectionnent les marques émergentes et les artisans. Vous achetez ce qui mérite vraiment votre attention.",
+    body: "Nos équipes sélectionnent les studios et créateurs qui font vraiment la différence. Vous achetez ce qui mérite votre attention.",
   },
   {
     icon: Heart,
-    title: "Service humain",
-    body: "Chaque message reçoit une réponse d'un humain en moins de 2h. Nous ne fermerons jamais votre dossier sans solution acceptée.",
+    title: "Support augmenté",
+    body: "Une IA répond en quelques secondes, des humains prennent le relais sur les cas complexes. Aucun dossier fermé sans solution.",
   },
   {
     icon: Zap,
-    title: "Le meilleur prix vraiment",
-    body: "Si vous trouvez moins cher ailleurs sous 14 jours, on vous rembourse 110 % de la différence. Sans condition.",
+    title: "Livraison instantanée",
+    body: "Vos produits sont disponibles à la seconde du paiement, dans votre espace et par email, avec les mises à jour à vie incluses.",
   },
   {
     icon: Globe2,
-    title: "Livraison sans frontières",
-    body: "42 pays couverts, livraison express 24-48h en Europe, suivi en temps réel. Option carbone neutre incluse pour les membres Bazario+.",
+    title: "Sans frontières, sans logistique",
+    body: "100 % numérique : pas de stock, pas de frais de port, pas de douane. Vos achats vous suivent partout, sur tous vos appareils.",
   },
 ]
 
 const TESTIMONIALS = [
-  { name: "Camille L.", city: "Paris", text: "J'ai retrouvé sur Bazario un vendeur qui m'avait floué sur Amazon. Ici, ils ont remboursé en 24h sans poser 30 questions." },
-  { name: "Maxime T.", city: "Lyon", text: "Le programme Bazario+ est honnêtement plus généreux que Prime, et l'app n'est pas envahie de pubs. Adopté." },
-  { name: "Sarah B.", city: "Bordeaux", text: "Les prix sont vraiment compétitifs et le service est sans comparaison. Je commande au moins une fois par semaine." },
+  { name: "Camille L.", city: "Paris", text: "J'ai « embauché » l'agent Orion pour ma boutique : il qualifie mes leads la nuit. Rentabilisé en une semaine." },
+  { name: "Maxime T.", city: "Lyon", text: "Les licences sont enfin claires et tout est livré instantanément dans mon coffre-fort. Nexus+ vaut largement son prix." },
+  { name: "Sarah B.", city: "Bordeaux", text: "Je vends mes packs de prompts ici depuis 6 mois : zéro logistique, paiement J+2. Devenu mon revenu principal." },
 ]
 
 export default function WhyBazarioPage() {
@@ -76,7 +76,7 @@ export default function WhyBazarioPage() {
             Pourquoi <span className="italic">Bazario</span>, et pas Amazon ?
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            La marketplace qui vous protège, qui paie ses vendeurs équitablement et qui ne vous noie pas dans la pub.
+            La marketplace digitale qui protège acheteurs et créateurs, avec des licences claires et zéro friction.
             Voici les 14 différences qui comptent vraiment.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -92,7 +92,7 @@ export default function WhyBazarioPage() {
 
       {/* Comparison table */}
       <section className="mx-auto max-w-5xl px-4 py-16 sm:py-20">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Bazario vs Amazon, point par point</h2>
+        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Bazario vs les autres plateformes, point par point</h2>
         <p className="mt-2 text-sm text-muted-foreground">Mis à jour mensuellement par notre équipe.</p>
         <div className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
           <table className="w-full text-sm">
@@ -100,7 +100,7 @@ export default function WhyBazarioPage() {
               <tr>
                 <th className="px-4 py-3 text-left font-medium text-muted-foreground">Critère</th>
                 <th className="px-4 py-3 text-center font-display font-semibold text-foreground">Bazario</th>
-                <th className="px-4 py-3 text-center font-medium text-muted-foreground">Amazon</th>
+                <th className="px-4 py-3 text-center font-medium text-muted-foreground">Ailleurs</th>
               </tr>
             </thead>
             <tbody>
@@ -151,7 +151,7 @@ export default function WhyBazarioPage() {
 
       {/* Testimonials */}
       <section className="mx-auto max-w-5xl px-4 py-16 sm:py-20">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Ils ont quitté Amazon pour Bazario</h2>
+        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Ils ont adopté Bazario</h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {TESTIMONIALS.map((t) => (
             <figure key={t.name} className="rounded-lg border border-border bg-card p-6">
@@ -171,7 +171,7 @@ export default function WhyBazarioPage() {
             Essayez Bazario aujourd&apos;hui
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-background/80">
-            Bénéficiez de 10 € de crédit sur votre première commande dès 49 € avec le code <span className="font-mono font-semibold">WELCOME10</span>.
+            Bénéficiez de 10 € de crédit sur votre première commande avec le code <span className="font-mono font-semibold">WELCOME10</span>.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg" variant="secondary">

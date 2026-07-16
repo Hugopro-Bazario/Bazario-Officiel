@@ -22,16 +22,16 @@ const KPIS = [
 ]
 
 const SELLER_REQUESTS = [
-  { name: "Atelier Soleil", country: "Espagne", category: "Maison & Décoration", date: "il y a 2h", products: 38 },
-  { name: "ByteForge", country: "Allemagne", category: "Tech & Audio", date: "il y a 4h", products: 124 },
-  { name: "Maison Cuir", country: "Italie", category: "Mode & Accessoires", date: "hier", products: 56 },
-  { name: "GreenFork", country: "France", category: "Alimentation Bio", date: "hier", products: 72 },
+  { name: "ByteForge", country: "Allemagne", category: "Agents IA", date: "il y a 2h", products: 38 },
+  { name: "PromptHouse", country: "France", category: "Prompts & GPTs", date: "il y a 4h", products: 124 },
+  { name: "Pixel Atelier", country: "Italie", category: "Art génératif", date: "hier", products: 56 },
+  { name: "SonoLab", country: "Canada", category: "Musique & Voix IA", date: "hier", products: 72 },
 ]
 
 const ALERTS = [
-  { title: "Litige ouvert sur commande #BZ-20264087", level: "high", time: "il y a 12 min" },
-  { title: "Produit signalé : 'Lampe Halo Pro Max'", level: "medium", time: "il y a 1h" },
-  { title: "Pic de retours sur Mode > Sneakers", level: "low", time: "il y a 3h" },
+  { title: "Litige ouvert sur commande #BZ-20266087", level: "high", time: "il y a 12 min" },
+  { title: "Produit signalé : 'PixelMind Pro'", level: "medium", time: "il y a 1h" },
+  { title: "Pic de remboursements sur Formations", level: "low", time: "il y a 3h" },
 ]
 
 export default function AdminOverview() {
@@ -199,8 +199,8 @@ export default function AdminOverview() {
                 <p className="text-lg font-semibold">98.4 %</p>
               </div>
               <div>
-                <p className="text-primary-foreground/70">Livraison à temps</p>
-                <p className="text-lg font-semibold">94.1 %</p>
+                <p className="text-primary-foreground/70">Livraison instantanée</p>
+                <p className="text-lg font-semibold">99.9 %</p>
               </div>
               <div>
                 <p className="text-primary-foreground/70">Avis ≥ 4★</p>

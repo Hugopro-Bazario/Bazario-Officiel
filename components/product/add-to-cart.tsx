@@ -50,7 +50,7 @@ export function AddToCart({ product }: { product: Product }) {
           )}
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          TVA incluse · Livraison calculée au paiement
+          TVA incluse · Livraison numérique instantanée
         </p>
       </div>
 

@@ -12,7 +12,7 @@ const REPORTS = [
     title: products[0]?.title ?? "Produit",
     image: products[0]?.images?.[0],
     reason: "Description trompeuse",
-    detail: "L'acheteur indique que la mention 'cuir véritable' ne correspond pas au matériau reçu.",
+    detail: "L'acheteur indique que la licence commerciale annoncée n'est pas incluse dans le fichier reçu.",
     reportedBy: "12 utilisateurs",
     severity: "high" as const,
     time: "il y a 18 min",

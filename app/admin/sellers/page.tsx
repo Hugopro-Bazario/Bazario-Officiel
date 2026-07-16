@@ -11,17 +11,17 @@ export default function AdminSellers() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm text-muted-foreground">Vendeurs</p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">Annuaire vendeurs</h1>
+          <p className="text-sm text-muted-foreground">Créateurs</p>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight">Annuaire créateurs</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {sellers.length} vendeurs actifs · 12 en attente · 3 suspendus
+            {sellers.length} créateurs actifs · 12 en attente · 3 suspendus
           </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm">
             <Download className="mr-1.5 size-4" /> Exporter
           </Button>
-          <Button size="sm">Inviter un vendeur</Button>
+          <Button size="sm">Inviter un créateur</Button>
         </div>
       </div>
 

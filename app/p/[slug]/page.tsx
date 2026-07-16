@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import {
   ChevronRight,
   Star,
-  Truck,
+  Zap,
   Shield,
   RefreshCw,
   BadgeCheck,
@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ProductGallery } from "@/components/product/product-gallery"
 import { AddToCart } from "@/components/product/add-to-cart"
+import { AgentDemo } from "@/components/product/agent-demo"
 import { ProductCard } from "@/components/product/product-card"
 import { ProductTabs } from "@/components/product/product-tabs"
 import { PriceCompare } from "@/components/product/price-compare"
@@ -28,8 +29,16 @@ import {
 import { LiveActivity } from "@/components/product/live-activity"
 import { FrequentlyBought } from "@/components/product/frequently-bought"
 import { Reviews } from "@/components/product/reviews"
-import { getProductBySlug, getRelatedProducts } from "@/lib/data"
+import { getProductBySlug, getRelatedProducts, products } from "@/lib/data"
 import { discountPercent } from "@/lib/utils"
+
+// Catalogue statique : on pré-génère toutes les fiches et on renvoie un vrai 404
+// pour tout slug inconnu (meilleur SEO + pages servies statiquement).
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }))
+}
 
 export async function generateMetadata({
   params,
@@ -245,20 +254,24 @@ export default async function ProductPage({
 
               <AddToCart product={product} />
 
+              {product.category === "agents-ia" && (
+                <AgentDemo slug={product.slug} agentName={product.brand} />
+              )}
+
               <LiveActivity slug={product.slug} />
 
               {/* Trust mini-grid */}
               <ul className="grid grid-cols-3 gap-2 text-center text-[11px]">
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <Truck className="mx-auto mb-1 h-4 w-4 text-primary" />
-                  <span className="font-semibold leading-tight">Livraison rapide</span>
+                  <Zap className="mx-auto mb-1 h-4 w-4 text-accent" />
+                  <span className="font-semibold leading-tight">Accès instantané</span>
                 </li>
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <RefreshCw className="mx-auto mb-1 h-4 w-4 text-primary" />
-                  <span className="font-semibold leading-tight">Retours 30 j</span>
+                  <RefreshCw className="mx-auto mb-1 h-4 w-4 text-accent" />
+                  <span className="font-semibold leading-tight">Garantie 14 j</span>
                 </li>
                 <li className="rounded-lg bg-secondary/60 p-2.5">
-                  <Shield className="mx-auto mb-1 h-4 w-4 text-primary" />
+                  <Shield className="mx-auto mb-1 h-4 w-4 text-accent" />
                   <span className="font-semibold leading-tight">Paiement sûr</span>
                 </li>
               </ul>
@@ -267,7 +280,7 @@ export default async function ProductPage({
             {/* Seller card */}
             <div className="mt-4 rounded-2xl border bg-card p-5 shadow-sm">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Vendu et expédié par
+                Créé et publié par
               </p>
               <div className="flex items-center gap-3">
                 <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-secondary">
@@ -320,10 +333,10 @@ export default async function ProductPage({
               <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               <div className="text-xs">
                 <p className="font-semibold text-foreground">
-                  Bazario Premium · 6,99 €/mois
+                  Bazario Nexus+ · 9,99 €/mois
                 </p>
                 <p className="mt-0.5 text-muted-foreground">
-                  Livraison illimitée gratuite, ventes privées et 30 jours de retour étendu.
+                  −20 % sur tout le catalogue, crédits IA mensuels et accès anticipé aux drops.
                 </p>
               </div>
             </Link>

@@ -1,9 +1,9 @@
 import Link from "next/link"
 import {
   Crown,
-  Truck,
+  Download,
   ShieldCheck,
-  Headphones,
+  Bot,
   Zap,
   Star,
   ArrowRight,
@@ -11,10 +11,10 @@ import {
 import { Button } from "@/components/ui/button"
 
 const PERKS = [
-  { icon: Truck, label: "Livraison gratuite illimitée", detail: "Sans seuil minimum" },
-  { icon: Zap, label: "Accès anticipé aux ventes flash", detail: "24h avant tout le monde" },
-  { icon: ShieldCheck, label: "Garantie étendue 2 ans", detail: "Sur tous vos achats" },
-  { icon: Headphones, label: "Support prioritaire 24/7", detail: "Conseiller dédié" },
+  { icon: Download, label: "−20 % sur tout le catalogue", detail: "Produits & services digitaux" },
+  { icon: Zap, label: "Accès anticipé aux drops", detail: "24h avant tout le monde" },
+  { icon: Bot, label: "Crédits IA mensuels offerts", detail: "Images, voix et textes générés" },
+  { icon: ShieldCheck, label: "Coffre-fort de licences", detail: "Tous vos achats, à vie, au même endroit" },
 ]
 
 export function PremiumBanner() {
@@ -31,19 +31,20 @@ export function PremiumBanner() {
           <div className="md:col-span-3">
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-accent-foreground">
               <Crown className="h-3.5 w-3.5" />
-              Bazario Premium
+              Bazario Nexus+
             </span>
 
             <h2 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight text-balance sm:text-5xl">
-              Achetez plus,
+              L&apos;abonnement
               <br />
-              dépensez <span className="text-accent">moins</span>.
+              des créateurs <span className="text-accent">augmentés</span>.
             </h2>
 
             <p className="mt-5 max-w-xl text-base leading-relaxed text-background/75">
-              Pour 5,99 € / mois, débloquez la livraison gratuite illimitée, l&apos;accès
-              prioritaire aux ventes flash et un support 24/7. Économies moyennes&nbsp;:
-              <span className="font-semibold text-background"> 142 € / an</span>.
+              Pour 9,99 € / mois, débloquez −20 % sur tout le catalogue, des crédits IA
+              mensuels, l&apos;accès anticipé aux drops et le coffre-fort de licences.
+              Économies moyennes&nbsp;:
+              <span className="font-semibold text-background"> 312 € / an</span>.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">

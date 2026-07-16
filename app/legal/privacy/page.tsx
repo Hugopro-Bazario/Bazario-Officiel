@@ -53,7 +53,7 @@ export default function PrivacyPage() {
       <h2 id="finalites">3. Finalités</h2>
       <p>Vos données sont utilisées pour :</p>
       <ul>
-        <li>Traiter et expédier vos commandes</li>
+        <li>Traiter vos commandes et livrer vos accès numériques</li>
         <li>Gérer votre compte et nos relations commerciales</li>
         <li>Vous adresser nos communications marketing si vous y avez consenti</li>
         <li>Améliorer nos services et personnaliser votre expérience</li>

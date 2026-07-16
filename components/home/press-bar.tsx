@@ -1,12 +1,12 @@
 import { Quote } from "lucide-react"
 
 const OUTLETS = [
-  { name: "Le Monde", quote: "Le challenger européen d'Amazon", weight: "font-serif italic" },
-  { name: "Les Échos", quote: "Une expérience client sans équivalent", weight: "font-serif" },
-  { name: "Vogue Business", quote: "La marketplace la plus exigeante de sa génération", weight: "font-display italic" },
+  { name: "Le Monde", quote: "La place de marché qui démocratise l'IA", weight: "font-serif italic" },
+  { name: "Les Échos", quote: "Le App Store français des produits digitaux", weight: "font-serif" },
+  { name: "TechCrunch", quote: "Le marketplace IA le plus complet d'Europe", weight: "font-display italic" },
   { name: "Forbes", quote: "Croissance fulgurante, fondamentaux solides", weight: "font-display" },
-  { name: "Wired", quote: "Le meilleur de la tech, sans le bruit", weight: "font-mono" },
-  { name: "Madame Figaro", quote: "Le nouveau réflexe shopping responsable", weight: "font-serif italic" },
+  { name: "Wired", quote: "Le futur du commerce est déjà ici", weight: "font-mono" },
+  { name: "Usine Digitale", quote: "La référence des créateurs augmentés", weight: "font-serif italic" },
 ]
 
 export function PressBar() {

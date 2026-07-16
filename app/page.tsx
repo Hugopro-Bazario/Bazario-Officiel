@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/hero"
 import { ValueProps } from "@/components/home/value-props"
+import { HowItWorks } from "@/components/home/how-it-works"
 import { CategoriesGrid } from "@/components/home/categories-grid"
 import { FlashSales } from "@/components/home/flash-sales"
 import { LiveDrops } from "@/components/home/live-drops"
@@ -21,6 +22,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ValueProps />
+      <HowItWorks />
       <CategoriesGrid />
       <FlashSales />
       <LiveDrops />

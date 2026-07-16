@@ -5,7 +5,7 @@ import { Mail, MessageCircle, Truck, RefreshCw, Shield, User } from "lucide-reac
 export const metadata: Metadata = {
   title: "FAQ — Toutes les réponses sur Bazario",
   description:
-    "Commandes, livraison, retours, paiement, comptes : retrouvez toutes les réponses aux questions fréquentes sur Bazario.",
+    "Commandes, livraison numérique, remboursements, paiement, comptes : retrouvez toutes les réponses aux questions fréquentes sur Bazario.",
   alternates: { canonical: "/faq" },
 }
 
@@ -35,67 +35,67 @@ const SECTIONS: Section[] = [
       },
       {
         q: "Puis-je modifier ou annuler une commande ?",
-        a: "Tant que la commande n'a pas été expédiée, vous pouvez la modifier ou l'annuler depuis votre espace client. Une fois expédiée, vous bénéficiez de notre politique de retour 30 jours.",
+        a: "Les produits étant numériques et livrés instantanément, une commande validée est exécutée immédiatement. En cas de problème, notre garantie 14 jours satisfait ou remboursé s'applique.",
       },
       {
-        q: "Comment suivre ma commande ?",
-        a: "Dès l'expédition, vous recevez un e-mail avec le numéro de suivi et un lien direct vers le transporteur. Vous pouvez aussi suivre l'avancement dans votre espace client.",
+        q: "Comment accéder à mes produits après l'achat ?",
+        a: "Dès le paiement validé, vos accès et liens de téléchargement apparaissent dans votre espace (Mon compte › Mes téléchargements) et vous sont envoyés par e-mail. Les mises à jour à vie y arrivent automatiquement.",
       },
     ],
   },
   {
     id: "livraison",
-    title: "Livraison",
+    title: "Livraison numérique",
     icon: Truck,
-    description: "Délais, zones desservies et options de livraison.",
+    description: "Accès instantané, mises à jour à vie, licences claires.",
     questions: [
       {
-        q: "Quels sont les délais de livraison ?",
-        a: "Les délais varient selon le pays d'expédition du vendeur (affiché sur chaque fiche produit). En France, comptez 1 à 5 jours ouvrés. À l'international, 3 à 10 jours ouvrés. Tous les délais affichés sont contractuels et honorés.",
+        q: "Quel est le délai de livraison ?",
+        a: "La livraison est instantanée : vos produits sont disponibles à la seconde où le paiement est validé, dans votre espace et par e-mail. Aucun délai d'expédition, aucun frais de port.",
       },
       {
-        q: "Quels sont les frais de livraison ?",
-        a: "La livraison standard est offerte dès 50 € d'achat. En dessous, les frais sont calculés au panier en fonction du poids et de la destination. Les abonnés Bazario Premium bénéficient de la livraison gratuite illimitée.",
+        q: "Y a-t-il des frais de livraison ?",
+        a: "Non. Tous les produits étant numériques, la livraison est gratuite et immédiate, partout dans le monde.",
       },
       {
-        q: "Livrez-vous à l'international ?",
-        a: "Oui, Bazario livre dans plus de 90 pays via un réseau de vendeurs vérifiés. Les délais et frais sont calculés automatiquement au panier en fonction de votre adresse de livraison.",
+        q: "Sous quel format vais-je recevoir mon produit ?",
+        a: "Cela dépend du produit : fichiers à télécharger, accès à une application, lien vers une formation, guide d'installation… Le format et la licence sont précisés sur chaque fiche produit.",
       },
       {
-        q: "Que se passe-t-il si je ne suis pas chez moi à la livraison ?",
-        a: "Le transporteur vous laisse un avis de passage. Selon le service, vous pouvez reprogrammer la livraison, choisir un point relais ou récupérer le colis au bureau de poste pendant 14 jours.",
+        q: "Les mises à jour sont-elles incluses ?",
+        a: "Oui. La plupart de nos produits incluent les mises à jour à vie : chaque nouvelle version apparaît automatiquement dans votre espace, sans frais supplémentaires.",
       },
       {
-        q: "Que faire si mon colis est perdu ou abîmé ?",
-        a: "Contactez-nous dans les 7 jours après la date de livraison prévue : nous lançons une enquête immédiate auprès du transporteur et vous proposons un renvoi ou un remboursement complet.",
+        q: "Je n'ai pas reçu mes accès, que faire ?",
+        a: "Vérifiez vos spams, puis votre espace (Mes téléchargements). Vous pouvez aussi y renvoyer les liens par e-mail. Si le souci persiste, notre support répond 24/7.",
       },
     ],
   },
   {
     id: "retours",
-    title: "Retours et remboursements",
+    title: "Rétractation et remboursements",
     icon: RefreshCw,
-    description: "30 jours pour changer d'avis. Retours simples et remboursements rapides.",
+    description: "Garantie 14 jours satisfait ou remboursé sur les produits digitaux.",
     questions: [
       {
-        q: "Quel est le délai de retour ?",
-        a: "Vous disposez de 30 jours après la réception pour retourner un produit (14 jours minimum imposés par la loi européenne). Les abonnés Premium bénéficient de 60 jours.",
+        q: "Puis-je être remboursé d'un produit numérique ?",
+        a: "Oui. Bazario applique une garantie commerciale de 14 jours : si un produit ne correspond pas substantiellement à sa description, contactez le support pour un remboursement.",
       },
       {
-        q: "Comment faire un retour ?",
-        a: "Depuis votre espace client, sélectionnez la commande puis « Retourner un article ». Imprimez l'étiquette prépayée fournie et déposez le colis en point relais. Le remboursement intervient sous 48 h après réception.",
+        q: "Comment fonctionne le droit de rétractation ?",
+        a: "Pour un contenu numérique fourni immédiatement, vous consentez à l'exécution immédiate et renoncez au droit de rétractation légal une fois le téléchargement/accès commencé (art. L221-28 du Code de la consommation). Notre garantie 14 jours reste valable au-delà de ce cadre.",
       },
       {
-        q: "Le retour est-il gratuit ?",
-        a: "Oui, les retours sont gratuits en France métropolitaine et en Belgique. À l'international, des frais de retour peuvent s'appliquer en fonction du transporteur (clairement affichés au moment de la demande).",
+        q: "Comment demander un remboursement ?",
+        a: "Écrivez à support@bazario.com depuis l'adresse de votre commande, en précisant la référence. Le remboursement est traité sous 14 jours via votre moyen de paiement initial.",
       },
       {
-        q: "Quels produits ne peuvent pas être retournés ?",
-        a: "Pour des raisons d'hygiène ou de personnalisation, certains produits ne peuvent pas être retournés (cosmétiques ouverts, alimentation, produits sur-mesure). C'est toujours indiqué sur la fiche produit.",
+        q: "Que couvre la garantie ?",
+        a: "Un produit non conforme à sa description, inutilisable, ou un doublon d'achat. La garantie ne couvre pas un simple changement d'avis après usage complet du contenu.",
       },
       {
         q: "Quand suis-je remboursé ?",
-        a: "Le remboursement est déclenché dans les 48 h après réception du retour. Selon votre banque, le crédit apparaît sur votre compte sous 3 à 5 jours ouvrés.",
+        a: "Le remboursement est déclenché après validation par le support. Selon votre banque, le crédit apparaît sous 3 à 5 jours ouvrés.",
       },
     ],
   },

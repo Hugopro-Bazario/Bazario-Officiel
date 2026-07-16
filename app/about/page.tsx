@@ -17,19 +17,19 @@ const VALUES = [
     icon: Heart,
     title: "Exigence sincère",
     description:
-      "Chaque vendeur est sélectionné, vérifié, audité. On ne référence pas un produit qu'on ne voudrait pas chez nous.",
+      "Chaque créateur est sélectionné, vérifié, audité. On ne référence pas un produit qu'on ne voudrait pas utiliser nous-mêmes.",
   },
   {
     icon: ShieldCheck,
     title: "Confiance par défaut",
     description:
-      "Garantie acheteur, retours 30 jours, paiement sécurisé Stripe : si quelque chose ne va pas, on remboursera.",
+      "Garantie 14 jours, licences claires, paiement sécurisé Stripe : si quelque chose ne va pas, on rembourse.",
   },
   {
     icon: Leaf,
-    title: "Impact mesuré",
+    title: "Impact maîtrisé",
     description:
-      "Emballages compostables, livraisons groupées, vendeurs locaux mis en avant. Notre empreinte se réduit chaque année.",
+      "100 % numérique : aucun colis, aucun déchet d'emballage. On compense l'empreinte de nos serveurs et on met en avant les créateurs émergents.",
   },
   {
     icon: Users,
@@ -40,18 +40,18 @@ const VALUES = [
 ]
 
 const MILESTONES = [
-  { year: "2022", title: "Lancement", desc: "3 fondateurs, un appartement à Paris, 50 vendeurs partenaires." },
-  { year: "2023", title: "Série A — 18 M€", desc: "Expansion européenne. 1 200 vendeurs, 800 K acheteurs actifs." },
-  { year: "2024", title: "Bazario Premium", desc: "Notre programme d'abonnement et la livraison gratuite illimitée." },
-  { year: "2025", title: "Cap des 8 000 vendeurs", desc: "Présents dans 47 pays. Première année rentable." },
-  { year: "2026", title: "Bazario Coins & IA", desc: "Programme de fidélité et recommandations personnalisées en temps réel." },
+  { year: "2023", title: "Lancement", desc: "3 fondateurs, un appartement à Paris, 50 créateurs partenaires." },
+  { year: "2024", title: "Série A — 18 M€", desc: "Expansion européenne. 1 200 créateurs, 800 K acheteurs actifs." },
+  { year: "2025", title: "Cap des 8 000 créateurs", desc: "Présents dans 47 pays. Première année rentable." },
+  { year: "2026", title: "Bazario Nexus+ & agents IA", desc: "Abonnement créateurs, crédits IA et agents autonomes au catalogue." },
+  { year: "2027", title: "Le marché du futur", desc: "Objectif : devenir la référence mondiale du produit digital augmenté par l'IA." },
 ]
 
 const STATS = [
   { value: "12 M+", label: "Acheteurs actifs" },
-  { value: "8 000", label: "Vendeurs vérifiés" },
+  { value: "8 000", label: "Créateurs vérifiés" },
   { value: "47", label: "Pays desservis" },
-  { value: "4,8/5", label: "Note moyenne" },
+  { value: "4,9/5", label: "Note moyenne" },
 ]
 
 const TEAM = [
@@ -76,8 +76,8 @@ export default function AboutPage() {
               <span className="text-primary">acheter mieux.</span>
             </h1>
             <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-              Trop de bruit, trop de copies, trop de promesses. On a décidé de bâtir une marketplace où chaque produit
-              a une histoire, chaque vendeur a un visage, et où la confiance n&apos;est pas un argument marketing.
+              Trop de bruit, trop de copies, trop de promesses. On a décidé de bâtir la marketplace du produit digital
+              où chaque création a une histoire, chaque créateur a un visage, et où la licence est toujours claire.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" asChild>

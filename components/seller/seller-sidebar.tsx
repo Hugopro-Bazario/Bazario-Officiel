@@ -6,32 +6,18 @@ import {
   LayoutDashboard,
   Package,
   ShoppingBag,
-  BarChart3,
-  Megaphone,
-  Wallet,
-  Star,
-  Settings,
-  HelpCircle,
-  Truck,
-  Boxes,
-  Warehouse,
   RotateCcw,
+  HelpCircle,
+  Rocket,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/layout/logo"
 
 const NAV = [
   { href: "/seller/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
-  { href: "/seller/products", label: "Produits", icon: Package },
-  { href: "/seller/orders", label: "Commandes", icon: ShoppingBag },
-  { href: "/seller/logistics", label: "Logistique", icon: Warehouse },
-  { href: "/seller/shipments", label: "Expéditions", icon: Truck },
-  { href: "/seller/returns", label: "Retours", icon: RotateCcw },
-  { href: "/seller/dropshipping", label: "Dropshipping", icon: Boxes },
-  { href: "/seller/analytics", label: "Statistiques", icon: BarChart3 },
-  { href: "/seller/marketing", label: "Marketing", icon: Megaphone },
-  { href: "/seller/finance", label: "Finances", icon: Wallet },
-  { href: "/seller/reviews", label: "Avis", icon: Star },
+  { href: "/seller/products", label: "Mes produits", icon: Package },
+  { href: "/seller/orders", label: "Ventes", icon: ShoppingBag },
+  { href: "/seller/returns", label: "Remboursements", icon: RotateCcw },
 ]
 
 export function SellerSidebar() {
@@ -65,14 +51,14 @@ export function SellerSidebar() {
       </nav>
       <div className="border-t p-3">
         <Link
-          href="/seller/settings"
+          href="/sell"
           className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
-          <Settings className="size-4" />
-          Paramètres
+          <Rocket className="size-4" />
+          Publier un produit
         </Link>
         <Link
-          href="/seller/help"
+          href="/help"
           className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <HelpCircle className="size-4" />

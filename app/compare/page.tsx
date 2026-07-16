@@ -11,7 +11,7 @@ import { products, formatPrice } from "@/lib/data"
 export const metadata: Metadata = {
   title: "Comparer les produits — 11 critères côte à côte",
   description:
-    "Comparez jusqu'à 4 produits Bazario sur 11 critères : prix, note, garantie, livraison, vendeur. Faites le bon choix en 30 secondes.",
+    "Comparez jusqu'à 4 produits digitaux Bazario : prix, note, licences, garantie, créateur. Faites le bon choix en 30 secondes.",
   alternates: { canonical: "/compare" },
 }
 
@@ -68,34 +68,32 @@ export default function ComparePage() {
       values: compared.map((p) => p.seller.country),
     },
     {
-      label: "Variantes disponibles",
+      label: "Licences disponibles",
       values: compared.map((p) => `${p.variants.length} options`),
     },
     {
-      label: "Stock total",
-      values: compared.map((p) => `${p.variants.reduce((sum, v) => sum + v.stock, 0)} pcs`),
+      label: "Livraison instantanée",
+      values: compared.map(() => true),
     },
     {
-      label: "Livraison gratuite",
-      values: compared.map((p) => p.price >= 49),
+      label: "Mises à jour à vie",
+      values: compared.map(() => true),
     },
     {
-      label: "Garantie 2 ans",
-      values: [true, true, false],
-    },
-    {
-      label: "Retour 30 jours",
+      label: "Garantie 14 jours",
       values: [true, true, true],
     },
     {
-      label: "Bazario Premium éligible",
+      label: "Licence commerciale dispo",
+      values: compared.map((p) => p.variants.some((v) => /commercial|agence/i.test(v.label))),
+    },
+    {
+      label: "Nexus+ : -20 %",
       values: [true, true, true],
     },
     {
-      label: "Made in Europe",
-      values: compared.map((p) =>
-        ["France", "Italie", "Espagne", "Allemagne", "Suède"].includes(p.seller.country),
-      ),
+      label: "Créateur vérifié",
+      values: compared.map((p) => p.seller.verified),
     },
   ]
 
@@ -202,8 +200,8 @@ export default function ComparePage() {
           },
           {
             icon: Truck,
-            title: "Livraison comparée",
-            text: "Voyez les délais, frais et options pour votre adresse.",
+            title: "Licences comparées",
+            text: "Voyez les droits d'usage (perso, commercial, agence) de chaque produit.",
           },
           {
             icon: Award,

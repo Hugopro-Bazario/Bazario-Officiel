@@ -81,6 +81,14 @@ export default function OrdersPage() {
                       </p>
                     </div>
                     <div className="flex flex-col gap-1.5">
+                      {order.status === "delivered" && item.slug && (
+                        <Button variant="accent" size="sm" asChild>
+                          <a href={`/api/download?slug=${item.slug}`} download>
+                            <Download className="mr-1.5 size-4" />
+                            Télécharger
+                          </a>
+                        </Button>
+                      )}
                       <Button variant="outline" size="sm">
                         Racheter
                       </Button>
@@ -99,8 +107,8 @@ export default function OrdersPage() {
                 <div className="flex flex-wrap gap-2">
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/account/orders/${order.id}`}>
-                      <Truck className="mr-1.5 size-4" />
-                      Suivre le colis
+                      <Download className="mr-1.5 size-4" />
+                      Télécharger
                     </Link>
                   </Button>
                   <Button variant="outline" size="sm">
@@ -109,7 +117,7 @@ export default function OrdersPage() {
                   </Button>
                   <Button variant="outline" size="sm">
                     <MessageSquare className="mr-1.5 size-4" />
-                    Contacter le vendeur
+                    Contacter le créateur
                   </Button>
                 </div>
                 {order.status === "pending" && (

@@ -1,25 +1,25 @@
-import { Truck, ShieldCheck, RotateCcw, Headphones } from "lucide-react"
+import { Zap, ShieldCheck, Infinity, BotMessageSquare } from "lucide-react"
 
 const PROPS = [
   {
-    icon: Truck,
-    title: "Livraison express",
-    desc: "Gratuite dès 49 €, 24-48h en France métropolitaine.",
+    icon: Zap,
+    title: "Livraison instantanée",
+    desc: "Vos produits arrivent dans votre espace à la seconde du paiement.",
   },
   {
-    icon: RotateCcw,
-    title: "Retour 30 jours",
-    desc: "Sans question. Remboursement sous 5 jours ouvrés.",
+    icon: Infinity,
+    title: "Mises à jour à vie",
+    desc: "Vos achats évoluent avec chaque nouvelle génération d'IA.",
   },
   {
     icon: ShieldCheck,
-    title: "Garantie acheteur",
-    desc: "Vous êtes 100% protégé en cas de litige avec un vendeur.",
+    title: "Garantie 14 jours",
+    desc: "Satisfait ou remboursé, licences claires, créateurs vérifiés.",
   },
   {
-    icon: Headphones,
-    title: "Support 24/7",
-    desc: "Une équipe humaine, en français, par chat ou téléphone.",
+    icon: BotMessageSquare,
+    title: "Support augmenté 24/7",
+    desc: "Une IA qui répond en 3 secondes, des humains pour le reste.",
   },
 ]
 
@@ -29,7 +29,7 @@ export function ValueProps() {
       <div className="container grid grid-cols-2 gap-6 py-8 md:grid-cols-4 md:gap-4 md:py-10">
         {PROPS.map((p) => (
           <div key={p.title} className="flex items-start gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
               <p.icon className="h-5 w-5" />
             </span>
             <div>

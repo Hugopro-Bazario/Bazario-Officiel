@@ -18,8 +18,8 @@ const HISTORY = [
 const REWARDS = [
   { id: "r1", title: "5€ de réduction", cost: 500, icon: Gift, desc: "À utiliser dès 30€ d'achat" },
   { id: "r2", title: "15€ de réduction", cost: 1500, icon: Gift, desc: "À utiliser dès 80€ d'achat" },
-  { id: "r3", title: "Livraison express offerte", cost: 200, icon: Truck, desc: "Sur votre prochaine commande" },
-  { id: "r4", title: "1 mois Premium offert", cost: 800, icon: Star, desc: "Activation immédiate" },
+  { id: "r3", title: "100 crédits IA offerts", cost: 200, icon: Truck, desc: "Images, voix ou textes générés" },
+  { id: "r4", title: "1 mois Nexus+ offert", cost: 800, icon: Star, desc: "Activation immédiate" },
   { id: "r5", title: "Bon d'achat 50€", cost: 5000, icon: ShoppingBag, desc: "Sans minimum d'achat" },
 ]
 
@@ -70,7 +70,7 @@ export default function CoinsPage() {
       <div className="grid gap-4 sm:grid-cols-3">
         <StatCard icon={ArrowUpRight} label="Gagnés ce mois" value={`+${monthEarned}`} tone="success" />
         <StatCard icon={ArrowDownRight} label="Dépensés ce mois" value="-250" tone="destructive" />
-        <StatCard icon={Star} label="Avantage Premium" value="x2 cashback" tone="accent" />
+        <StatCard icon={Star} label="Avantage Nexus+" value="x3 coins" tone="accent" />
       </div>
 
       {/* Rewards */}
@@ -168,7 +168,7 @@ export default function CoinsPage() {
             Vos coins n&apos;expirent jamais tant que vous restez actif (1 commande tous les 12 mois).
           </Step>
           <Step n="3" title="Échangez">
-            Réductions, livraison, cadeaux, dons à des associations. Vous choisissez.
+            Réductions, crédits IA, mois Nexus+, dons à des associations. Vous choisissez.
           </Step>
         </CardContent>
       </Card>

@@ -7,11 +7,20 @@ export function SiteJsonLd() {
     name: "Bazario",
     legalName: "Bazario",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/icon-512.jpg`,
     description:
-      "Bazario est la marketplace mondiale qui connecte acheteurs et vendeurs de confiance : mode, tech, maison, beauté et bien plus, livrés partout.",
-    slogan: "Tout, mieux, partout.",
+      "Bazario est la marketplace futuriste des produits et services digitaux : agents IA, prompts, templates, formations, musique générative et SaaS, livrés instantanément par des créateurs vérifiés.",
+    slogan: "Le marché du futur.",
     foundingDate: "2024",
+    knowsAbout: [
+      "agents IA",
+      "prompts",
+      "templates",
+      "formations en ligne",
+      "intelligence artificielle",
+      "produits digitaux",
+      "automatisation",
+    ],
     sameAs: [
       "https://www.instagram.com/bazario.official",
       "https://www.tiktok.com/@bazario.official",
@@ -28,7 +37,7 @@ export function SiteJsonLd() {
       {
         "@type": "ContactPoint",
         contactType: "sales",
-        email: "sellers@bazario.com",
+        email: "creators@bazario.com",
         availableLanguage: ["French", "English"],
       },
     ],

@@ -49,3 +49,37 @@ export async function sendTransactionalEmail(input: TransactionalEmailInput) {
 
   await client.sendTransacEmail(payload);
 }
+
+type HtmlEmailInput = {
+  to: Recipient;
+  subject: string;
+  htmlContent: string;
+  replyTo?: Recipient;
+};
+
+/**
+ * Envoi d'un email HTML « brut » sans template Brevo : utilisé pour les
+ * confirmations d'achat de produits digitaux et l'accueil Nexus+, afin de
+ * fonctionner avec uniquement BREVO_API_KEY + email expéditeur configurés.
+ */
+export async function sendHtmlEmail(input: HtmlEmailInput) {
+  const client = createBrevoClient();
+  const sender = getSenderConfig();
+  const payload = new Brevo.SendSmtpEmail();
+
+  payload.to = [{ email: input.to.email, name: input.to.name }];
+  payload.sender = sender;
+  payload.subject = input.subject;
+  payload.htmlContent = input.htmlContent;
+  if (input.replyTo) payload.replyTo = input.replyTo;
+
+  await client.sendTransacEmail(payload);
+}
+
+/**
+ * Indique si l'envoi d'emails est configuré (clé API + expéditeur).
+ */
+export function isEmailConfigured(): boolean {
+  return Boolean(cleanEnv(process.env.BREVO_API_KEY)) &&
+    Boolean(cleanEnv(process.env.BAZARIO_SENDER_EMAIL) || cleanEnv(process.env.BREVO_SENDER_EMAIL));
+}

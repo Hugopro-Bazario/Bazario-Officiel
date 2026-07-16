@@ -1,10 +1,14 @@
 import type { NextRequest } from "next/server";
 import { headers } from "next/headers";
 import type Stripe from "stripe";
-import { stripe } from "@/lib/stripe/server";
+import type { Json } from "@/types/database";
+import { stripe, getStripe } from "@/lib/stripe/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createCjOrderForPaidOrder } from "@/lib/cj/orders";
 import { sendTransactionalEmail } from "@/lib/brevo";
+import { sendOrderConfirmationEmail, sendSubscriptionWelcomeEmail } from "@/lib/email/digital";
+import { generateLicenseCode } from "@/lib/license";
+import { PRODUCTS } from "@/lib/data";
 import { sendMetaPurchaseServerEvent } from "@/lib/tracking/meta-capi";
 import { sendTikTokPurchaseServerEvent } from "@/lib/tracking/tiktok-events";
 
@@ -38,8 +42,95 @@ function createServerEventId(): string {
   return `evt_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+async function handleDigitalSessionCompleted(session: Stripe.Checkout.Session) {
+  const kind = session.metadata?.kind;
+  const email = session.customer_details?.email || session.customer_email || null;
+
+  if (kind === "subscription") {
+    const sent = await sendSubscriptionWelcomeEmail(email || "", session.metadata?.plan || "monthly");
+    console.info(JSON.stringify({ scope: "stripe_webhook", kind, action: "subscription_email", sent }));
+    return;
+  }
+
+  // digital_cart : on récupère les lignes pour le récapitulatif et on envoie la confirmation.
+  let items: { description: string; quantity: number; license?: string }[] = [];
+  try {
+    const lineItems = await getStripe().checkout.sessions.listLineItems(session.id, { limit: 100 });
+    items = lineItems.data.map((i) => ({ description: i.description || "Produit", quantity: i.quantity || 1 }));
+  } catch (error) {
+    console.error(JSON.stringify({ scope: "stripe_webhook", kind, action: "list_line_items_failed", error: String(error) }));
+  }
+
+  // Licences signées : une par produit acheté, vérifiable sur /verify.
+  try {
+    const parsedForLicense = JSON.parse(session.metadata?.items || "[]") as { id: string }[];
+    const byTitle = new Map<string, string>();
+    for (const entry of parsedForLicense) {
+      const product = PRODUCTS.find((p) => p.id === entry.id);
+      if (product) byTitle.set(product.title, generateLicenseCode(product.id, session.id));
+    }
+    items = items.map((i) => ({ ...i, license: byTitle.get(i.description) }));
+  } catch {
+    // metadata absente ou invalide : email sans codes, sans bloquer le webhook.
+  }
+
+  const reference = session.id.slice(-8).toUpperCase();
+  const sent = await sendOrderConfirmationEmail({
+    email: email || "",
+    reference,
+    total: session.amount_total != null ? session.amount_total / 100 : null,
+    currency: (session.currency || "eur").toUpperCase(),
+    items,
+  });
+
+  // Enregistre les droits d'accès (entitlements) pour l'espace compte.
+  // Défensif : si Supabase n'est pas configuré, on n'interrompt pas le webhook.
+  let entitlementsSaved = false;
+  try {
+    const parsed = JSON.parse(session.metadata?.items || "[]") as { id: string; v: string; q: number }[];
+    const rows = parsed
+      .map((entry) => {
+        const product = PRODUCTS.find((p) => p.id === entry.id);
+        if (!product) return null;
+        const variant = product.variants.find((v) => v.id === entry.v);
+        return {
+          customer_email: email,
+          product_slug: product.slug,
+          product_title: product.title,
+          license_label: variant?.label ?? null,
+          stripe_session_id: session.id,
+          order_reference: reference,
+          status: "active",
+        };
+      })
+      .filter((r): r is NonNullable<typeof r> => r !== null);
+
+    if (rows.length > 0) {
+      const supabase = createSupabaseAdminClient();
+      const { error } = await supabase.from("entitlements").upsert(rows, {
+        onConflict: "user_id,product_slug,stripe_session_id",
+        ignoreDuplicates: true,
+      });
+      entitlementsSaved = !error;
+    }
+  } catch (error) {
+    console.error(JSON.stringify({ scope: "stripe_webhook", action: "entitlements_skip", error: String(error) }));
+  }
+
+  console.info(JSON.stringify({ scope: "stripe_webhook", kind: "digital_cart", action: "order_email", sent, entitlementsSaved }));
+}
+
 async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeaders: Headers) {
   const session = event.data.object as Stripe.Checkout.Session;
+
+  // Nouvelles sessions digitales (catalogue front) : traitées indépendamment de
+  // Supabase, qui n'a pas d'enregistrement de commande pour ce flux.
+  const kind = session.metadata?.kind;
+  if (kind === "digital_cart" || kind === "subscription") {
+    await handleDigitalSessionCompleted(session);
+    return;
+  }
+
   const supabase = createSupabaseAdminClient();
 
   const { data: existingOrder, error: selectError } = await supabase
@@ -74,7 +165,15 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
   const customerName = session.customer_details?.name || null;
   const customerEmail = session.customer_details?.email || session.customer_email || null;
   const customerPhone = session.customer_details?.phone || null;
-  const shippingAddress = session.shipping_details?.address || null;
+  // Stripe a déplacé/renommé l'adresse de livraison selon les versions d'API ;
+  // pour des produits digitaux elle est facultative, on la lit de façon défensive.
+  const shippingAddress =
+    (session as unknown as {
+      shipping_details?: { address?: Stripe.Address | null };
+      collected_information?: { shipping_details?: { address?: Stripe.Address | null } };
+    }).collected_information?.shipping_details?.address ||
+    (session as unknown as { shipping_details?: { address?: Stripe.Address | null } }).shipping_details?.address ||
+    null;
   const paymentIntentId =
     typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id || null;
   const trackingEventId =
@@ -91,7 +190,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, requestHeader
       customer_email: customerEmail,
       customer_name: customerName,
       customer_phone: customerPhone,
-      shipping_address: shippingAddress,
+      shipping_address: (shippingAddress as unknown as Json) ?? null,
       subtotal: (session.amount_subtotal || 0) / 100,
       total: (session.amount_total || 0) / 100,
       tax: (session.total_details?.amount_tax || 0) / 100,

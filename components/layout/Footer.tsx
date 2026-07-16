@@ -18,16 +18,19 @@ const COL_DECOUVRIR = [
   { label: "Carrières", href: "/careers" },
   { label: "Salle de presse", href: "/press" },
   { label: "Le Mag Bazario", href: "/blog" },
-  { label: "Bazario+ (fidélité)", href: "/loyalty" },
+  { label: "Bazario Nexus+", href: "/premium" },
+  { label: "Packs & stacks", href: "/bundles" },
+  { label: "Assistant IA", href: "/discover" },
   { label: "Cartes cadeaux", href: "/gift-cards" },
   { label: "Pourquoi Bazario", href: "/why-bazario" },
-  { label: "Bazario Premium", href: "/premium" },
+  { label: "Programme de fidélité", href: "/loyalty" },
   { label: "Bazario Coins", href: "/account/coins" },
 ]
 
 const COL_AIDE = [
   { label: "Centre d'aide", href: "/help" },
   { label: "FAQ", href: "/faq" },
+  { label: "Vérifier une licence", href: "/verify" },
   { label: "Centre de confiance", href: "/trust" },
   { label: "Suivi de commande", href: "/track" },
   { label: "Retours & remboursements", href: "/faq#retours" },
@@ -37,11 +40,11 @@ const COL_AIDE = [
 ]
 
 const COL_VENDRE = [
-  { label: "Devenir vendeur", href: "/sell" },
-  { label: "Centre vendeur", href: "/seller/dashboard" },
-  { label: "Bazario Fulfillment", href: "/sell" },
+  { label: "Devenir créateur", href: "/sell" },
+  { label: "Studio créateur", href: "/seller/dashboard" },
+  { label: "Licences & droits", href: "/sell" },
   { label: "Outils & API", href: "/sell" },
-  { label: "Académie vendeurs", href: "/sell" },
+  { label: "Académie créateurs", href: "/sell" },
   { label: "Tarifs & commissions", href: "/sell" },
 ]
 
@@ -71,18 +74,18 @@ export function Footer() {
         <div className="container grid grid-cols-2 gap-6 py-10 md:grid-cols-4">
           <TrustItem
             icon={Truck}
-            title="Livraison rapide"
-            desc="Suivi en temps réel, gratuite dès 49 €"
+            title="Livraison instantanée"
+            desc="Accès numérique dès le paiement validé"
           />
           <TrustItem
             icon={RefreshCw}
-            title="Retour 30 jours"
-            desc="Sans question, remboursement intégral"
+            title="Garantie 14 jours"
+            desc="Satisfait ou remboursé, sans condition"
           />
           <TrustItem
             icon={Shield}
-            title="Garantie acheteur"
-            desc="Vous êtes 100% protégé en cas de litige"
+            title="Créateurs vérifiés"
+            desc="Licences claires, qualité contrôlée"
           />
           <TrustItem
             icon={CreditCard}
@@ -97,8 +100,8 @@ export function Footer() {
         <div className="md:col-span-4">
           <Logo />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            La marketplace mondiale qui connecte 8 000 vendeurs vérifiés et 12 millions
-            d&apos;acheteurs dans 47 pays. Tout, mieux, partout.
+            La marketplace futuriste des produits et services digitaux : agents IA, prompts,
+            templates, formations et création augmentée. Le marché du futur.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-2">

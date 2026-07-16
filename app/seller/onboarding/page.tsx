@@ -48,9 +48,9 @@ export default function OnboardingPage() {
       <div className="container mx-auto grid gap-10 px-4 py-10 lg:grid-cols-[280px_1fr]">
         {/* Stepper sidebar */}
         <aside>
-          <h1 className="font-display text-2xl font-bold">Devenir vendeur</h1>
+          <h1 className="font-display text-2xl font-bold">Devenir créateur</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Quelques minutes suffisent pour ouvrir votre boutique.
+            Quelques minutes suffisent pour ouvrir votre studio.
           </p>
 
           <ol className="mt-8 space-y-2">
@@ -150,7 +150,7 @@ function Step2() {
         <Field id="legal" label="Type de structure" placeholder="Auto-entrepreneur / SASU / SARL..." required />
         <Field id="siret" label="SIRET / Numéro d'enregistrement" placeholder="123 456 789 00012" required />
         <Field id="vat" label="Numéro de TVA intracommunautaire" placeholder="FR12345678901" />
-        <Field id="country" label="Pays d'expédition principal" placeholder="France" required />
+        <Field id="country" label="Pays de résidence fiscale" placeholder="France" required />
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">

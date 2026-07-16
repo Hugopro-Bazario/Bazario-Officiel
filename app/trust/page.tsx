@@ -76,7 +76,7 @@ const PILLARS = [
 const FAQ = [
   {
     q: "Que se passe-t-il si je ne reçois jamais ma commande ?",
-    a: "Si la commande n&apos;est pas livrée dans les 14 jours après l&apos;estimation, nous la considérons comme perdue et vous remboursons intégralement, sans avoir à fournir de preuve. Notre équipe ouvre alors une enquête avec le transporteur en parallèle.",
+    a: "C&apos;est quasi impossible : la livraison est numérique et instantanée. Si vos accès n&apos;apparaissent ni dans votre espace ni dans vos e-mails, le support vous les renvoie immédiatement — et vous rembourse intégralement si le problème persiste.",
   },
   {
     q: "Comment vérifiez-vous les vendeurs avant de les accepter ?",

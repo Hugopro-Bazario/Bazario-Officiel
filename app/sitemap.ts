@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { products, categories } from "@/lib/data"
+import { products, categories, sellers } from "@/lib/data"
 import { getAllPosts } from "@/lib/blog"
 
 const BASE_URL = "https://www.bazario-official.com"
@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/bestsellers`, lastModified: now, changeFrequency: "hourly", priority: 0.95 },
     { url: `${BASE_URL}/new`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
     { url: `${BASE_URL}/deals`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/bundles`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/verify`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/discover`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
@@ -25,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/trust`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/press`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/careers`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${BASE_URL}/why-bazario`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE_URL}/gift-cards`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE_URL}/login`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
@@ -49,6 +52,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  const sellerRoutes: MetadataRoute.Sitemap = sellers.map((s) => ({
+    url: `${BASE_URL}/s/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }))
+
   const blogIndex: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
   ]
@@ -60,5 +70,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }))
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...blogIndex, ...blogRoutes]
+  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...sellerRoutes, ...blogIndex, ...blogRoutes]
 }
